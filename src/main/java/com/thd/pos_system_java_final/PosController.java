@@ -16,4 +16,9 @@ public class PosController {
     public String checkOut() {
         return "checkout";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "Login";
+    }
 }
