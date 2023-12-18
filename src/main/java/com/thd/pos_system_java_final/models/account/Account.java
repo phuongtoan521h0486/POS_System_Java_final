@@ -3,16 +3,15 @@ package com.thd.pos_system_java_final.models.account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Account {
 
     @Id
@@ -21,9 +20,11 @@ public class Account {
     private String username;
     private String password;
     private String fullName;
-    private String gmail;
+    private String email;
     private boolean isActivate;
     private boolean status;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private AccountRole role;
     private byte[] picture;
+
 }
