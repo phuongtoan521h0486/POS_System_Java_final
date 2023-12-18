@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/style.css">
+     
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    </style>
+    <title>Admin Dashboard Panel</title>
+</head>
+<body>
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="images/logo.png" alt="">
+            </div>
+
+            <span class="logo_name">CodingLab</span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="#">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dahsboard</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">Content</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Analytics</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-thumbs-up"></i>
+                    <span class="link-name">Like</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-comments"></i>
+                    <span class="link-name">Comment</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-share"></i>
+                    <span class="link-name">Share</span>
+                </a></li>
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a href="#">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+
+                <div class="mode-toggle">
+                </div>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="dashboard bg-gray-200">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+            
+            <!--<img src="images/profile.jpg" alt="">-->
+        </div>
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title mb-5">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">Dashboard</span>
+                </div>
+                
+                <div class="mt-5 mx-auto" style="position: absolute; top: 50%;
+                left: 50%;
+                transform: translate(-50% ,-50%)">
+                     <!-- Main section -->
+                <div class="max-w-6xl mx-auto p-6 bg-white shadow-md">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center border-b-2 border-gray-200 pb-4">
+                     <div>
+                      <a class="text-blue-600 text-sm" href="#">
+                       Back to order list
+                      </a>
+                      <h1 class="text-xl font-bold mt-2">
+                       SONO0001
+                       <span class="text-green-500">
+                        Completed
+                       </span>
+                      </h1>
+                     </div>
+                     <div class="flex space-x-2">
+                      <button class="bg-blue-500 text-white px-4 py-2 rounded text-sm">
+                       Print order
+                      </button>
+                      <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded text-sm">
+                       Copy
+                      </button>
+                     </div>
+                    </div>
+    
+                    <!-- Customer Information -->
+                    <div class="grid grid-cols-2 gap-4 border-b-2 border-gray-200 pb-4">
+                     <div>
+                      <h2 class="text-lg font-semibold">
+                       Customer Information
+                      </h2>
+                      <p class="text-sm text-gray-700 mt-2">
+                       Ms. Hoàng Thu Hào - 0935240482
+                      </p>
+                      <p class="text-sm text-gray-700 mt-2">
+                       DELIVERY ADDRESS
+                      </p>
+                      <p class="text-sm text-gray-700">
+                       0935240482
+                      </p>
+                      <p class="text-sm text-gray-700">
+                       Quảng Bình, Ba Đình District, Hà Nội
+                      </p>
+                      <button class="text-blue-600 text-sm mt-2">
+                       See more
+                      </button>
+                     </div>
+                     <div>
+                      <h2 class="text-lg font-semibold">
+                       Order Information
+                      </h2>
+                      <div class="text-sm text-gray-700 mt-2">
+                       <p>
+                        Pricing policy :
+                        <span class="text-gray-900">
+                         Retail price
+                        </span>
+                       </p>
+                       <p>
+                        Sold at :
+                        <span class="text-gray-900">
+                         Default branch
+                        </span>
+                       </p>
+                       <p>
+                        Sold by :
+                        <span class="text-gray-900">
+                         Toàn Phương
+                        </span>
+                       </p>
+                       <p>
+                        Delivery appointment :
+                        <span class="text-gray-900">
+                         ---
+                        </span>
+                       </p>
+                      </div>
+                      <button class="text-blue-600 text-sm mt-2">
+                       View order history
+                      </button>
+                     </div>
+                    </div>
+                    <!-- Product Information -->
+                    <div class="mt-4">
+                     <h2 class="text-lg font-semibold">
+                      Product Information
+                     </h2>
+                     <div class="mt-2">
+                      <table class="w-full text-sm text-left text-gray-500">
+                       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                         <th class="px-6 py-3" scope="col">
+                          No.
+                         </th>
+                         <th class="px-6 py-3" scope="col">
+                          Image
+                         </th>
+                         <th class="px-6 py-3" scope="col">
+                          Product Name
+                         </th>
+                         <th class="px-6 py-3" scope="col">
+                          Quantity
+                         </th>
+                         <th class="px-6 py-3" scope="col">
+                          Unit Price
+                         </th>
+                         <th class="px-6 py-3" scope="col">
+                          Discount
+                         </th>
+                         <th class="px-6 py-3" scope="col">
+                          Total
+                         </th>
+                        </tr>
+                       </thead>
+                       <tbody>
+                        <tr class="bg-white border-b">
+                         <td class="px-6 py-4">
+                          1
+                         </td>
+                         <td class="px-6 py-4">
+                          <img alt="Placeholder image of a product" class="rounded-full" height="50" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-eOISpav9ZsFZKYh63oPt5naS/user-uHcwB4PEMU74A3oP7PHYkycM/img-s6UhQ7zWCrTxrvGKfjAlEAhO.png?st=2023-12-18T16%3A06%3A16Z&amp;se=2023-12-18T18%3A06%3A16Z&amp;sp=r&amp;sv=2021-08-06&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2023-12-17T17%3A52%3A52Z&amp;ske=2023-12-18T17%3A52%3A52Z&amp;sks=b&amp;skv=2021-08-06&amp;sig=v70Cg8fvLia8rW5EoagGFthT/rd9rSusfD9JLmmOI6s%3D" width="50"/>
+                         </td>
+                         <td class="px-6 py-4">
+                          iphone 11
+                         </td>
+                         <td class="px-6 py-4">
+                          10
+                         </td>
+                         <td class="px-6 py-4">
+                          10,000
+                         </td>
+                         <td class="px-6 py-4">
+                          0
+                         </td>
+                         <td class="px-6 py-4">
+                          100,000
+                         </td>
+                        </tr>
+                       </tbody>
+                      </table>
+                     </div>
+                    </div>
+                    <!-- Order Summary -->
+                    <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                     <div class="flex justify-between">
+                      <h2 class="text-lg font-semibold">
+                       Total (10 items)
+                      </h2>
+                      <h2 class="text-lg font-semibold">
+                       100,000
+                      </h2>
+                     </div>
+                     <div class="flex justify-between text-sm text-gray-700 mt-2">
+                      <p>
+                       Discount
+                      </p>
+                      <p>
+                       0
+                      </p>
+                     </div>
+                     <div class="flex justify-between text-sm text-gray-700 mt-2">
+                      <p>
+                       Shipping fee
+                      </p>
+                      <p>
+                       0
+                      </p>
+                     </div>
+                     <div class="flex justify-between text-sm text-gray-700 mt-2">
+                      <p>
+                       Promo code
+                      </p>
+                      <p>
+                       0
+                      </p>
+                     </div>
+                     <div class="flex justify-between text-sm text-gray-700 mt-2">
+                      <p>
+                       Customer owes
+                      </p>
+                      <p>
+                       100,000
+                      </p>
+                     </div>
+                     <button class="bg-blue-500 text-white px-4 py-2 rounded text-sm mt-4">
+                      Check stock
+                     </button>
+                    </div>
+                   </div>
+                </div>
+               
+            </div>
+
+        </div>
+    </section>
+
+    <script src="/script.js"></script>
+</body>
+</html>
