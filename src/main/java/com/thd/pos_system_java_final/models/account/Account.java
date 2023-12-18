@@ -26,5 +26,4 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountRole role;
     private byte[] picture;
-
 }

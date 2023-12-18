@@ -36,23 +36,23 @@ public class LoginController {
         try {
             Account account = accountService.getAccountByUsername(loginRequest.getUsername());
             if (account == null) {
-                model.addAttribute("error", "Your account is not exist, please contact to admin"); // truyen attr zo view
+                model.addAttribute("error", "Your account is not exist, please contact to admin");
                 return "/Login";
             } else {
                 String hashedPassword = account.getPassword();
                 if (!BCrypt.checkpw(loginRequest.getPassword(), hashedPassword)) {
-                    model.addAttribute("error", "Your username or password is not correct"); // truyen attr zo view
+                    model.addAttribute("error", "Your username or password is not correct");
                     return "/Login";
                 } else if (!account.isActivate()) {
-                    model.addAttribute("error", "Please login through out email"); // truyen attr zo view
+                    model.addAttribute("error", "Please login through out email");
                     return "/Login";
                 } else if (!account.isStatus()) {
-                    model.addAttribute("error", "Your account is blocked, please contact Admin"); // truyen attr zo view
+                    model.addAttribute("error", "Your account is blocked, please contact Admin");
                     return "/Login";
                 }
             }
             System.out.println(loginRequest.getUsername());
-            model.addAttribute("username", loginRequest.getUsername()); // truyen attr zo view
+            model.addAttribute("username", loginRequest.getUsername());
             return "redirect:/pos";
         }catch (Exception e) {
             return "Login failed: " + e.getMessage();
