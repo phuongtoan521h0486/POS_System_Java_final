@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+            rel="stylesheet"
+    />
+    <style>
+        /* Add your styles here */
+        #default-section {
+            display: block;
+        }
+
+        #uploaded-image {
+            max-width: 100%;
+            max-height: 200px; /* Set a maximum height for the displayed image */
+        }
+
+        .drag-over {
+            border-color: #4F46E5; /* Change border color when dragging over */
+        }
+    </style>
+    <title>Edit Product</title>
+</head>
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <!--               <img src="images/logo.png" alt="">-->
+        </div>
+
+        <span class="logo_name">CodingLab</span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a href="#">
+                <i class="uil uil-estate"></i>
+                <span class="link-name">Dahsboard</span>
+            </a></li>
+            <li><a href="#">
+                <i class="uil uil-files-landscapes"></i>
+                <span class="link-name">Content</span>
+            </a></li>
+            <li><a href="#">
+                <i class="uil uil-chart"></i>
+                <span class="link-name">Analytics</span>
+            </a></li>
+            <li><a href="#">
+                <i class="uil uil-thumbs-up"></i>
+                <span class="link-name">Like</span>
+            </a></li>
+            <li><a href="#">
+                <i class="uil uil-comments"></i>
+                <span class="link-name">Comment</span>
+            </a></li>
+            <li><a href="#">
+                <i class="uil uil-share"></i>
+                <span class="link-name">Share</span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="#">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">Logout</span>
+            </a></li>
+
+            <div class="mode-toggle">
+            </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section class="dashboard bg-gray-200">
+    <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+
+        <div class="search-box">
+            <i class="uil uil-search"></i>
+            <input type="text" placeholder="Search here...">
+        </div>
+
+        <!--<img src="images/profile.jpg" alt="">-->
+    </div>
+
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title mb-5">
+                <i class="uil uil-tachometer-fast-alt"></i>
+                <span class="text">Dashboard</span>
+            </div>
+
+            <!-- Main section -->
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="bg-white shadow rounded-lg p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-1">
+                            <div class="flex items-center space-x-2">
+                                <a th:href="@{/product}" class="text-sm text-blue-600 hover:underline">Back to product listing</a>
+                            </div>
+                            <div class="mt-4">
+                                <h3 class="text-lg font-medium leading-6 text-gray-900">Form of management</h3>
+                                <p class="mt-1 text-sm text-gray-600">
+                                    Casual products
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-5 md:mt-0 md:col-span-2">
+                            <div class="mt-5 md:mt-0 md:col-span-2">
+                                <form action="/product/edit" method="POST" enctype="multipart/form-data">
+                                    <input name="productId" type="text" class="form-control" required th:value="${product.productId}" hidden="hidden">
+                                    <div class="shadow sm:rounded-md sm:overflow-hidden">
+                                        <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                                            <div class="grid grid-cols-3 gap-6">
+                                                <div class="col-span-3">
+                                                    <label for="productName" class="block text-sm font-medium text-gray-700">
+                                                        Product name
+                                                    </label>
+                                                    <input th:value="${product.productName}" type="text" name="productName" id="productName"  class="input-text focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300 border p-3" placeholder="Enter product name">
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-3 gap-6">
+                                                <div class="col-span-3">
+                                                    <label for="barcode" class="block text-sm font-medium text-gray-700">
+                                                        Barcode
+                                                    </label>
+                                                    <input th:value="${product.barcode}" type="text" name="barcode" id="barcode" class="input-text focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md border p-3" placeholder="Enter manually or use a machine to scan barcodes. (3-15 char)">
+                                                </div>
+                                            </div>
+
+                                            <div class="grid grid-cols-3 gap-6">
+                                                <div class="col-span-3 sm:col-span-1">
+                                                    <label for="retailPrice" class="block text-sm font-medium text-gray-700">
+                                                        Retail Price
+                                                    </label>
+                                                    <input th:value="${product.retailPrice}" type="text" name="retailPrice" id="retailPrice" class="input-text focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md border p-3" placeholder="Enter retail price">
+                                                </div>
+                                                <div class="col-span-3 sm:col-span-1">
+                                                    <label for="importPrice" class="block text-sm font-medium text-gray-700">
+                                                        Import Price
+                                                    </label>
+                                                    <input th:value="${product.importPrice}" type="text" name="importPrice" id="importPrice" class="input-text focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md border p-3" placeholder="Enter import price">
+                                                </div>
+                                                <div class="col-span-3 sm:col-span-1">
+                                                    <label for="category" class="block text-sm font-medium text-gray-700">
+                                                        Category
+                                                    </label>
+                                                    <input th:value="${product.category}" type="text" name="category" id="category" class="input-text focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md border p-3" placeholder="Enter category">
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700">
+                                                    Product photo
+                                                </label>
+                                                <div id="upload-section" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+                                                     ondragover="handleDragOver(event)"
+                                                     ondragleave="handleDragLeave(event)"
+                                                     ondrop="handleDrop(event)">
+                                                    <div class="space-y-1 text-center">
+                                                        <img id="uploaded-image"
+                                                             th:if="${product.picture != null}"
+                                                             th:src="'data:image/png;base64,' + ${imageUtils.encodeImage(product.picture)}"
+                                                             alt="Uploaded Image" class="mx-auto">
+                                                        <div class="flex text-sm text-gray-600">
+                                                            <label for="picture" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                                                <span>Upload a file</span>
+                                                                <input id="picture" name="picture" accept="image/*" type="file" class="sr-only" onchange="displayImage()">
+                                                            </label>
+                                                            <p class="pl-1">or drag and drop</p>
+                                                        </div>
+                                                        <p class="text-xs text-gray-500">
+                                                            PNG, JPG, GIF up to 10MB
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/script.js">
+
+</script>
+<script>
+    function displayImage() {
+        //var uploadSection = document.getElementById('upload-section');
+        var defaultSection = document.getElementById('default-section');
+        var input = document.getElementById('picture');
+        var image = document.getElementById('uploaded-image');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                image.src = e.target.result;
+                image.style.display = 'block'; // Show the uploaded image
+                defaultSection.style.display = 'none'; // Hide the upload section
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function handleDragOver(event) {
+        event.preventDefault();
+        var uploadSection = document.getElementById('upload-section');
+        uploadSection.style.borderStyle = 'dashed'; // Add dashed border when dragging over
+        uploadSection.classList.add('drag-over');
+    }
+
+    function handleDragLeave(event) {
+        event.preventDefault();
+        var uploadSection = document.getElementById('upload-section');
+        uploadSection.style.borderStyle = 'none'; // Remove border when dragging leaves
+        uploadSection.classList.remove('drag-over');
+    }
+
+    function handleDrop(event) {
+        event.preventDefault();
+        var uploadSection = document.getElementById('upload-section');
+        var files = event.dataTransfer.files;
+
+        // Handle dropped files as if they were selected via file input
+        document.getElementById('picture').files = files;
+
+        // Trigger the displayImage function
+        displayImage();
+
+        // Reset border style and remove drag-over class
+        uploadSection.style.borderStyle = 'none';
+        uploadSection.classList.remove('drag-over');
+    }
+</script>
+</body>
+</html>

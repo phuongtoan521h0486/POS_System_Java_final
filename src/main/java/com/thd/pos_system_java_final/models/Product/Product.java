@@ -3,11 +3,11 @@ package com.thd.pos_system_java_final.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -16,9 +16,15 @@ import javax.persistence.Id;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public int id;
-    public String productName;
-    public int price;
-//    idea will store the image on cloudinary to reduce the size of database
-    public String imageLink;
+    private int productId;
+    @Column(unique = true)
+    private String barcode;
+    private String productName;
+    private double importPrice;
+    private double retailPrice;
+    private String category;
+    private Date creationDate;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] picture;
 }

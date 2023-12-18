@@ -1,119 +1,88 @@
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   TopZone - iPhone
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
-  <style>
-   body {
-            font-family: 'Open+Sans', sans-serif;
-        }
-  </style>
- </head>
- <body class="bg-white text-gray-900">
-  <div class="container mx-auto px-4">
-   <header class="py-5 flex justify-between items-center border-b border-gray-300">
-    <div class="text-3xl font-bold">
-     <span class="text-green-400">
-      .top
-     </span>
-     zone
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>TopZone - iPhone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Open+Sans", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-gray-900">
+    <div class="container mx-auto px-4">
+      <header
+        class="py-5 flex justify-between items-center border-b border-gray-300"
+      >
+        <div class="text-3xl font-bold">
+          <span class="text-green-400"> .top </span>
+          zone
+        </div>
+        <nav class="space-x-4">
+          <a class="hover:text-green-400" href="#"> iPhone </a>
+          <a class="hover:text-green-400" href="#"> Mac </a>
+          <a class="hover:text-green-400" href="#"> iPad </a>
+          <a class="hover:text-green-400" href="#"> Watch </a>
+          <a class="hover:text-green-400" href="#"> Sound </a>
+          <a class="hover:text-green-400" href="#"> Accessory </a>
+          <a class="hover:text-green-400" href="#"> TekZone </a>
+          <a class="hover:text-green-400" href="#"> TopCare </a>
+        </nav>
+        <div class="space-x-4">
+          <a class="hover:text-green-400" href="#">
+            <i class="fas fa-search"> </i>
+          </a>
+          <a class="hover:text-green-400" href="#">
+            <i class="fas fa-shopping-cart"> </i>
+          </a>
+        </div>
+      </header>
+      <main class="py-10">
+        <h1 class="text-5xl font-bold text-center mb-10">iPhone</h1>
+        <div class="flex justify-between items-center mb-5">
+          <div class="flex space-x-2">
+            <a class="text-green-400 font-bold" href="#"> All </a>
+            <a class="hover:text-green-400" href="#"> iPhone 15 </a>
+            <a class="hover:text-green-400" href="#"> iPhone 14 </a>
+            <a class="hover:text-green-400" href="#"> iPhone 13 </a>
+            <a class="hover:text-green-400" href="#"> iPhone 12 </a>
+            <a class="hover:text-green-400" href="#"> iPhone 11 </a>
+          </div>
+          <div>
+            <label class="text-gray-400" for="sort"> Sorted by: </label>
+            <select
+              class="bg-gray-100 text-gray-900 border border-gray-300"
+              id="sort"
+            >
+              <option>Newly launched</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-6">
+          <!-- Repeat for each product -->
+          <div class="bg-gray-100 p-5 rounded-lg text-center">
+            <img
+              alt="iPhone 15 Pro Max 1TB in black color"
+              class="mx-auto mb-4"
+              height="300"
+              src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-eOISpav9ZsFZKYh63oPt5naS/user-uHcwB4PEMU74A3oP7PHYkycM/img-hnaXLgDUnEEIyT8kcYuhdj2f.png?st=2023-12-18T15%3A40%3A30Z&amp;se=2023-12-18T17%3A40%3A30Z&amp;sp=r&amp;sv=2021-08-06&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2023-12-18T08%3A25%3A48Z&amp;ske=2023-12-19T08%3A25%3A48Z&amp;sks=b&amp;skv=2021-08-06&amp;sig=3XOFlZe/omTBPak/YCteY1NAw6xaxeOJrld/zZNb2P4%3D"
+              width="300"
+            />
+            <h2 class="font-bold text-lg mb-2">iPhone 15 Pro Max 1TB</h2>
+            <p class="text-green-400 text-xl mb-1">
+              44.990.000đ
+              <span class="text-gray-500 line-through"> 46.990.000đ </span>
+              -4%
+            </p>
+          </div>
+          <!-- Repeat this block for each product, changing the details accordingly -->
+        </div>
+      </main>
     </div>
-    <nav class="space-x-4">
-     <a class="hover:text-green-400" href="#">
-      iPhone
-     </a>
-     <a class="hover:text-green-400" href="#">
-      Mac
-     </a>
-     <a class="hover:text-green-400" href="#">
-      iPad
-     </a>
-     <a class="hover:text-green-400" href="#">
-      Watch
-     </a>
-     <a class="hover:text-green-400" href="#">
-      Sound
-     </a>
-     <a class="hover:text-green-400" href="#">
-      Accessory
-     </a>
-     <a class="hover:text-green-400" href="#">
-      TekZone
-     </a>
-     <a class="hover:text-green-400" href="#">
-      TopCare
-     </a>
-    </nav>
-    <div class="space-x-4">
-     <a class="hover:text-green-400" href="#">
-      <i class="fas fa-search">
-      </i>
-     </a>
-     <a class="hover:text-green-400" href="#">
-      <i class="fas fa-shopping-cart">
-      </i>
-     </a>
-    </div>
-   </header>
-   <main class="py-10">
-    <h1 class="text-5xl font-bold text-center mb-10">
-     iPhone
-    </h1>
-    <div class="flex justify-between items-center mb-5">
-     <div class="flex space-x-2">
-      <a class="text-green-400 font-bold" href="#">
-       All
-      </a>
-      <a class="hover:text-green-400" href="#">
-       iPhone 15
-      </a>
-      <a class="hover:text-green-400" href="#">
-       iPhone 14
-      </a>
-      <a class="hover:text-green-400" href="#">
-       iPhone 13
-      </a>
-      <a class="hover:text-green-400" href="#">
-       iPhone 12
-      </a>
-      <a class="hover:text-green-400" href="#">
-       iPhone 11
-      </a>
-     </div>
-     <div>
-      <label class="text-gray-400" for="sort">
-       Sorted by:
-      </label>
-      <select class="bg-gray-100 text-gray-900 border border-gray-300" id="sort">
-       <option>
-        Newly launched
-       </option>
-      </select>
-     </div>
-    </div>
-    <div class="grid grid-cols-3 gap-6">
-     <!-- Repeat for each product -->
-     <div class="bg-gray-100 p-5 rounded-lg text-center">
-      <img alt="iPhone 15 Pro Max 1TB in black color" class="mx-auto mb-4" height="300" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-eOISpav9ZsFZKYh63oPt5naS/user-uHcwB4PEMU74A3oP7PHYkycM/img-hnaXLgDUnEEIyT8kcYuhdj2f.png?st=2023-12-18T15%3A40%3A30Z&amp;se=2023-12-18T17%3A40%3A30Z&amp;sp=r&amp;sv=2021-08-06&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2023-12-18T08%3A25%3A48Z&amp;ske=2023-12-19T08%3A25%3A48Z&amp;sks=b&amp;skv=2021-08-06&amp;sig=3XOFlZe/omTBPak/YCteY1NAw6xaxeOJrld/zZNb2P4%3D" width="300"/>
-      <h2 class="font-bold text-lg mb-2">
-       iPhone 15 Pro Max 1TB
-      </h2>
-      <p class="text-green-400 text-xl mb-1">
-       44.990.000đ
-       <span class="text-gray-500 line-through">
-        46.990.000đ
-       </span>
-       -4%
-      </p>
-     </div>
-     <!-- Repeat this block for each product, changing the details accordingly -->
-    </div>
-   </main>
-  </div>
- </body>
+  </body>
 </html>

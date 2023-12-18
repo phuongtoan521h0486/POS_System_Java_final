@@ -68,4 +68,24 @@ public class AdminController {
         }
         return  false;
     }
+
+    @GetMapping("/add-product")
+    public String addProduct() {
+        return "adminAddEdit";
+    }
+
+    @GetMapping("/order")
+    public String order() {
+        return "adminOrder";
+    }
+
+    @GetMapping("/showstaff")
+    public String showStaff() {
+        return "adminStaff";
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
 }
