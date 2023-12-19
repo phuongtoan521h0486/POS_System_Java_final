@@ -1,0 +1,156 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-8">
+        <div class="bg-white shadow rounded">
+            <div class="p-4 border-b border-gray-200">
+                <div class="flex justify-between">
+                    <div class="flex space-x-2">
+                        <div class="flex items-center">
+                            <a href="#" class="text-blue-600">All customers</a>
+                            <span class="mx-2">|</span>
+                            <a href="#" class="text-gray-600">Trading</a>
+                        </div>
+                        <div class="relative">
+                            <input type="text" class="border border-gray-300 rounded py-2 px-4 leading-tight focus:outline-none focus:border-blue-500" placeholder="Search by customer code, name, customer phone number">
+                            <button class="absolute right-0 top-0 mt-2 mr-4">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="border border-gray-300 text-gray-600 py-2 px-4 rounded">Filter</button>
+                        <button class="border border-gray-300 text-gray-600 py-2 px-4 rounded">Save filters</button>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <input type="checkbox">
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Customer code
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Customer Name
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Phone number
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Customer Groups
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Current liabilities
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Total expenditure
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Total SL orders
+                            </th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <input type="checkbox">
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                CUZ00007
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                Ms. Hoang Thu Hao
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                0935240482
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                Retail
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                0
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                100,000
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                1
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <button class="text-white bg-blue-500 hover:bg-blue-700 font-medium py-1 px-3 border border-blue-500 hover:border-blue-700 rounded">
+                                    Action
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Repeat for each customer -->
+                        <tr>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <input type="checkbox">
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                CUZ00006
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                Ms. Cam Nhung
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                0986190164
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                Retail
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                0
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                0
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                0
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <button class="text-white bg-blue-500 hover:bg-blue-700 font-medium py-1 px-3 border border-blue-500 hover:border-blue-700 rounded">
+                                    Action
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Repeat for remaining customers -->
+                        <!-- ... -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+                <span class="text-xs xs:text-sm text-gray-900">
+                    Displaying 20 of 117 results
+                </span>
+                <div class="inline-flex mt-2 xs:mt-0">
+                    <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-600 bg-indigo-500 font-semibold py-2 px-4 rounded-l">
+                        Prev
+                    </button>
+                    <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-600 bg-indigo-500 font-semibold py-2 px-4 rounded-r">
+                        Next
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
