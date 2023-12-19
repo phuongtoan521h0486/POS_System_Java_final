@@ -36,7 +36,6 @@ public class ProductController {
         productRepository.findAll().forEach(productList::add);
         model.addAttribute("imageUtils", imageService);
         model.addAttribute("products", productList);
-        //model.addAttribute("totalProduct")
         return "Product/index";
     }
 

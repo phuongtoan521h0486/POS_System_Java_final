@@ -1,7 +1,10 @@
 package com.thd.pos_system_java_final.controllers;
 
 
+import com.thd.pos_system_java_final.models.Product.Product;
+import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import com.thd.pos_system_java_final.services.AccountService;
+import com.thd.pos_system_java_final.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -17,7 +22,11 @@ import javax.servlet.http.HttpSession;
 
 public class PosController {
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping("")
     public String index(Model model, HttpSession session) {
@@ -25,6 +34,11 @@ public class PosController {
         if (username == null) {
             return "redirect:/login";
         }
+
+        List<Product> productList = new ArrayList<>(productRepository.findAll());
+        model.addAttribute("imageUtils", imageService);
+        model.addAttribute("products", productList);
+
         model.addAttribute("user", accountService.getAccountByUsername(username));
         return "mainhomepage";
     }
