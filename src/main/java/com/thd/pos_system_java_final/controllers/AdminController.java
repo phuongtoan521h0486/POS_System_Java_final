@@ -4,6 +4,7 @@ import com.thd.pos_system_java_final.models.DataMail;
 import com.thd.pos_system_java_final.models.account.Account;
 import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.services.MailService;
+import com.thd.pos_system_java_final.ultils.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,12 @@ public class AdminController {
 
     @Autowired
     private MailService mailService;
+    @Autowired
+    private JwtUtil jwt;
 
     @GetMapping("")
-    @ResponseBody
     public String index() {
-        return "Admin Page";
+        return "dashboard";
     }
 
     @GetMapping("/register")
@@ -61,7 +63,10 @@ public class AdminController {
 
             Map<String, Object> props = new HashMap<>();
             props.put("username", defaultUsername);
-            props.put("link", "abcdef");
+
+            String token = jwt.createToken(defaultUsername);
+            String confirmationLink = "http://localhost:8888/confirm?token=" + token;
+            props.put("link", confirmationLink);
             dataMail.setProps(props);
 
             mailService.sendHtmlMail(dataMail, "emailTemplate");

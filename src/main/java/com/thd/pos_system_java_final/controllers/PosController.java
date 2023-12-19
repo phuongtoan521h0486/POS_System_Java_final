@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/pos")
+@RequestMapping("/")
 
 public class PosController {
     @Autowired

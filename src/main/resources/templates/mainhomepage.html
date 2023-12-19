@@ -1,7 +1,8 @@
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml"
->
+<!DOCTYPE html>
+  <html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/xhtml"
+  >
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -52,10 +53,10 @@
             <ul class="dropdown-menu" role="menu">
               <li>
                 <a th:text="${user.getRole() == T(com.thd.pos_system_java_final.models.account.AccountRole).ADMIN} ? 'Admin' : 'Staff'"
-                   class="dropdown-item" href="admin/show-staff">Action</a>
+                   class="dropdown-item" href="admin/">Action</a>
               </li>
-              <li><a th:field="" class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="pos/logout">Logout</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="logout">Logout</a></li>
             </ul>
 
           </div>
@@ -97,7 +98,7 @@
             <p class="text-green-400 text-xl mb-1" th:text="${#numbers.formatCurrency(p.retailPrice)}">
             </p>
           </div>
-          <!-- Repeat this block for each product, changing the details accordingly -->
+<!--           Repeat this block for each product, changing the details accordingly-->
         </div>
       </main>
     </div>
