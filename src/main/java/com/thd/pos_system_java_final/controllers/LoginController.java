@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("")
 @AllArgsConstructor
-@SessionAttributes("username")
 public class LoginController {
     @Autowired
     AccountService accountService;
@@ -30,7 +31,7 @@ public class LoginController {
         return "Login";
     }
     @PostMapping("/login")
-    public String login(LoginRequest loginRequest, Model model)
+    public String login(LoginRequest loginRequest, Model model, HttpSession session)
     {
         //Account account = accountService.getAccountByUsername(loginRequest.getUsername());
         try {
@@ -51,8 +52,7 @@ public class LoginController {
                     return "/Login";
                 }
             }
-            System.out.println(loginRequest.getUsername());
-            model.addAttribute("username", loginRequest.getUsername());
+            session.setAttribute("username", loginRequest.getUsername());
             return "redirect:/pos";
         }catch (Exception e) {
             return "Login failed: " + e.getMessage();

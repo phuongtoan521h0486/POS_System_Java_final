@@ -6,12 +6,15 @@ import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.services.MailService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -32,7 +35,7 @@ public class AdminController {
 
     @GetMapping("/register")
     public String register() {
-        return "Admin/CreateAccount";
+        return "Admin/register";
     }
 
     @PostMapping("/register")
@@ -41,7 +44,7 @@ public class AdminController {
         if (acc == null) {
             accountService.createAccount(account);
             sendEmail(account.getEmail());
-            return "redirect:/admin";
+            return "redirect:/admin/show-staff";
         } else {
             redirectAttributes.addFlashAttribute("error", "email " + account.getEmail() + " is already exist"); // truyen attr zo view
             return "redirect:/admin/register";
@@ -79,8 +82,10 @@ public class AdminController {
         return "adminOrder";
     }
 
-    @GetMapping("/showstaff")
-    public String showStaff() {
+    @GetMapping("/show-staff")
+    public String showStaff(Model model) {
+        List<Account> accounts = accountService.getAllAccount();
+        model.addAttribute("accounts", accounts);
         return "adminStaff";
     }
 
@@ -88,4 +93,25 @@ public class AdminController {
     public String profile() {
         return "profile";
     }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<List<Account>> listUser() {
+        // Fetch the updated accounts
+        List<Account> accounts = accountService.getAllAccount();
+        return ResponseEntity.ok(accounts);
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable int id) {
+        System.out.println(id);
+        accountService.deleteAccount(id);
+        return "redirect:/admin/show-staff";
+    }
+
+    @PostMapping("/update/{id}")
+    public void blockUser(@PathVariable int id) {
+        Account account = accountService.getAccountById(id);
+        accountService.updateAccount(account);
+    }
+
 }
