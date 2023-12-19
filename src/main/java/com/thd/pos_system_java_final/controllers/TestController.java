@@ -47,4 +47,9 @@ public class TestController {
         }
         return  false;
     }
+
+    @RequestMapping("/dashboard")
+    public String dashboard(){
+        return "dashboard";
+    }
 }
