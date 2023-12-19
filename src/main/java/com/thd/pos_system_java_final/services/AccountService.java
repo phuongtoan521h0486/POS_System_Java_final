@@ -36,9 +36,28 @@ public class AccountService /*implements UserDetailsService */{
         return repo.save(account);
     }
 
+
+
     public Account getAccountByUsername(String username) {
         return repo.findByUsername(username);
     }
+
+    public List<Account> getAllAccount() {
+        return repo.findAll();
+    }
+
+    public void deleteAccount(int id) {
+        repo.deleteById(id);
+    }
+
+    public void updateAccount(Account account) {
+        repo.save(account);
+    }
+
+    public Account getAccountById(int id) {
+        return repo.findAccountByAccountId(id);
+    }
+
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

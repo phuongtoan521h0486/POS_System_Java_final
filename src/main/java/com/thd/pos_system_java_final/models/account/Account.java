@@ -25,5 +25,6 @@ public class Account {
     private boolean status;
     @Enumerated(EnumType.STRING)
     private AccountRole role;
+    private String phone;
     private byte[] picture;
 }
