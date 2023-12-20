@@ -29,14 +29,13 @@ public class LoginController {
     @GetMapping("/login")
     public String login(Model model) {
         if (model.getAttribute("username") != null) {
-            return "redirect:/pos";
+            return "redirect:/";
         }
         return "Login";
     }
     @PostMapping("/login")
     public String login(LoginRequest loginRequest, Model model, HttpSession session)
     {
-        //Account account = accountService.getAccountByUsername(loginRequest.getUsername());
         try {
             Account account = accountService.getAccountByUsername(loginRequest.getUsername());
             if (account == null) {

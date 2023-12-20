@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -38,9 +37,8 @@ public class PosController {
         List<Product> productList = new ArrayList<>(productRepository.findAll());
         model.addAttribute("imageUtils", imageService);
         model.addAttribute("products", productList);
-
         model.addAttribute("user", accountService.getAccountByUsername(username));
-        return "mainhomepage";
+        return "index";
     }
 
 

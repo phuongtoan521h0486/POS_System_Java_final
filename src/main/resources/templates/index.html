@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>TopZone - iPhone</title>
+    <title>POS Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;display=swap"
@@ -20,6 +20,11 @@
       body {
         font-family: "Open+Sans", sans-serif;
       }
+
+      .logo-img {
+        border: 2px solid #000; /* Set the border properties */
+        border-radius: 50%; /* Make the border circular */
+      }
     </style>
   </head>
   <body class="bg-white text-gray-900">
@@ -28,8 +33,7 @@
         class="py-5 flex justify-between items-center border-b border-gray-300"
       >
         <div class="text-3xl font-bold">
-          <span class="text-green-400"> .top </span>
-          zone
+          <img src="/images/logo.png" alt="GTV Logo" class="logo-img" width="64" height="64">
         </div>
         <nav class="space-x-4">
           <!-- Form -->
@@ -53,7 +57,7 @@
             <ul class="dropdown-menu" role="menu">
               <li>
                 <a th:text="${user.getRole() == T(com.thd.pos_system_java_final.models.account.AccountRole).ADMIN} ? 'Admin' : 'Staff'"
-                   class="dropdown-item" href="admin/">Action</a>
+                   class="dropdown-item" href="/user">Action</a>
               </li>
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><a class="dropdown-item" href="logout">Logout</a></li>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link
+      href="http://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        font-size: 48px;
+      }
+    </style>
+  </head>
+  <body>
+    <p th:text="${'Hi, ' + username}"></p>
+    <p>We resend a link for you</p>
+    <p>Login this account with the link here:</p>
+    <a th:href="@{${link}}">
+      <span>Click here</span>
+    </a>
+
+    <p>Notice: The link is only valid for 1 minute!</p>
+    <p>Please change it for security reasons.</p>
+    <p>This is an automated email, please do not reply.</p>
+  </body>
+</html>
