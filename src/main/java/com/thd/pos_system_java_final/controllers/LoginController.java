@@ -1,6 +1,7 @@
 package com.thd.pos_system_java_final.controllers;
 
 import com.thd.pos_system_java_final.models.account.Account;
+import com.thd.pos_system_java_final.models.account.AccountRole;
 import com.thd.pos_system_java_final.models.account.LoginRequest;
 import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.ultils.JwtUtil;
@@ -47,12 +48,18 @@ public class LoginController {
                 if (!BCrypt.checkpw(loginRequest.getPassword(), hashedPassword)) {
                     model.addAttribute("error", "Your username or password is not correct");
                     return "/Login";
+                } else if (account.getRole() == AccountRole.ADMIN) {
+                    session.setAttribute("username", loginRequest.getUsername());
+                    return "redirect:/";
                 } else if (!account.isActivate()) {
                     model.addAttribute("error", "Please login through out email");
                     return "/Login";
                 } else if (!account.isStatus()) {
                     model.addAttribute("error", "Your account is blocked, please contact Admin");
                     return "/Login";
+                } else if (loginRequest.getPassword().equals(loginRequest.getUsername())) {
+                    session.setAttribute("usernameWelcome", loginRequest.getUsername());
+                    return "redirect:/welcome";
                 }
             }
             session.setAttribute("username", loginRequest.getUsername());
@@ -71,13 +78,43 @@ public class LoginController {
                 Account account = accountService.getAccountByUsername(username);
                 account.setActivate(true);
                 accountService.updateAccount(account);
-                session.setAttribute("username", username);
-                return "redirect:/";
+                return "redirect:/welcome";
             }
             return "redirect:/login";
         } catch (JwtException e) {
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/welcome")
+    public String welcome(HttpSession session) {
+        String username = (String) session.getAttribute("usernameWelcome");
+        if (username == null) {
+            return "redirect:/login";
+        }
+        return "welcome";
+    }
+
+    @PostMapping("/welcome")
+    public String welcome(LoginRequest loginRequest, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        try {
+            String password = String.valueOf(loginRequest.getPassword());
+            String rePassword = String.valueOf(loginRequest.getRePassword());
+
+            Account account = accountService.getAccountByUsername(username);
+            String hashedPassword = account.getPassword();
+            if (password.equals(rePassword)) {
+                return "redirect:/welcome";
+            } else if (BCrypt.checkpw(password, hashedPassword)) {
+                System.out.println("Same password");
+                return "redirect:/welcome";
+            }
+        } catch (Exception e) {
+            return "error";
+        }
+
+        return "redirect:/";
     }
 
 }
