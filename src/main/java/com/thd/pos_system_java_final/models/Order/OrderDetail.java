@@ -1,6 +1,5 @@
-package com.thd.pos_system_java_final.models.Customer;
+package com.thd.pos_system_java_final.models.Order;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,12 +13,11 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Customer {
+public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int customerId;
-    public String name;
-    @NotNull
-    public String phoneNumber;
-    public String address;
+    private int orderDetailId;
+    private int orderId;
+    private int productId;
+    private int quantity;
 }

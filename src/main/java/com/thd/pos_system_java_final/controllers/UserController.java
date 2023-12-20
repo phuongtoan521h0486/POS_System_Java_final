@@ -1,7 +1,7 @@
 package com.thd.pos_system_java_final.controllers;
 
 import com.thd.pos_system_java_final.models.DataMail;
-import com.thd.pos_system_java_final.models.account.Account;
+import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.services.ImageService;
 import com.thd.pos_system_java_final.services.MailService;

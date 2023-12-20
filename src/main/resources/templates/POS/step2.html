@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/checkout.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet" />
+  <style>
+    .table thead th {
+      border-bottom: 1px solid #eeeeee;
+    }
+
+  </style>
+  <title>Multi-Step Form</title>
+</head>
+
+<body>
+<div class="container">
+  <div>
+    <div id="multi-step-form-container">
+      <!-- Form Steps / Progress Bar -->
+      <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+        <!-- Step 1 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="1">
+          <a class="mx-2">
+              <span class="form-stepper-circle">
+                <span>1</span>
+              </span>
+            <div class="label">Enter Phone Number</div>
+          </a>
+        </li>
+        <!-- Step 2 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="2">
+          <a class="mx-2">
+              <span class="form-stepper-circle">
+                <span>2</span>
+              </span>
+            <div class="label">Checkout</div>
+          </a>
+        </li>
+        <!-- Step 3 -->
+        <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+          <a class="mx-2">
+              <span class="form-stepper-circle text-muted">
+                <span>3</span>
+              </span>
+            <div class="label text-muted">Invoice</div>
+          </a>
+        </li>
+      </ul>
+      <!-- Step Wise Form Content -->
+      <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
+        <!-- Step 2 Content, default hidden on page load. -->
+        <section id="step-2" class="form-step">
+          <div class="container py-5">
+            <div class="row d-flex justify-content-center my-4">
+              <div class="col-md-8">
+                <div class="card mb-4">
+                  <div class="card-header py-3">
+                    <h5 class="mb-0">Cart - 2 items</h5>
+                  </div>
+                  <div class="card-body">
+                    <!-- Single item -->
+                    <div class="row">
+                      <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                        <!-- Image -->
+                        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                          <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp"
+                               class="w-100" alt="Blue Jeans Jacket" />
+                          <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                          </a>
+                        </div>
+                        <!-- Image -->
+                      </div>
+
+                      <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                        <!-- Data -->
+                        <p><strong>Blue denim shirt</strong></p>
+                        <p>Color: blue</p>
+                        <p>Size: M</p>
+                        <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                                title="Remove item">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                                title="Move to the wish list">
+                          <i class="fas fa-heart"></i>
+                        </button>
+                        <!-- Data -->
+                      </div>
+
+                      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <!-- Quantity -->
+                        <div class="d-flex mb-4" style="max-width: 300px">
+                          <i class="btn btn-primary px-3 me-2"
+                             onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                            <i class="fas fa-minus"></i>
+                          </i>
+
+                          <div class="form-outline">
+                            <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
+                          </div>
+
+                          <i class="btn btn-primary px-3 ms-2"
+                             onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                            <i class="fas fa-plus"></i>
+                          </i>
+                        </div>
+                        <!-- Quantity -->
+
+                        <!-- Price -->
+                        <p class="text-start text-md-center">
+                          <strong>$17.99</strong>
+                        </p>
+                        <!-- Price -->
+                      </div>
+                    </div>
+                    <!-- Single item -->
+
+                    <hr class="my-4" />
+
+                    <!-- Single item -->
+                    <div class="row">
+                      <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                        <!-- Image -->
+                        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                          <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13a.webp"
+                               class="w-100" />
+                          <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                          </a>
+                        </div>
+                        <!-- Image -->
+                      </div>
+
+                      <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                        <!-- Data -->
+                        <p><strong>Red hoodie</strong></p>
+                        <p>Color: red</p>
+                        <p>Size: M</p>
+
+                        <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                                title="Remove item">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                                title="Move to the wish list">
+                          <i class="fas fa-heart"></i>
+                        </button>
+                        <!-- Data -->
+                      </div>
+
+                      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <!-- Quantity -->
+                        <div class="d-flex mb-4" style="max-width: 300px">
+                          <i class="btn btn-primary px-3 me-2"
+                             onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                            <i class="fas fa-minus"></i>
+                          </i>
+
+                          <div class="form-outline">
+                            <input id="form2" min="0" name="quantity" value="1" type="number" class="form-control" />
+                          </div>
+
+                          <i class="btn btn-primary px-3 ms-2"
+                             onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                            <i class="fas fa-plus"></i>
+                          </i>
+                        </div>
+                        <!-- Quantity -->
+
+                        <!-- Price -->
+                        <p class="text-start text-md-center">
+                          <strong>$17.99</strong>
+                        </p>
+                        <!-- Price -->
+                      </div>
+                    </div>
+                    <!-- Single item -->
+                  </div>
+                </div>
+                <!--                  <div class="card mb-4">-->
+                <!--                    <div class="card-body">-->
+                <!--                      <p><strong>Expected shipping delivery</strong></p>-->
+                <!--                      <p class="mb-0">12.10.2020 - 14.10.2020</p>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                  <div class="card mb-4 mb-lg-0">-->
+                <!--                    <div class="card-body">-->
+                <!--                      <p><strong>We accept</strong></p>-->
+                <!--                      <img class="me-2" width="45px"-->
+                <!--                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"-->
+                <!--                        alt="Visa" />-->
+                <!--                      <img class="me-2" width="45px"-->
+                <!--                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"-->
+                <!--                        alt="American Express" />-->
+                <!--                      <img class="me-2" width="45px"-->
+                <!--                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"-->
+                <!--                        alt="Mastercard" />-->
+                <!--                      <img class="me-2" width="45px"-->
+                <!--                        src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp"-->
+                <!--                        alt="PayPal acceptance mark" />-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-4">
+                  <div class="card-header py-3">
+                    <h5 class="mb-0">Summary</h5>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                        Total Amount
+                        <span>$53.98</span>
+                      </li>
+
+                      <li  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                        Total Quantity
+                        <span>3</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <div class="d-flex w-100">
+                          <label for="givenMoney" class="mb-0 align-self-center me-2">Given Money</label>
+                          <div class="flex-fill text-end">
+                            <input type="text" id="givenMoney" name="givenMoney" class="form-control" placeholder="Enter Given Money">
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                              class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                        <div>
+                          <strong>Excess Money</strong>
+                        </div>
+                        <span><strong>$53.98</strong></span>
+                      </li>
+                    </ul>
+
+                    <button type="button" step_number="3"
+                            class="btn btn-primary btn-lg btn-block btn-navigate-form-step">
+                      Go to checkout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+<!--<script>-->
+<!--  /**-->
+<!--   * Define a function to navigate betweens form steps.-->
+<!--   * It accepts one parameter. That is - step number.-->
+<!--   */-->
+<!--  const navigateToFormStep = (stepNumber) => {-->
+<!--    /**-->
+<!--     * Hide all form steps.-->
+<!--     */-->
+<!--    document.querySelectorAll(".form-step").forEach((formStepElement) => {-->
+<!--      formStepElement.classList.add("d-none");-->
+<!--    });-->
+<!--    /**-->
+<!--     * Mark all form steps as unfinished.-->
+<!--     */-->
+<!--    document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {-->
+<!--      formStepHeader.classList.add("form-stepper-unfinished");-->
+<!--      formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");-->
+<!--    });-->
+<!--    /**-->
+<!--     * Show the current form step (as passed to the function).-->
+<!--     */-->
+<!--    document.querySelector("#step-" + stepNumber).classList.remove("d-none");-->
+<!--    /**-->
+<!--     * Select the form step circle (progress bar).-->
+<!--     */-->
+<!--    const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');-->
+<!--    /**-->
+<!--     * Mark the current form step as active.-->
+<!--     */-->
+<!--    formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");-->
+<!--    formStepCircle.classList.add("form-stepper-active");-->
+<!--    /**-->
+<!--     * Loop through each form step circles.-->
+<!--     * This loop will continue up to the current step number.-->
+<!--     * Example: If the current step is 3,-->
+<!--     * then the loop will perform operations for step 1 and 2.-->
+<!--     */-->
+<!--    for (let index = 0; index < stepNumber; index++) {-->
+<!--      /**-->
+<!--       * Select the form step circle (progress bar).-->
+<!--       */-->
+<!--      const formStepCircle = document.querySelector('li[step="' + index + '"]');-->
+<!--      /**-->
+<!--       * Check if the element exist. If yes, then proceed.-->
+<!--       */-->
+<!--      if (formStepCircle) {-->
+<!--        /**-->
+<!--         * Mark the form step as completed.-->
+<!--         */-->
+<!--        formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");-->
+<!--        formStepCircle.classList.add("form-stepper-completed");-->
+<!--      }-->
+<!--    }-->
+<!--  };-->
+<!--  /**-->
+<!--   * Select all form navigation buttons, and loop through them.-->
+<!--   */-->
+<!--  document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {-->
+<!--    /**-->
+<!--     * Add a click event listener to the button.-->
+<!--     */-->
+<!--    formNavigationBtn.addEventListener("click", () => {-->
+<!--      /**-->
+<!--       * Get the value of the step.-->
+<!--       */-->
+<!--      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));-->
+<!--      /**-->
+<!--       * Call the function to navigate to the target form step.-->
+<!--       */-->
+<!--      navigateToFormStep(stepNumber);-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+
+</html>

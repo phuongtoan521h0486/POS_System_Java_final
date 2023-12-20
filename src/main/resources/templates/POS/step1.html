@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/checkout.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet" />
+  <style>
+    .table thead th {
+      border-bottom: 1px solid #eeeeee;
+    }
+
+  </style>
+  <title>Multi-Step Form</title>
+</head>
+
+<body>
+<div class="container">
+  <div>
+    <div id="multi-step-form-container">
+      <!-- Form Steps / Progress Bar -->
+      <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+        <!-- Step 1 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="1">
+          <a class="mx-2">
+              <span class="form-stepper-circle">
+                <span>1</span>
+              </span>
+            <div class="label">Enter Phone Number</div>
+          </a>
+        </li>
+        <!-- Step 2 -->
+        <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+          <a class="mx-2">
+              <span class="form-stepper-circle text-muted">
+                <span>2</span>
+              </span>
+            <div class="label text-muted">Checkout</div>
+          </a>
+        </li>
+        <!-- Step 3 -->
+        <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+          <a class="mx-2">
+              <span class="form-stepper-circle text-muted">
+                <span>3</span>
+              </span>
+            <div class="label text-muted">Invoice</div>
+          </a>
+        </li>
+      </ul>
+      <!-- Step Wise Form Content -->
+      <form action="/cart/step-1" id="userAccountSetupForm" name="userAccountSetupForm" method="POST">
+        <!-- Step 1 Content -->
+        <section id="step-1" class="form-step">
+          <h1 class="font-normal">Enter customer's phone number</h1>
+          <!-- Step 1 input fields -->
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <div class="form-group">
+
+                <input type="tel" class="form-control" id="email" placeholder="Enter phone" name="phone">
+              </div>
+
+              <div class="d-play alert alert-danger error Message mt-3">Customer's phone not exist</div>
+
+              <div class="mt-3">
+                <button class="button btn-navigate-form-step" type="submit" step_number="2">
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+<!--<script>-->
+<!--  /**-->
+<!--   * Define a function to navigate betweens form steps.-->
+<!--   * It accepts one parameter. That is - step number.-->
+<!--   */-->
+<!--  const navigateToFormStep = (stepNumber) => {-->
+<!--    /**-->
+<!--     * Hide all form steps.-->
+<!--     */-->
+<!--    document.querySelectorAll(".form-step").forEach((formStepElement) => {-->
+<!--      formStepElement.classList.add("d-none");-->
+<!--    });-->
+<!--    /**-->
+<!--     * Mark all form steps as unfinished.-->
+<!--     */-->
+<!--    document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {-->
+<!--      formStepHeader.classList.add("form-stepper-unfinished");-->
+<!--      formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");-->
+<!--    });-->
+<!--    /**-->
+<!--     * Show the current form step (as passed to the function).-->
+<!--     */-->
+<!--    document.querySelector("#step-" + stepNumber).classList.remove("d-none");-->
+<!--    /**-->
+<!--     * Select the form step circle (progress bar).-->
+<!--     */-->
+<!--    const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');-->
+<!--    /**-->
+<!--     * Mark the current form step as active.-->
+<!--     */-->
+<!--    formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");-->
+<!--    formStepCircle.classList.add("form-stepper-active");-->
+<!--    /**-->
+<!--     * Loop through each form step circles.-->
+<!--     * This loop will continue up to the current step number.-->
+<!--     * Example: If the current step is 3,-->
+<!--     * then the loop will perform operations for step 1 and 2.-->
+<!--     */-->
+<!--    for (let index = 0; index < stepNumber; index++) {-->
+<!--      /**-->
+<!--       * Select the form step circle (progress bar).-->
+<!--       */-->
+<!--      const formStepCircle = document.querySelector('li[step="' + index + '"]');-->
+<!--      /**-->
+<!--       * Check if the element exist. If yes, then proceed.-->
+<!--       */-->
+<!--      if (formStepCircle) {-->
+<!--        /**-->
+<!--         * Mark the form step as completed.-->
+<!--         */-->
+<!--        formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");-->
+<!--        formStepCircle.classList.add("form-stepper-completed");-->
+<!--      }-->
+<!--    }-->
+<!--  };-->
+<!--  /**-->
+<!--   * Select all form navigation buttons, and loop through them.-->
+<!--   */-->
+<!--  document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {-->
+<!--    /**-->
+<!--     * Add a click event listener to the button.-->
+<!--     */-->
+<!--    formNavigationBtn.addEventListener("click", () => {-->
+<!--      /**-->
+<!--       * Get the value of the step.-->
+<!--       */-->
+<!--      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));-->
+<!--      /**-->
+<!--       * Call the function to navigate to the target form step.-->
+<!--       */-->
+<!--      navigateToFormStep(stepNumber);-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+
+</html>

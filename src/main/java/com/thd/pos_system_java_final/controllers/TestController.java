@@ -1,5 +1,7 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.models.Customer.Customer;
+import com.thd.pos_system_java_final.models.Customer.CustomerRepository;
 import com.thd.pos_system_java_final.models.DataMail;
 import com.thd.pos_system_java_final.services.MailService;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,8 @@ import java.util.Map;
 public class TestController {
     @Autowired
     private MailService mailService;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @GetMapping("/email")
     @ResponseBody
@@ -48,8 +52,28 @@ public class TestController {
         return  false;
     }
 
-    @RequestMapping("/dashboard")
-    public String dashboard(){
-        return "dashboard";
+    @GetMapping("/step1")
+    public String step1(){
+        return "POS/step1";
+    }
+
+    @GetMapping("/step2")
+    public String step2(){
+        return "POS/step2";
+    }
+    @GetMapping("/step3")
+    public String step3(){
+        return "POS/step3";
+    }
+    @GetMapping("/checkout")
+    public String checkout(){
+        return "POS/checkout";
+    }
+
+    @GetMapping("/add-customer")
+    @ResponseBody
+    public String addcustomer(){
+        //customerRepository.save(new Customer(0,"Faker", "0963852741", "Korea"));
+        return "add thanh cong";
     }
 }

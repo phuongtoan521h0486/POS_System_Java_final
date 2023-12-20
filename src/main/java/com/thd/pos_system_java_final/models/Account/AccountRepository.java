@@ -1,4 +1,4 @@
-package com.thd.pos_system_java_final.models.account;
+package com.thd.pos_system_java_final.models.Account;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

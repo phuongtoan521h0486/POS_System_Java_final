@@ -44,7 +44,7 @@ public class PosController {
 
     @GetMapping("/checkout")
     public String checkOut() {
-        return "checkout";
+        return "POS/checkout";
     }
 
     @GetMapping("/logout")

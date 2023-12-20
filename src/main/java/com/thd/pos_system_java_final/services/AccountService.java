@@ -1,14 +1,13 @@
 package com.thd.pos_system_java_final.services;
 
-import com.thd.pos_system_java_final.models.account.Account;
-import com.thd.pos_system_java_final.models.account.AccountRepository;
-import com.thd.pos_system_java_final.models.account.AccountRole;
+import com.thd.pos_system_java_final.models.Account.Account;
+import com.thd.pos_system_java_final.models.Account.AccountRepository;
+import com.thd.pos_system_java_final.models.Account.AccountRole;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
