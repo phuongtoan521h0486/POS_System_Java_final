@@ -22,9 +22,10 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("")
 @AllArgsConstructor
 public class LoginController {
-    JwtUtil jwt;
     @Autowired
-    AccountService accountService;
+    private JwtUtil jwt;
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("/login")
     public String login(Model model) {

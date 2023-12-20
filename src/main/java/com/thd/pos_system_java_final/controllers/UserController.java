@@ -3,6 +3,7 @@ package com.thd.pos_system_java_final.controllers;
 import com.thd.pos_system_java_final.models.DataMail;
 import com.thd.pos_system_java_final.models.account.Account;
 import com.thd.pos_system_java_final.services.AccountService;
+import com.thd.pos_system_java_final.services.ImageService;
 import com.thd.pos_system_java_final.services.MailService;
 import com.thd.pos_system_java_final.ultils.JwtUtil;
 import lombok.AllArgsConstructor;
@@ -11,9 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +32,19 @@ public class UserController {
     private MailService mailService;
     @Autowired
     private JwtUtil jwt;
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(HttpSession session, Model model) {
+        if (session.getAttribute("username") == null) {
+            return "Login";
+        }
+        String username =  session.getAttribute("username").toString();
+        Account account = accountService.getAccountByUsername(username);
+
+        model.addAttribute("account", account);
+        model.addAttribute("imageUtils", imageService);
         return "Dashboard/dashboard";
     }
 
@@ -101,15 +115,44 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String showStaff(Model model) {
+    public String showStaff(Model model, ImageService imageService) {
         List<Account> accounts = accountService.getAllAccount();
         model.addAttribute("accounts", accounts);
+        model.addAttribute("imageUtils", imageService);
         return "User/index";
     }
 
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(HttpSession session, Model model, ImageService imageService) {
+        if (session.getAttribute("username") == null) {
+            return "Login";
+        }
+        String username =  session.getAttribute("username").toString();
+        Account account = accountService.getAccountByUsername(username);
+
+        model.addAttribute("account", account);
+        model.addAttribute("imageUtils", imageService);
+
         return "User/profile";
+    }
+
+    @PostMapping("/profile")
+    public String profile(HttpSession session, Model model, String name, String email, String phone, MultipartFile pictureFile) throws IOException {
+        if (session.getAttribute("username") == null) {
+            return "Login";
+        }
+        String username =  session.getAttribute("username").toString();
+        Account account = accountService.getAccountByUsername(username);
+
+        account.setFullName(name);
+        account.setEmail(email);
+        account.setPhone(phone);
+        if (!pictureFile.isEmpty()) {
+            account.setPicture(pictureFile.getBytes());
+        }
+        accountService.updateAccount(account);
+
+        return "Dashboard/dashboard";
     }
 
     @GetMapping("/getUser")

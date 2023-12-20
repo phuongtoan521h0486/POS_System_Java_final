@@ -26,5 +26,7 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountRole role;
     private String phone;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] picture;
 }

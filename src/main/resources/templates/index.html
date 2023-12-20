@@ -57,9 +57,9 @@
             <ul class="dropdown-menu" role="menu">
               <li>
                 <a th:text="${user.getRole() == T(com.thd.pos_system_java_final.models.account.AccountRole).ADMIN} ? 'Admin' : 'Staff'"
-                   class="dropdown-item" href="/user">Action</a>
+                   class="dropdown-item" href="/user/dashboard">Action</a>
               </li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
               <li><a class="dropdown-item" href="logout">Logout</a></li>
             </ul>
 

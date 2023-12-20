@@ -302,6 +302,9 @@
             </div>
         </nav>
         <div class="main-content container-fluid" >
+            <a href="/user" class="text-blue-600 text-sm flex items-center">
+                &lt; Go to Staff Management
+            </a>
             <form action="/user/add" method="post">
                 <section class="section">
                     <div class="dash-content">
@@ -311,37 +314,25 @@
                                 <div class="container mx-auto px-4 py-4" >
                                     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                                         <div class="mb-4">
-                                            <h3 class="text-lg font-semibold">Employee Information</h3>
+                                            <h3 class="text-lg font-semibold">Staff Information</h3>
                                         </div>
 
                                         <div class="grid grid-cols-2 gap-4 mb-4">
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-1"  for="fullName">Employee's full name *</label>
-                                                <input required type="text" id="fullName" name="fullName" class="border-gray-300 mt-3 rounded-md shadow-sm w-full" style="height: 50px; padding: 10px;" placeholder="">
+                                                <label class="block text-sm font-medium text-gray-700 mb-1"  for="fullName">Staff's full name *</label>
+                                                <input required type="text" id="fullName" name="fullName" class="border-gray-300 mt-3 rounded-md shadow-sm w-full" style="height: 50px; padding: 10px;" placeholder="Enter Staff's full name">
                                             </div>
                                             <div>
                                                 <label class="block text-sm font-medium text-gray-700 mb-1"  for="email">Email *</label>
-                                                <input required type="text" id="email" name="email" class="border-gray-300 mt-3 rounded-md shadow-sm w-full" style="height: 50px; padding: 10px;" placeholder="">
+                                                <input required type="text" id="email" name="email" class="border-gray-300 mt-3 rounded-md shadow-sm w-full" style="height: 50px; padding: 10px;" placeholder="Enter Email">
                                             </div>
                                         </div>
 
-                                        <div class="border-b border-gray-200 pb-4 mb-4">
-                                            <h3 class="text-lg font-semibold">Staff roles</h3>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="block text-sm font-medium text-gray-700 mb-1" for="role">Role *</label>
-                                            <select id="role" class="border-gray-300 rounded-md shadow-sm w-full mb-4">
-                                                <option>Choose a role</option>
-                                            </select>
-                                        </div>
                                     </div>
 
                                     <div class="flex justify-between items-center mb-4 mt-3">
-                                        <a href="/admin/show-staff" class="text-blue-600 text-sm flex items-center">
-                                            &lt; Add new employees
-                                        </a>
                                         <div>
-                                            <button class="text-gray-600 bg-white border border-gray-300 rounded-md px-4 py-2 mr-2">Cancel</button>
+
                                             <button type="submit" class="text-white bg-blue-600 border border-blue-600 rounded-md px-4 py-2">Send invitations</button>
                                         </div>
                                     </div>
