@@ -1,4 +1,4 @@
-package com.thd.pos_system_java_final.models.account;
+package com.thd.pos_system_java_final.models.Account;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

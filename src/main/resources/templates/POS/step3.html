@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/checkout.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet" />
+  <style>
+    .table thead th {
+      border-bottom: 1px solid #eeeeee;
+    }
+
+  </style>
+  <title>Multi-Step Form</title>
+</head>
+
+<body>
+<div class="container">
+  <div>
+    <div id="multi-step-form-container">
+      <!-- Form Steps / Progress Bar -->
+      <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+        <!-- Step 1 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="1">
+          <a class="mx-2">
+              <span class="form-stepper-circle">
+                <span>1</span>
+              </span>
+            <div class="label">Enter Phone Number</div>
+          </a>
+        </li>
+        <!-- Step 2 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="2">
+          <a class="mx-2">
+              <span class="form-stepper-circle ">
+                <span>2</span>
+              </span>
+            <div class="label">Checkout</div>
+          </a>
+        </li>
+        <!-- Step 3 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="3">
+          <a class="mx-2">
+              <span class="form-stepper-circle">
+                <span>3</span>
+              </span>
+            <div class="label">Invoice</div>
+          </a>
+        </li>
+      </ul>
+      <!-- Step Wise Form Content -->
+      <form id="userAccountSetupForm" name="userAccountSetupForm" enctype="multipart/form-data" method="POST">
+        <!-- Step 3 Content, default hidden on page load. -->
+        <section id="step-3" class="form-step">
+          <!-- Step 3 input fields -->
+          <div class="card card-lg mb-5">
+            <div class="card-body">
+              <div class="row justify-content-lg-between">
+                <div class="col-sm order-2 order-sm-1 mb-3">
+                  <div class="mb-2">
+                    <img class="avatar rounded-circle" src="/images/logo.png" alt="Logo" width="128" height="128">
+                  </div>
+
+
+                  <h1 class="h2 text-primary">GTV POS System</h1>
+                </div>
+                <!-- End Col -->
+
+                <div class="col-sm-auto order-1 order-sm-2 text-sm-end mb-3">
+                  <div class="mb-3">
+                    <h2>Invoice #</h2>
+                    <span class="d-block">3682303</span>
+                  </div>
+
+                  <address class="text-dark">
+                    45 Roker Terrace<br>
+                    Latheronwheel<br>
+                    KW5 8NW, London<br>
+                    United Kingdom
+                  </address>
+                </div>
+                <!-- End Col -->
+              </div>
+              <!-- End Row -->
+
+              <div class="row justify-content-md-between mb-3">
+                <div class="col-md">
+                  <h4>Bill to:</h4>
+                  <h4>Sara Williams</h4>
+
+                  <address>
+                    280 Suzanne Throughway,<br>
+                    Breannabury, OR 45801,<br>
+                    United States
+                  </address>
+                </div>
+                <!-- End Col -->
+
+                <div class="col-md text-md-end">
+                  <dl class="row">
+                    <dt class="col-sm-8">Invoice date:</dt>
+                    <dd class="col-sm-4" th:text="${#dates.format(#dates.createNow(), 'MM/dd/yyyy')}"></dd>
+                  </dl>
+                </div>
+                <!-- End Col -->
+              </div>
+              <!-- End Row -->
+
+              <!-- Table -->
+              <div class="table-responsive">
+                <table class="table table-borderless table-nowrap table-align-middle">
+                  <thead class="thead-light">
+                  <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th class="table-text-end">Amount</th>
+                  </tr>
+
+                  </thead>
+
+                  <tbody>
+
+                  <tr>
+                    <th>Design UX and UI</th>
+                    <td>1</td>
+                    <td>5</td>
+                    <td class="table-text-end">$500</td>
+                  </tr>
+
+                  <tr>
+                    <th>Web project</th>
+                    <td>1</td>
+                    <td>24</td>
+                    <td class="table-text-end">$1250</td>
+                  </tr>
+
+                  <tr>
+                    <th>SEO</th>
+                    <td>1</td>
+                    <td>6</td>
+                    <td class="table-text-end">$2000</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- End Table -->
+
+              <hr class="my-5">
+
+              <div class="row justify-content-md-end mb-3">
+                <div class="col-md-8 col-lg-7">
+                  <dl class="row text-sm-end">
+                    <dt class="col-sm-6">Total Amount:</dt>
+                    <dd class="col-sm-6">$2750.00</dd>
+                    <dt class="col-sm-6">Given Money:</dt>
+                    <dd class="col-sm-6">$3000.00</dd>
+                    <dt class="col-sm-6">Excess Money:</dt>
+                    <dd class="col-sm-6">$250.00</dd>
+                  </dl>
+                  <!-- End Row -->
+                </div>
+              </div>
+              <!-- End Row -->
+
+              <div class="mb-3">
+                <h3>Thank you!</h3>
+                <!--                  <p>If you have any questions concerning this invoice, use the following contact information:</p>-->
+              </div>
+
+              <p class="small mb-0" th:text="${#calendars.year(#dates.createNow())} + ' GTV POS system.'"></p>
+            </div>
+          </div>
+          <button class="button btn-navigate-form-step" type="button" step_number="2">
+            Prev
+          </button>
+          <button class="button submit-btn" type="submit">Save</button>
+
+
+        </section>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+<!--<script>-->
+<!--  /**-->
+<!--   * Define a function to navigate betweens form steps.-->
+<!--   * It accepts one parameter. That is - step number.-->
+<!--   */-->
+<!--  const navigateToFormStep = (stepNumber) => {-->
+<!--    /**-->
+<!--     * Hide all form steps.-->
+<!--     */-->
+<!--    document.querySelectorAll(".form-step").forEach((formStepElement) => {-->
+<!--      formStepElement.classList.add("d-none");-->
+<!--    });-->
+<!--    /**-->
+<!--     * Mark all form steps as unfinished.-->
+<!--     */-->
+<!--    document.querySelectorAll(".form-stepper-list").forEach((formStepHeader) => {-->
+<!--      formStepHeader.classList.add("form-stepper-unfinished");-->
+<!--      formStepHeader.classList.remove("form-stepper-active", "form-stepper-completed");-->
+<!--    });-->
+<!--    /**-->
+<!--     * Show the current form step (as passed to the function).-->
+<!--     */-->
+<!--    document.querySelector("#step-" + stepNumber).classList.remove("d-none");-->
+<!--    /**-->
+<!--     * Select the form step circle (progress bar).-->
+<!--     */-->
+<!--    const formStepCircle = document.querySelector('li[step="' + stepNumber + '"]');-->
+<!--    /**-->
+<!--     * Mark the current form step as active.-->
+<!--     */-->
+<!--    formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-completed");-->
+<!--    formStepCircle.classList.add("form-stepper-active");-->
+<!--    /**-->
+<!--     * Loop through each form step circles.-->
+<!--     * This loop will continue up to the current step number.-->
+<!--     * Example: If the current step is 3,-->
+<!--     * then the loop will perform operations for step 1 and 2.-->
+<!--     */-->
+<!--    for (let index = 0; index < stepNumber; index++) {-->
+<!--      /**-->
+<!--       * Select the form step circle (progress bar).-->
+<!--       */-->
+<!--      const formStepCircle = document.querySelector('li[step="' + index + '"]');-->
+<!--      /**-->
+<!--       * Check if the element exist. If yes, then proceed.-->
+<!--       */-->
+<!--      if (formStepCircle) {-->
+<!--        /**-->
+<!--         * Mark the form step as completed.-->
+<!--         */-->
+<!--        formStepCircle.classList.remove("form-stepper-unfinished", "form-stepper-active");-->
+<!--        formStepCircle.classList.add("form-stepper-completed");-->
+<!--      }-->
+<!--    }-->
+<!--  };-->
+<!--  /**-->
+<!--   * Select all form navigation buttons, and loop through them.-->
+<!--   */-->
+<!--  document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn) => {-->
+<!--    /**-->
+<!--     * Add a click event listener to the button.-->
+<!--     */-->
+<!--    formNavigationBtn.addEventListener("click", () => {-->
+<!--      /**-->
+<!--       * Get the value of the step.-->
+<!--       */-->
+<!--      const stepNumber = parseInt(formNavigationBtn.getAttribute("step_number"));-->
+<!--      /**-->
+<!--       * Call the function to navigate to the target form step.-->
+<!--       */-->
+<!--      navigateToFormStep(stepNumber);-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+
+</html>

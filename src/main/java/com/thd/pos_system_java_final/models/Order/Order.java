@@ -17,9 +17,12 @@ import java.util.Date;
 @Data
 public class Order {
     @Id
-    public int idProduct;
-    public String customerPhone;
-
-    public Date date;
-    public int price;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int orderId;
+    private Date orderDate;
+    private double totalAmount;
+    private double givenMoney;
+    private double excessMoney;
+    private int quantity;
+    private int customerId;
 }
