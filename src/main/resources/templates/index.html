@@ -26,6 +26,23 @@
         border: 2px solid #000; /* Set the border properties */
         border-radius: 50%; /* Make the border circular */
       }
+
+      .notification {
+        padding: 10px 10px;
+        position: relative;
+        display: inline-block;
+        border-radius: 2px;
+      }
+
+      .notification .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        padding: 3px 6px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+      }
     </style>
   </head>
   <body class="bg-white text-gray-900">
@@ -48,8 +65,9 @@
         </nav>
         <div class="space-x-4">
           <a class="hover:text-green-400" href="/cart/step-1">
-            <i class="fas fa-shopping-cart mt-2">
-            </i>
+              <i class=" notification fas fa-shopping-cart">
+                  <span class="badge">3</span>
+              </i>
           </a>
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

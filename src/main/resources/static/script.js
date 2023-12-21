@@ -1,32 +1,40 @@
-const body = document.querySelector("body"),
-      modeToggle = body.querySelector(".mode-toggle");
-      sidebar = body.querySelector("nav");
-      sidebarToggle = body.querySelector(".sidebar-toggle");
+let icon = {
+    success:
+        '<span class="material-symbols-outlined">task_alt</span>',
+    danger:
+        '<span class="material-symbols-outlined">error</span>',
+    warning:
+        '<span class="material-symbols-outlined">warning</span>',
+    info:
+        '<span class="material-symbols-outlined">info</span>',
+};
 
-let getMode = localStorage.getItem("mode");
-if(getMode && getMode ==="dark"){
-    body.classList.toggle("dark");
-}
+const showToast = (
+    message = "Sample Message",
+    toastType = "info",
+    duration = 5000) => {
+    if (
+        !Object.keys(icon).includes(toastType))
+        toastType = "info";
 
-let getStatus = localStorage.getItem("status");
-if(getStatus && getStatus ==="close"){
-    sidebar.classList.toggle("close");
-}
+    let box = document.createElement("div");
+    box.classList.add(
+        "toast", `toast-${toastType}`);
+    box.innerHTML = ` <div class="toast-content-wrapper"> 
+                      <div class="toast-icon"> 
+                      ${icon[toastType]} 
+                      </div> 
+                      <div class="toast-message">${message}</div> 
+                      <div class="toast-progress"></div> 
+                      </div>`;
+    duration = duration || 5000;
+    box.querySelector(".toast-progress").style.animationDuration =
+        `${duration / 1000}s`;
 
-modeToggle.addEventListener("click", () =>{
-    body.classList.toggle("dark");
-    if(body.classList.contains("dark")){
-        localStorage.setItem("mode", "dark");
-    }else{
-        localStorage.setItem("mode", "light");
+    let toastAlready =
+        document.body.querySelector(".toast");
+    if (toastAlready) {
+        toastAlready.remove();
     }
-});
 
-sidebarToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("close");
-    if(sidebar.classList.contains("close")){
-        localStorage.setItem("status", "close");
-    }else{
-        localStorage.setItem("status", "open");
-    }
-})
+    document.body.appendChild(box)}; 

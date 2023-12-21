@@ -116,7 +116,7 @@ public class UserController {
 
     @GetMapping("")
     public String showStaff(Model model, ImageService imageService) {
-        List<Account> accounts = accountService.getAllAccount();
+        List<Account> accounts = accountService.getAccountByEmployeeRole();
         model.addAttribute("accounts", accounts);
         model.addAttribute("imageUtils", imageService);
         return "User/index";
@@ -170,9 +170,24 @@ public class UserController {
     }
 
     @PostMapping("/update/{id}")
-    public void blockUser(@PathVariable int id) {
+    public void updateUser(@PathVariable int id) {
         Account account = accountService.getAccountById(id);
         accountService.updateAccount(account);
     }// test
 
+    @PostMapping("/block/{id}")
+    public String blockUser(@PathVariable int id) {
+        Account account = accountService.getAccountById(id);
+        account.setStatus(false);
+        accountService.updateAccount(account);
+        return "redirect:/user";
+    }
+
+    @PostMapping("/enable/{id}")
+    public String enableUser(@PathVariable int id) {
+        Account account = accountService.getAccountById(id);
+        account.setStatus(true);
+        accountService.updateAccount(account);
+        return "redirect:/user";
+    }
 }

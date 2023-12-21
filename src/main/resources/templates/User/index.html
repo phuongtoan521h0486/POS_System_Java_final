@@ -15,23 +15,18 @@
       rel="stylesheet"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/fastbootstrap@2.1.0/dist/css/fastbootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha256-7gHJpsgk5BJHsd/tOfDnH0qKNCzmTMJ8zv+UYYw9CXE="
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
 
     <link rel="stylesheet" th:href="@{/css/Chart.min.css}" />
 
     <link rel="stylesheet" th:href="@{/css/perfect-scrollbar.css}" />
     <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link
       rel="shortcut icon"
       th:href="@{/static/images/logo.png}"
@@ -169,6 +164,9 @@
           </button>
         </div>
       </div>
+
+      </div>
+
       <div id="main">
         <!--Content id-->
         <nav
@@ -218,8 +216,6 @@
             </ul>
           </div>
         </nav>
-
-        <div class="main-content container-fluid">
           <section class="dashboard-light">
             <div class="dash-content">
               <div class="overview">
@@ -342,7 +338,7 @@
                                       th:case="${true}"
                                       th:data-id="${staff.getAccountId()}"
                                       type="button"
-                                      class="btn btn-default"
+                                      class="btn l-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                       id="btn-block"
                                     >
                                       Block
@@ -351,21 +347,21 @@
                                       th:case="${false}"
                                       th:data-id="${staff.getAccountId()}"
                                       type="button"
-                                      class="btn btn-default"
+                                      class="btn l-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                       id="btn-enable"
                                     >
                                       Enable
                                     </button>
                                     <button
                                       type="button"
-                                      class="btn btn-default dropdown-toggle dropdown-toggle-split"
+                                      class="btn ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded"
                                       data-bs-toggle="dropdown"
                                       aria-expanded="false"
                                       data-bs-reference="parent"
                                     >
-                                      <span class="visually-hidden"
-                                        >Toggle Dropdown</span
-                                      >
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                      </svg>
                                     </button>
                                     <ul class="dropdown-menu">
                                       <li>
@@ -378,7 +374,7 @@
                                         >
                                       </li>
                                       <li>
-                                        <a
+                                        <a th:if="${staff.isActivate == false}"
                                           th:data-id="${staff.getAccountId()}"
                                           class="dropdown-item"
                                           id="btn-resend"
@@ -423,18 +419,38 @@
         </footer>
       </div>
     </div>
-    <script src="/script.js"></script>
+
+    <script th:src="@{/script.js}"></script>
     <script>
-      $("#btn-delete").click((e) => {
-        const btn = e.target;
-        const id = btn.dataset.id;
-        $("#user-info").attr("action", "delete/" + id);
-        $("#user-info").submit();
-      });
+        $("#btn-delete").click((e) => {
+          const btn = e.target;
+          const id = btn.dataset.id;
+          $("#user-info").attr("action", "user/delete/" + id);
+          $("#user-info").submit();
+        });
+
+        $("#btn-block").click((e) => {
+          const btn = e.target;
+          const id = btn.dataset.id;
+          console.log(id)
+          $("#user-info").attr("action", "user/block/" + id);
+          $("#user-info").submit();
+        });
+
+        $("#btn-enable").click((e) => {
+          const btn = e.target;
+          const id = btn.dataset.id;
+          console.log(id)
+          $("#user-info").attr("action", "user/enable/" + id);
+          $("#user-info").submit();
+        });
+
+
+
     </script>
     <script th:src="@{/js/feather.min.js}"></script>
     <script th:src="@{/js/perfect-scrollbar.min.js}"></script>
-    <script th:src="@{/js/app.js}"></script>
+<!--    <script th:src="@{/js/app.js}"></script>-->
 
     <script th:src="@{/js/Chart.min.js}"></script>
     <script th:src="@{/js/apexcharts.min.js}"></script>
