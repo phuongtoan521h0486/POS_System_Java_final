@@ -1,18 +1,29 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Cart.Cart;
+import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Customer.Customer;
 import com.thd.pos_system_java_final.models.Customer.CustomerRepository;
+import com.thd.pos_system_java_final.models.Order.Order;
+import com.thd.pos_system_java_final.models.Order.OrderDetail;
+import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
+import com.thd.pos_system_java_final.models.Order.OrderRepository;
 import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
+import com.thd.pos_system_java_final.services.AccountService;
+import com.thd.pos_system_java_final.services.CartService;
+import com.thd.pos_system_java_final.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/cart")
@@ -21,28 +32,32 @@ public class CartController {
     private CustomerRepository customerRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private ImageService imageService;
+    @Autowired
+    private CartService cartService;
+    @Autowired
+    private HttpSession session;
     @GetMapping("/step-1")
-    public String step1(HttpSession session) {
-//        Object cartAttribute = session.getAttribute("cart");
-//
-//        if (cartAttribute != null) {
-//            Map<Product, Integer> cart = (Map<Product, Integer>) cartAttribute;
-//            for (Map.Entry<Product, Integer> entry : cart.entrySet()) {
-//                Product product = entry.getKey();
-//                Integer quantity = entry.getValue();
-//                System.out.println("Product: " + product.getProductName() + ", Quantity: " + quantity);
-//            }
-//        } else {
-//            System.out.println("Cart is null or empty.");
-//        }
+    public String step1() {
         return "POS/step1";
     }
 
     @PostMapping("/step-1")
     public String step1(String phone, Model model) {
         Customer customer = customerRepository.findByPhoneNumber(phone);
-        System.out.println(customer.toString());
-        model.addAttribute("customer", customer);
+        session.setAttribute("customer", customer);
+        model.addAttribute("myCart", (List<Item>) session.getAttribute("cart"));
+        model.addAttribute("imageUtils", imageService);
+        model.addAttribute("cartService", cartService);
+
+        //System.out.println(session.getAttribute("cart"));
         return "POS/step2";
     }
 
@@ -52,38 +67,100 @@ public class CartController {
         return "Not support this method";
     }
 
-//    @PostMapping("/step-2")
-//    public String step2(String phone, Model model, HttpSession session) {
-//
-//        return "POS/step3";
-//    }
+    @PostMapping("/step-2")
+    public String step2(double givenMoney, Model model) {
+        // Order
+        Order order = new Order();
+        order.setOrderDate(new Date());
 
-    @PostMapping("/saveCart")
-    @ResponseBody
-    public String saveCart(@RequestBody Cart cartData, HttpSession session) {
-        if (cartData != null && cartData.getMyCart() != null) {
-            Map<Integer, Integer> cartDataMap = cartData.getMyCart();
-            Map<Product, Integer> cart = new HashMap<>();
+        List<Item> items = cartService.getCartItems();
+        double totalAmount = cartService.calculateTotalAmount();
 
-            for (Map.Entry<Integer, Integer> entry : cartDataMap.entrySet()) {
-                Integer productId = entry.getKey();
-                Product product = productRepository.findById(productId).orElse(null);
+        order.setTotalAmount(totalAmount);
+        order.setGivenMoney(givenMoney);
+        order.setExcessMoney(givenMoney - totalAmount);
+        order.setQuantity(cartService.calculateTotalQuantity());
 
-                if (product != null) {
-                    cart.put(product, entry.getValue());
-                } else {
-                    System.out.println("Product with ID " + productId + " not found.");
-                }
-            }
+        Customer customer = (Customer) session.getAttribute("customer");
+        order.setCustomerId(customer.getCustomerId());
 
-            session.setAttribute("cart", cart);
-            return "Cart saved successfully";
-        } else {
-            // Handle the case when cartData or myCart is null
-            return "Invalid cart data provided";
+        String username = (String) session.getAttribute("username");
+        Account account = accountService.getAccountByUsername(username);
+        order.setAccountId(account.getAccountId());
+
+        orderRepository.save(order);
+
+        int orderId = order.getOrderId();
+
+        for (Item item: items) {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setOrderId(orderId);
+            orderDetail.setProductId(item.getProduct().getProductId());
+            orderDetail.setQuantity(item.getQuantity());
+
+            orderDetailRepository.save(orderDetail);
+        }
+
+        model.addAttribute("order", order);
+        model.addAttribute("customer", customer);
+        model.addAttribute("items", items);
+        model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("givenMoney", givenMoney);
+        model.addAttribute("excessMoney", givenMoney - totalAmount);
+
+
+        return "POS/step3";
+    }
+    @PostMapping("/add")
+    public ResponseEntity<String> addToCart(@RequestBody Item item) {
+        cartService.addItemToCart(item);
+        session.setAttribute("cart", cartService.getCartItems());
+        cartService.printCart();
+        return ResponseEntity.ok("Product added to cart successfully");
+    }
+
+    @PostMapping("/remove")
+    public ResponseEntity<String> removeItemFromCart(@RequestBody int productId) {
+        System.out.println(productId);
+        try {
+            cartService.removeItemFromCart(productId);
+
+            return ResponseEntity.ok("Item removed from cart successfully");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body("Item not found in cart");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid request data: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error removing item from cart: " + e.getMessage());
         }
     }
 
+
+    @GetMapping("/info")
+    public ResponseEntity<Map<String, Object>> getCartInfo() {
+        Map<String, Object> cartInfo = new HashMap<>();
+        cartInfo.put("totalAmount", cartService.calculateTotalAmount());
+        cartInfo.put("totalQuantity", cartService.calculateTotalQuantity());
+        return ResponseEntity.ok(cartInfo);
+    }
+
+
+    @PostMapping("/update")
+    public ResponseEntity<String> updateCartItem(@RequestBody Map<String, Object> payload) {
+        int productId = (int) payload.get("productId");
+        int newQuantity = (int) payload.get("quantity");
+
+        try {
+            cartService.updateCartItem(productId, newQuantity);
+            return ResponseEntity.ok("Cart item updated successfully");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body("Item not found in cart");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid request data: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error updating cart item: " + e.getMessage());
+        }
+    }
 
 }
 

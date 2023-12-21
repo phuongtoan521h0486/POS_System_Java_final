@@ -1,16 +1,15 @@
 package com.thd.pos_system_java_final.models.Cart;
 
+import com.thd.pos_system_java_final.models.Product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cart {
-    private List<Item> cart;
-}
+public class Item {
+    private Product product;
+    private Integer quantity;
 
+}

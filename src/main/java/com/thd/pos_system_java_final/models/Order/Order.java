@@ -25,4 +25,5 @@ public class Order {
     private double excessMoney;
     private int quantity;
     private int customerId;
+    private int accountId;
 }

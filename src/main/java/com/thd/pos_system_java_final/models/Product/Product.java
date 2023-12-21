@@ -7,7 +7,11 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+import java.util.Objects;
 
 @Entity
 @AllArgsConstructor
