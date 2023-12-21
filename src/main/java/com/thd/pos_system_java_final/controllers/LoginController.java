@@ -25,8 +25,8 @@ public class LoginController {
     private AccountService accountService;
 
     @GetMapping("/login")
-    public String login(Model model) {
-        if (model.getAttribute("username") != null) {
+    public String login(HttpSession session) {
+        if (session.getAttribute("username") != null) {
             return "redirect:/";
         }
         return "Login";
@@ -61,7 +61,7 @@ public class LoginController {
             session.setAttribute("username", loginRequest.getUsername());
             return "redirect:/";
         }catch (Exception e) {
-            return "Login failed: " + e.getMessage();
+            return "error";
         }
     }
 
@@ -73,12 +73,13 @@ public class LoginController {
                 String username = jwt.extractUsername(token);
                 Account account = accountService.getAccountByUsername(username);
                 account.setActivate(true);
+                session.setAttribute("usernameWelcome", username);
                 accountService.updateAccount(account);
                 return "redirect:/welcome";
             }
             return "redirect:/login";
         } catch (JwtException e) {
-            return "redirect:/login";
+            return "error";
         }
     }
 
@@ -93,24 +94,24 @@ public class LoginController {
 
     @PostMapping("/welcome") // not finish
     public String welcome(LoginRequest loginRequest, HttpSession session) {
-        String username = (String) session.getAttribute("username");
+        String username = (String) session.getAttribute("usernameWelcome");
         try {
             String password = String.valueOf(loginRequest.getPassword());
             String rePassword = String.valueOf(loginRequest.getRePassword());
-
             Account account = accountService.getAccountByUsername(username);
             String hashedPassword = account.getPassword();
-            if (password.equals(rePassword)) {
+            if (!password.equals(rePassword)) {
                 return "redirect:/welcome";
             } else if (BCrypt.checkpw(password, hashedPassword)) {
-                System.out.println("Same password");
                 return "redirect:/welcome";
             }
+
+            account.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(10)));
+            accountService.updateAccount(account);
+            return "redirect:/login";
         } catch (Exception e) {
             return "error";
         }
-
-        return "redirect:/";
     }
 
 }

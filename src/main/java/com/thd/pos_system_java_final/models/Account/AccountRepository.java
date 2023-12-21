@@ -12,4 +12,6 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     Account findAccountByEmail(String email);
     List<Account> findAll();
 
+    List<Account> findAllByRole(AccountRole accountRole);
+
 }

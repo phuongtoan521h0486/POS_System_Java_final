@@ -57,6 +57,9 @@ public class AccountService /*implements UserDetailsService */{
         return repo.findAccountByAccountId(id);
     }
 
+    public List<Account> getAccountByEmployeeRole() {
+        return repo.findAllByRole(AccountRole.EMPLOYEE);
+    }
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
