@@ -13,12 +13,10 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class AccountService /*implements UserDetailsService */{
+public class AccountService {
 
     @Autowired
     private AccountRepository repo;
-//    @Autowired
-//    private PasswordEncoder encoder;
 
     public Account getAccountByEmail(String email) {
         return repo.findAccountByEmail(email);
@@ -34,9 +32,6 @@ public class AccountService /*implements UserDetailsService */{
         account.setPassword(hashedPassword);
         return repo.save(account);
     }
-
-
-
     public Account getAccountByUsername(String username) {
         return repo.findByUsername(username);
     }
@@ -61,16 +56,4 @@ public class AccountService /*implements UserDetailsService */{
         return repo.findAllByRole(AccountRole.EMPLOYEE);
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//
-//        Account acc = repo.findByUsername(username);
-//        if (acc == null) throw new UsernameNotFoundException("No account with " + username);
-//
-//        return User.withUsername(acc.getUsername())
-//                .password(acc.getPassword())
-//                .roles(acc.getRole())
-//                .disabled(acc.isActivate())
-//                .build();
-//    }
 }

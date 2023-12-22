@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface OrderDetailRepository extends CrudRepository<OrderDetail, Integer> {
     List<OrderDetail> findAll();
+
+    List<OrderDetail> findAllByOrOrderId(int orderId);
+
 }

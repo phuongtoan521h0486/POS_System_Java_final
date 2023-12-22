@@ -7,4 +7,5 @@ import java.util.List;
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     List<Customer> findAll();
     Customer findByPhoneNumber(String phone);
+    Customer findByCustomerId(int id);
 }

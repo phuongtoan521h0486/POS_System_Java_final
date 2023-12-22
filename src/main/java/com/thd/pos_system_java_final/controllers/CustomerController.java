@@ -1,18 +1,41 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Customer.Customer;
 import com.thd.pos_system_java_final.models.Customer.CustomerRepository;
+import com.thd.pos_system_java_final.models.Order.Order;
+import com.thd.pos_system_java_final.models.Order.OrderDetail;
+import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
+import com.thd.pos_system_java_final.models.Order.OrderRepository;
+import com.thd.pos_system_java_final.models.Product.Product;
+import com.thd.pos_system_java_final.models.Product.ProductRepository;
+import com.thd.pos_system_java_final.services.AccountService;
+import com.thd.pos_system_java_final.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping("/check")
     public ResponseEntity<Customer> checkCustomer(@RequestParam String phone) {
@@ -43,5 +66,74 @@ public class CustomerController {
         customerRepository.save(newCustomer);
 
         return ResponseEntity.ok("New customer created successfully.");
+    }
+
+    @GetMapping("")
+    public String index(Model model) {
+        List<Customer> customers = customerRepository.findAll();
+
+        model.addAttribute("customers", customers);
+        model.addAttribute("customerService", customerService);
+
+        return "Customer/index";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable int id) {
+        customerRepository.deleteById(id);
+        return "redirect:/customer";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String edit(@PathVariable int id, String name, String phoneNumber, String address) {
+        if (name == null || phoneNumber == null || address == null ||
+                name.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
+            return "redirect:/customer";
+        }
+
+        Customer customer = customerRepository.findByCustomerId(id);
+        customer.setName(name);
+        customer.setPhoneNumber(phoneNumber);
+        customer.setAddress(address);
+
+        customerRepository.save(customer);
+        return "redirect:/customer";
+    }
+
+    @GetMapping("/{id}")
+    public String detail(@PathVariable int id, Model model) {
+        Customer customer = customerRepository.findByCustomerId(id);
+        model.addAttribute("customer", customer);
+        model.addAttribute("totalOrder", customerService.calculateTotalOrder(id));
+        model.addAttribute("totalSpend", customerService.calculateTotalSpend(id));
+        model.addAttribute("latestOrder", customerService.getLatestOrder());
+        model.addAttribute("totalQuantity", customerService.calculateTotalQuantity(id));
+
+        model.addAttribute("orders", orderRepository.findAllByCustomerId(id));
+        model.addAttribute("accountService", accountService);
+        return "Customer/detail";
+    }
+
+    @GetMapping("/{customerId}/invoice/{orderId}")
+    public String bill(@PathVariable int customerId, @PathVariable int orderId, Model model) {
+        Order order = orderRepository.findByOrderId(orderId);
+        Customer customer = customerRepository.findByCustomerId(customerId);
+        List<OrderDetail> orderDetails = orderDetailRepository.findAllByOrOrderId(orderId);
+        List<Item> items = new ArrayList<>();
+        for(OrderDetail detail: orderDetails) {
+            Product p = productRepository.findByProductId(detail.getProductId());
+            items.add(new Item(p, detail.getQuantity()));
+        }
+
+        model.addAttribute("order", order);
+        model.addAttribute("accountService", accountService);
+        model.addAttribute("customer", customer);
+        model.addAttribute("items", items);
+
+        model.addAttribute("totalAmount", order.getTotalAmount());
+        model.addAttribute("givenMoney", order.getGivenMoney());
+        model.addAttribute("excessMoney", order.getExcessMoney());
+
+        return "Customer/bill";
     }
 }
