@@ -40,9 +40,6 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
-        if (session.getAttribute("username") == null) {
-            return "Login";
-        }
         String username =  session.getAttribute("username").toString();
         Account account = accountService.getAccountByUsername(username);
 

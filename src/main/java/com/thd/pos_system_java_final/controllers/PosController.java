@@ -41,12 +41,6 @@ public class PosController {
         return "index";
     }
 
-
-    @GetMapping("/checkout")
-    public String checkOut() {
-        return "POS/checkout";
-    }
-
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
