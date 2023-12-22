@@ -113,7 +113,7 @@
         <!-- Rest of the form goes here... -->
       </div>
       <!-- Step Wise Form Content -->
-      <form action="/cart/step-2" id="userAccountSetupForm" name="userAccountSetupForm" method="POST">
+      <form class="mt-5" action="/cart/step-2" id="userAccountSetupForm" name="userAccountSetupForm" method="POST">
         <!-- Step 2 Content, default hidden on page load. -->
         <section id="step-2" class="form-step">
 
@@ -173,7 +173,7 @@
                               <i class="fas fa-minus"></i>
                             </i>
 
-                            <div class="form-outline">
+                            <div class="form-outline" style="display: flex; justify-content: center">
                               <label th:for="${'quantity'+item.getProduct().getProductId()}"></label>
                               <input th:id="${'quantity'+item.getProduct().getProductId()}" min="1" name="quantity" th:value="${item.getQuantity()}" type="number" class="form-control" />
                             </div>
@@ -259,6 +259,7 @@
     </div>
   </div>
 </div>
+
 <script>
   function openBarcodePopup() {
     document.getElementById('barcodePopup').style.display = 'block';

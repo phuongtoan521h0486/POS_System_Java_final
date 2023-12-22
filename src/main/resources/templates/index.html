@@ -56,7 +56,7 @@
         <nav class="space-x-4">
           <!-- Form -->
           <div class="input-group rounded" style="width: auto">
-              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+              <input id="search-bar" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
               <span class="input-group-text border-0" id="search-addon">
                 <i class="fas fa-search"></i>
               </span>
@@ -106,7 +106,7 @@
             </select>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-6" >
+        <div id="product-list" class="grid grid-cols-3 gap-6" >
           <!-- Repeat for each product -->
           <div class="bg-gray-100 p-5 rounded-lg text-center" th:each="p: ${products}">
             <img
@@ -172,7 +172,53 @@
                 });
       }
 
+      $(document).ready(function () {
+        $('#search-bar').on('input', function () {
+          searchProducts();
+        });
 
+        $('#searchButton').on('click', function () {
+          searchProducts();
+        });
+
+        function searchProducts() {
+          var keyword = $('#search-bar').val();
+
+          // Perform AJAX request to fetch product data based on the keyword
+          $.ajax({
+            type: 'GET',
+            url: '/api/search',
+            data: { keyword: keyword },
+            success: function (data) {
+              updateProduct(data);
+              console.log(data);
+            },
+            error: function (error) {
+              console.error('Error fetching search results:', error);
+            }
+          });
+        }
+      });
+
+      function updateProduct(products) {
+          var productList = $('#product-list');
+          productList.empty();
+
+        for (let i = 0; i < products.length; i++) {
+            var p = products[i]
+            var product = $('<div class="bg-gray-100 p-5 rounded-lg text-center"></div>');
+            if (p.picture != null) {
+              product.append('<img alt="' + p.productName + ' image" class="mx-auto mb-4"\n' +
+                      '              height="300" src="data:image/png;base64,' + p.picture + '" width="300"/>');
+            } else {
+              product.append('<img alt="' + p.productName + ' image" class="mx-auto mb-4"\n' +
+                      '              height="300" src="/images/default-product-image.png" width="300"/>');
+            }
+            product.append('<h2 class="font-bold text-lg mb-2"'+ p.productName +'"></h2>')
+            product.append('<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="addToCart('+p.productId+')">Add to Cart</button>');
+            productList.append(product)
+        }
+      }
     </script>
 
   </body>
