@@ -149,8 +149,8 @@
                         <a href="#" data-bs-toggle="dropdown"
                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <div class="avatar me-1">
-                                <img th:if="${account.picture != null}" th:src="'data:image/png;base64,' + ${imageUtils.encodeImage(account.picture)}" alt="User Picture"/>
-                                <img th:unless="${account.picture != null}" src="/images/avatar-default.svg" alt="Default Avatar"/>
+                                <img th:if="${account.getPicture() != null}" th:src="'data:image/png;base64,' + ${imageUtils.encodeImage(account.getPicture())}" alt="User Picture"/>
+                                <img th:unless="${account.getPicture() != null}" src="/images/avatar-default.svg" alt="Default Avatar"/>
                             </div>
                             <div class="d-none d-md-block d-lg-inline-block" th:text="'Hi '+ ${account.getFullName()}"></div>
                         </a>

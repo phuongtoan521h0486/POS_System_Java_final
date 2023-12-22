@@ -288,7 +288,9 @@
                                             </div>
                                         </div>
                                         <div class="flex items-center justify-between">
-                                            <a href="#">Change password</a>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                Change password
+                                            </button>
                                             <button
                                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                                     type="submit"
@@ -305,7 +307,37 @@
                     </div>
                 </section>
             </form>
-
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Change Password</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="/user/changePassword" onsubmit="return validateForm()">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="old" class="form-label">Old Password</label>
+                                    <input name="oldPassword" type="password" class="form-control" id="old" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input name="password" type="password" class="form-control" id="password" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="rePassword" class="form-label">Re-enter Password</label>
+                                    <input name="rePassword" type="password" class="form-control" id="rePassword" />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-subtle" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Change</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <footer th:fragment="footer">
           <!--footer-->
@@ -331,25 +363,47 @@
 
     <script th:src="@{/js/Chart.min.js}"></script>
     <script th:src="@{/js/apexcharts.min.js}"></script>
-    <script th:src="@{/js/dashboard.js}"></script>
 
     <script th:src="@{/js/main.js}"></script>
     <script>
         function previewFile() {
             var preview = document.getElementById('previewImage');
             var fileInput = document.getElementById('fileInput');
-            var file = fileInput.files[0];
-            var reader = new FileReader();
+            if (fileInput.files && fileInput.files[0]) {
+                var file = fileInput.files[0];
+                var reader = new FileReader();
 
-            reader.onloadend = function () {
-                preview.src = reader.result;
-            };
+                reader.onloadend = function () {
+                    preview.src = reader.result;
+                };
 
-            if (file) {
                 reader.readAsDataURL(file);
             } else {
                 preview.src = "/images/avatar-default.svg"; // Display default image if no file selected
             }
+        }
+
+        function validateForm() {
+            var oldPassword = document.getElementById('old').value;
+            var newPassword = document.getElementById('password').value;
+            var rePassword = document.getElementById('rePassword').value;
+
+            if (oldPassword === "") {
+                alert("Please enter the old password.");
+                return false;
+            }
+
+            if (newPassword === "") {
+                alert("Please enter a new password.");
+                return false;
+            }
+
+            if (newPassword !== rePassword) {
+                alert("New password and re-entered password do not match.");
+                return false;
+            }
+
+            return true;
         }
     </script>
   </body>

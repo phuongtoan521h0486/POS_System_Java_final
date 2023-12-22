@@ -7,6 +7,7 @@ import com.thd.pos_system_java_final.services.ImageService;
 import com.thd.pos_system_java_final.services.MailService;
 import com.thd.pos_system_java_final.ultils.JwtUtil;
 import lombok.AllArgsConstructor;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class UserController {
     private JwtUtil jwt;
     @Autowired
     private ImageService imageService;
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
@@ -151,29 +154,17 @@ public class UserController {
             account.setPicture(pictureFile.getBytes());
         }
         accountService.updateAccount(account);
+        model.addAttribute("account", account);
+        model.addAttribute("imageUtils", imageService);
 
         return "Dashboard/dashboard";
     }
 
-    @GetMapping("/getUser")
-    public ResponseEntity<List<Account>> listUser() {
-        // Fetch the updated accounts
-        List<Account> accounts = accountService.getAllAccount();
-        return ResponseEntity.ok(accounts);
-    } // de test
-
     @PostMapping("/delete/{id}")
     public String deleteUser(@PathVariable int id) {
-        System.out.println(id);
         accountService.deleteAccount(id);
         return "redirect:/user";
     }
-
-    @PostMapping("/update/{id}")
-    public void updateUser(@PathVariable int id) {
-        Account account = accountService.getAccountById(id);
-        accountService.updateAccount(account);
-    }// test
 
     @PostMapping("/block/{id}")
     public String blockUser(@PathVariable int id) {
@@ -189,5 +180,27 @@ public class UserController {
         account.setStatus(true);
         accountService.updateAccount(account);
         return "redirect:/user";
+    }
+
+    @PostMapping("/resend/{id}")
+    public String resendEmailForUser(@PathVariable int id) {
+        Account account = accountService.getAccountById(id);
+
+        resendEmail(account.getEmail());
+
+        return "redirect:/user";
+    }
+
+    @PostMapping("/changePassword")
+    public String changePassword(String oldPassword, String password) {
+        String username = (String) session.getAttribute("username");
+        Account account = accountService.getAccountByUsername(username);
+
+        if (BCrypt.checkpw(oldPassword, account.getPassword())) {
+            account.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(10)));
+            accountService.updateAccount(account);
+        }
+        session.invalidate(); // clear session
+        return "Login";
     }
 }

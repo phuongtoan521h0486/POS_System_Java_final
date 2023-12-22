@@ -1,7 +1,9 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
+import com.thd.pos_system_java_final.services.CartService;
 import com.thd.pos_system_java_final.services.ImageService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,6 +32,12 @@ public class ProductController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private HttpSession session;
+
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("")
     public String listProduct(Model model) {
@@ -101,7 +110,11 @@ public class ProductController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
-        productRepository.deleteById(id);
+        List<Item> items = (List<Item>) session.getAttribute("cart");
+        if (!cartService.isInOrder(id)) {
+            productRepository.deleteById(id);
+        }
+
         return "redirect:/product";
     }
 

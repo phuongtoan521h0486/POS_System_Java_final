@@ -88,6 +88,15 @@ public class CartService {
     public void resetCart() {
         cartItems.clear();
     }
+
+    public boolean isInOrder(int productId) {
+        for(Item item : cartItems) {
+            if (item.getProduct().getProductId() == productId) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 
