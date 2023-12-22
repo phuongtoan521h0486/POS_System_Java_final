@@ -56,8 +56,6 @@ public class CartController {
         model.addAttribute("myCart", (List<Item>) session.getAttribute("cart"));
         model.addAttribute("imageUtils", imageService);
         model.addAttribute("cartService", cartService);
-
-        //System.out.println(session.getAttribute("cart"));
         return "POS/step2";
     }
 
@@ -102,15 +100,31 @@ public class CartController {
         }
 
         model.addAttribute("order", order);
+        model.addAttribute("salespeople", username);
         model.addAttribute("customer", customer);
         model.addAttribute("items", items);
         model.addAttribute("totalAmount", totalAmount);
         model.addAttribute("givenMoney", givenMoney);
         model.addAttribute("excessMoney", givenMoney - totalAmount);
 
-
         return "POS/step3";
     }
+
+    @GetMapping("/step-3")
+    public String step3() {
+        cartService.resetCart();
+        session.removeAttribute("cart");
+        return "redirect:/";
+    }
+
+    @PostMapping("/resetCart")
+    public ResponseEntity<String> resetCart() {
+        cartService.resetCart();
+        session.removeAttribute("cart");
+
+        return ResponseEntity.ok("Cart reset successfully");
+    }
+
     @PostMapping("/add")
     public ResponseEntity<String> addToCart(@RequestBody Item item) {
         cartService.addItemToCart(item);
@@ -162,5 +176,9 @@ public class CartController {
         }
     }
 
+    @GetMapping("/getCartQuantity")
+    public ResponseEntity<Integer> getCartQuantity() {
+        return ResponseEntity.ok(cartService.getCartItems().size());
+    }
 }
 

@@ -66,7 +66,7 @@
         <div class="space-x-4">
           <a class="hover:text-green-400" href="/cart/step-1">
               <i class=" notification fas fa-shopping-cart">
-                  <span class="badge">3</span>
+                  <span id="cartQuantity" class="badge">0</span>
               </i>
           </a>
           <div class="dropdown">
@@ -153,12 +153,26 @@
           data: JSON.stringify(item),
           success: function(response) {
             console.log('Product added to cart successfully');
+            updateCartQuantity();
           },
           error: function(error) {
             console.error('Error adding product to cart:', error);
           }
         });
       }
+      function updateCartQuantity() {
+        // Send an AJAX request to get the cart quantity
+        fetch('/cart/getCartQuantity')
+                .then(response => response.json())
+                .then(quantity => {
+                  document.getElementById('cartQuantity').textContent = quantity;
+                })
+                .catch(error => {
+                  document.getElementById('cartQuantity').textContent = '0';
+                });
+      }
+
+
     </script>
 
   </body>

@@ -85,6 +85,9 @@ public class CartService {
         throw new NoSuchElementException("Item not found in cart");
     }
 
+    public void resetCart() {
+        cartItems.clear();
+    }
 }
 
 
