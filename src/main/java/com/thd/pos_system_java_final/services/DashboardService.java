@@ -138,7 +138,7 @@ public class DashboardService {
     public double getRevenue(List<Order> orders) {
         double revenue = 0;
         for (Order order: orders) {
-            revenue = order.getTotalAmount();
+            revenue += order.getTotalAmount();
         }
         return revenue;
     }

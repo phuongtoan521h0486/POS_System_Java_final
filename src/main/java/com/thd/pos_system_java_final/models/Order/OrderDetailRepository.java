@@ -9,4 +9,6 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Integ
 
     List<OrderDetail> findAllByOrderId(int orderId);
 
+    boolean existsByProductId(int productId);
+
 }

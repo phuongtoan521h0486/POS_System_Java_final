@@ -35,11 +35,6 @@ public class AccountService {
     public Account getAccountByUsername(String username) {
         return repo.findByUsername(username);
     }
-
-    public List<Account> getAllAccount() {
-        return repo.findAll();
-    }
-
     public void deleteAccount(int id) {
         repo.deleteById(id);
     }

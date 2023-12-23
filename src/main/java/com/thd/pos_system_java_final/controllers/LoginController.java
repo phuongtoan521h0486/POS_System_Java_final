@@ -27,6 +27,15 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(HttpSession session) {
+        if(accountService.getAccountByUsername("admin") == null) {
+            Account admin = new Account();
+            admin.setEmail("admin@gmail.com");
+            admin.setUsername("admin");
+            admin.setPassword(BCrypt.hashpw("admin", BCrypt.gensalt(10)));
+            admin.setActivate(true);
+            accountService.createAccount(admin);
+        }
+
         if (session.getAttribute("username") != null) {
             return "redirect:/";
         }
