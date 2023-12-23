@@ -43,7 +43,7 @@ public class CustomerService {
         List<Order> orders = orderRepository.findAllByCustomerId(customerId);
         int total = 0;
         for(Order order: orders) {
-            List<OrderDetail> orderDetails = orderDetailRepository.findAllByOrOrderId(order.getOrderId());
+            List<OrderDetail> orderDetails = orderDetailRepository.findAllByOrderId(order.getOrderId());
             for(OrderDetail detail: orderDetails) {
                 total += detail.getQuantity();
             }

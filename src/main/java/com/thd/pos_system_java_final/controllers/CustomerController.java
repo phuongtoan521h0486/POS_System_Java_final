@@ -118,7 +118,7 @@ public class CustomerController {
     public String bill(@PathVariable int customerId, @PathVariable int orderId, Model model) {
         Order order = orderRepository.findByOrderId(orderId);
         Customer customer = customerRepository.findByCustomerId(customerId);
-        List<OrderDetail> orderDetails = orderDetailRepository.findAllByOrOrderId(orderId);
+        List<OrderDetail> orderDetails = orderDetailRepository.findAllByOrderId(orderId);
         List<Item> items = new ArrayList<>();
         for(OrderDetail detail: orderDetails) {
             Product p = productRepository.findByProductId(detail.getProductId());

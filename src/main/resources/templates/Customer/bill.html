@@ -127,10 +127,19 @@
     </div>
 </div>
 <button id="saveButton" class="button submit-btn" type="submit">Save</button>
-<a id="continueButton" class="button submit-btn" type="button" th:href="@{/customer/{id}(id=${customer.getCustomerId()})}">Continue</a>
+<a id="continueButton" class="button submit-btn" type="button" >Continue</a>
 </section>
 
 </body>
+<script>
+    // Function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+
+    // Set the href attribute to the previous page's URL
+    document.getElementById('continueButton').setAttribute('href', 'javascript:goBack()');
+</script>
 <script>
     document.getElementById('saveButton').addEventListener('click', function () {
         var contentClone = document.querySelector('#step-3').cloneNode(true);

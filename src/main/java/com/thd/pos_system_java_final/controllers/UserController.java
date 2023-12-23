@@ -3,6 +3,8 @@ package com.thd.pos_system_java_final.controllers;
 import com.thd.pos_system_java_final.models.DataMail;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Order.Order;
+import com.thd.pos_system_java_final.models.Order.OrderDetail;
+import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.services.*;
 import com.thd.pos_system_java_final.ultils.JwtUtil;
 import lombok.AllArgsConstructor;
@@ -22,10 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -45,6 +44,8 @@ public class UserController {
     private DashboardService dashboardService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model,
@@ -59,18 +60,14 @@ public class UserController {
         model.addAttribute("accountService", accountService);
         model.addAttribute("customerService", customerService);
 
+        List<Order> orders = new ArrayList<>();
         if (startDate != null && endDate != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM/dd/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
             try {
                 Date parsedStartDate = ( !startDate.isEmpty()) ? dateFormat.parse(startDate) : null;
                 Date parsedEndDate = (!endDate.isEmpty()) ? dateFormat.parse(endDate) : null;
 
-
-                List<Order> orders = dashboardService.getOrdersByDateRange(parsedStartDate, parsedEndDate);
-
-                model.addAttribute("title", dashboardService.getTitle(parsedStartDate, parsedEndDate));
-                model.addAttribute("orders", orders);
-
+                orders = dashboardService.getOrdersByDateRange(parsedStartDate, parsedEndDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -80,12 +77,13 @@ public class UserController {
             Date fromDate = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date toDate = Date.from(today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-            List<Order> orders = dashboardService.getOrdersByDateRange(fromDate, toDate);
+            orders = dashboardService.getOrdersByDateRange(fromDate, toDate);
 
-
-            model.addAttribute("title", "Today");
-            model.addAttribute("orders", orders);
         }
+        model.addAttribute("totalProduct", dashboardService.countProductsOfOrders(orders));
+        model.addAttribute("orders", orders);
+        model.addAttribute("revenue", dashboardService.getRevenue(orders));
+        model.addAttribute("profit", dashboardService.getProfit(orders));
 
         return "Dashboard/dashboard";
     }
