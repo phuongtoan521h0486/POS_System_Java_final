@@ -2,9 +2,8 @@ package com.thd.pos_system_java_final.controllers;
 
 import com.thd.pos_system_java_final.models.DataMail;
 import com.thd.pos_system_java_final.models.Account.Account;
-import com.thd.pos_system_java_final.services.AccountService;
-import com.thd.pos_system_java_final.services.ImageService;
-import com.thd.pos_system_java_final.services.MailService;
+import com.thd.pos_system_java_final.models.Order.Order;
+import com.thd.pos_system_java_final.services.*;
 import com.thd.pos_system_java_final.ultils.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
@@ -19,6 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,14 +41,52 @@ public class UserController {
     private ImageService imageService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private DashboardService dashboardService;
+    @Autowired
+    private CustomerService customerService;
 
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model) {
+    public String dashboard(HttpSession session, Model model,
+                            @RequestParam(name = "startDate", required = false) String startDate,
+                            @RequestParam(name = "endDate", required = false) String endDate) {
         String username =  session.getAttribute("username").toString();
         Account account = accountService.getAccountByUsername(username);
 
         model.addAttribute("account", account);
         model.addAttribute("imageUtils", imageService);
+
+        model.addAttribute("accountService", accountService);
+        model.addAttribute("customerService", customerService);
+
+        if (startDate != null && endDate != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM/dd/yyyy");
+            try {
+                Date parsedStartDate = ( !startDate.isEmpty()) ? dateFormat.parse(startDate) : null;
+                Date parsedEndDate = (!endDate.isEmpty()) ? dateFormat.parse(endDate) : null;
+
+
+                List<Order> orders = dashboardService.getOrdersByDateRange(parsedStartDate, parsedEndDate);
+
+                model.addAttribute("title", dashboardService.getTitle(parsedStartDate, parsedEndDate));
+                model.addAttribute("orders", orders);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Today
+            LocalDate today = LocalDate.now();
+            Date fromDate = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date toDate = Date.from(today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            List<Order> orders = dashboardService.getOrdersByDateRange(fromDate, toDate);
+
+
+            model.addAttribute("title", "Today");
+            model.addAttribute("orders", orders);
+        }
+
         return "Dashboard/dashboard";
     }
 

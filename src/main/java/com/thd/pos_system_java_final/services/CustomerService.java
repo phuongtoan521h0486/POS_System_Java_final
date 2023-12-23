@@ -19,6 +19,8 @@ public class CustomerService {
 
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     public int calculateTotalOrder(int customerId) {
         return orderRepository.countAllByCustomerId(customerId);
@@ -49,4 +51,7 @@ public class CustomerService {
         return  total;
     }
 
+    public Customer getCustomerById(int customerId) {
+        return customerRepository.findByCustomerId(customerId);
+    }
 }

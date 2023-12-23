@@ -66,7 +66,7 @@
         <div class="space-x-4">
           <a class="hover:text-green-400" href="/cart/step-1">
               <i class=" notification fas fa-shopping-cart">
-                  <span id="cartQuantity" class="badge">0</span>
+                  <span id="cartQuantity" class="badge"></span>
               </i>
           </a>
           <div class="dropdown">
@@ -86,15 +86,16 @@
         </div>
       </header>
       <main class="py-10">
-        <h1 class="text-5xl font-bold text-center mb-10">iPhone</h1>
+        <h1 class="text-5xl font-bold text-center mb-10">Our Products</h1>
         <div class="flex justify-between items-center mb-5">
           <div class="flex space-x-2">
             <a class="text-green-400 font-bold" href="#"> All </a>
-            <a class="hover:text-green-400" href="#"> iPhone 15 </a>
-            <a class="hover:text-green-400" href="#"> iPhone 14 </a>
-            <a class="hover:text-green-400" href="#"> iPhone 13 </a>
-            <a class="hover:text-green-400" href="#"> iPhone 12 </a>
-            <a class="hover:text-green-400" href="#"> iPhone 11 </a>
+            <a class="hover:text-green-400" href="#"> Smart Phone </a>
+            <a class="hover:text-green-400" href="#"> Accessories </a>
+            <a class="hover:text-green-400" href="#"> Smart TV </a>
+            <a class="hover:text-green-400" href="#"> Smart Watch </a>
+            <a class="hover:text-green-400" href="#"> iMac </a>
+            <a class="hover:text-green-400" href="#"> Laptop </a>
           </div>
           <div>
             <label class="text-gray-400" for="sort"> Sorted by: </label>
@@ -102,7 +103,11 @@
               class="bg-gray-100 text-gray-900 border border-gray-300"
               id="sort"
             >
-              <option>Newly launched</option>
+              <option>Newest</option>
+              <option>Price Asc</option>
+              <option>Price Desc</option>
+              <option>Name: A - Z</option>
+              <option>Name: Z - A</option>
             </select>
           </div>
         </div>
@@ -138,6 +143,7 @@
       </main>
     </div>
     <script th:inline="javascript">
+      updateCartQuantity();
       function addToCart(productId) {
         // Create a JavaScript object representing the item
         var item = {
@@ -214,7 +220,11 @@
               product.append('<img alt="' + p.productName + ' image" class="mx-auto mb-4"\n' +
                       '              height="300" src="/images/default-product-image.png" width="300"/>');
             }
-            product.append('<h2 class="font-bold text-lg mb-2"'+ p.productName +'"></h2>')
+            product.append('<h2 class="font-bold text-lg mb-2">'+ p.productName +'</h2>')
+            product.append('<p class="text-green-400 text-xl mb-1">'+ p.retailPrice.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD'
+            })  +'</p>')
             product.append('<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="addToCart('+p.productId+')">Add to Cart</button>');
             productList.append(product)
         }

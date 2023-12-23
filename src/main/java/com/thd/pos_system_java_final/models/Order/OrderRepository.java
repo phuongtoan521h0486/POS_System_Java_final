@@ -2,6 +2,7 @@ package com.thd.pos_system_java_final.models.Order;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrderRepository extends CrudRepository<Order, Integer> {
@@ -14,4 +15,6 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
     Order findFirstByOrderByOrderDateDesc();
 
     Order findByOrderId(int orderId);
+
+    List<Order> findByOrderDateBetween(Date fromDate, Date toDate);
 }

@@ -13,6 +13,20 @@
     <link rel="stylesheet" th:href="@{/css/perfect-scrollbar.css}">
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <link rel="shortcut icon" th:href="@{/images/logo.png}" type="image/x-icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Bootstrap Datepicker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Datepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
 
 <body>
@@ -165,7 +179,7 @@
         </nav>
         <div class="main-content container-fluid" >
             <div class="page-title">
-                <h3>Dashboard</h3>
+                <h3>Dashboard <span th:text="${title}"></span></h3>
             </div>
             <section class="section">
                 <div class="row mb-2">
@@ -225,7 +239,7 @@
                             <div class="card-body p-0">
                                 <div class="d-flex flex-column">
                                     <div class='px-3 py-3 d-flex justify-content-between'>
-                                        <h3 class='card-title'>Sales Today</h3>
+                                        <h3 class='card-title'>Sales</h3>
                                         <div class="card-right d-flex align-items-center">
                                             <p>423 </p>
                                         </div>
@@ -238,6 +252,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mb-4">
+                    <form onsubmit="return validateDateRange()">
+                        <div class="form-row">
+                            <div class="col-md-3 form-group" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                                <label for="startDate">Form </label>
+                                <input type="text" class="form-control" id="startDate" name="startDate" placeholder="Select From Date" autocomplete="off">
+                            </div>
+                            <div class="col-md-3 form-group" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                                <label for="endDate">To </label>
+                                <input type="text" class="form-control" id="endDate" name="endDate" placeholder="Select To Date" autocomplete="off">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <div class="btn-group" role="group" aria-label="Date Buttons">
+                                    <button type="button" class="btn btn-primary" onclick="setDateRange('today')">Today</button>
+                                    <button type="button" class="btn btn-primary" onclick="setDateRange('yesterday')">Yesterday</button>
+                                    <button type="button" class="btn btn-primary" onclick="setDateRange('last7days')">Last 7 Days</button>
+                                    <button type="button" class="btn btn-primary" onclick="setDateRange('thismonth')">This Month</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+
+                </div>
+
+
                 <div class="row mb-4">
                     <div class="col-md-8">
                         <div class="card d-flex flex-column h-100">
@@ -286,7 +331,39 @@
                     </div>
                 </div>
             </section>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title" >Orders</h4>
+                </div>
+                <div class="card-body px-0 pb-0">
+                    <div class="table-responsive">
+                        <table class='table mb-0' id="table1">
+                            <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Order Date</th>
+                                <th>Total Amount</th>
+                                <th>Items</th>
+                                <th>Customer</th>
+                                <th>Process By</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="order: ${orders}">
+                            <tr>
+                                <td th:text="${order.getOrderId()}"></td>
+                                <td th:text="${#dates.format(order.getOrderDate(), 'MM/dd/yyyy')}"></td>
+                                <td th:text="${#numbers.formatCurrency(order.getTotalAmount())}"></td>
+                                <td th:text="${order.getQuantity()}"></td>
+                                <td th:text="${customerService.getCustomerById(order.getCustomerId()).getName()}"></td>
+                                <td th:text="${accountService.getAccountById(order.getAccountId()).getFullName()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <footer th:fragment="footer"><!--footer-->
             <div class="footer clearfix mb-0 text-muted">
                 <div class="float-start">
@@ -310,5 +387,58 @@
 <script th:src="@{/js/dashboard.js}"></script>
 
 <script th:src="@{/js/main.js}"></script>
+
+<script>
+    $(document).ready(function(){
+        var today = new Date();
+        $('#startDate, #endDate').datepicker({
+            format: 'MM/dd/yyyy',
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('setDate', today);
+    });
+
+    function validateDateRange() {
+        var fromDate = $('#startDate').datepicker('getDate');
+        var toDate = $('#endDate').datepicker('getDate');
+
+        if (fromDate && toDate && fromDate > toDate) {
+            alert('Invalid date range. "From" date should be less than or equal to "To" date.');
+            return false;
+        }
+
+        return true;
+    }
+
+    function setDateRange(range) {
+        var today = new Date();
+        var startDate, endDate;
+
+        switch (range) {
+            case 'today':
+                startDate = today;
+                endDate = today;
+                break;
+            case 'yesterday':
+                today.setDate(today.getDate() - 1);
+                startDate = today;
+                endDate = today+1;
+                break;
+            case 'last7days':
+                startDate = new Date(today);
+                startDate.setDate(today.getDate() - 6);
+                endDate = today;
+                break;
+            case 'thismonth':
+                startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                break;
+        }
+
+        $('#startDate').datepicker('setDate', startDate);
+        $('#endDate').datepicker('setDate', endDate);
+    }
+</script>
+
 </body>
 </html>
