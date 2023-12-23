@@ -58,7 +58,7 @@ public class DashboardService {
         LocalDate fromLocalDate = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate toLocalDate = toDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        return toLocalDate.isEqual(fromLocalDate.plusDays(1));
+        return toLocalDate.isEqual(fromLocalDate.plusDays(1)) && toDate.getDay() == new Date().getDay();
     }
 
     private boolean isThisMonth(Date fromDate, Date toDate) {
@@ -93,13 +93,13 @@ public class DashboardService {
     }
 
     private List<Order> getOrdersYesterday() {
-        Date todayEnd = addOneDay(removeTimePart(new Date()));
+        Date yesterdayEnd = removeTimePart(new Date());
 
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         Date yesterdayStart = removeTimePart(calendar.getTime());
 
-        return orderRepository.findByOrderDateBetween(yesterdayStart, todayEnd);
+        return orderRepository.findByOrderDateBetween(yesterdayStart, yesterdayEnd);
     }
 
     private List<Order> getOrdersThisMonth() {

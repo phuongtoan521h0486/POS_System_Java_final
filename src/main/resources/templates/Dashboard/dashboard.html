@@ -391,11 +391,19 @@
 <script>
     $(document).ready(function(){
         var today = new Date();
-        $('#startDate, #endDate').datepicker({
+        $('#startDate').datepicker({
             format: 'MM/dd/yyyy',
             autoclose: true,
             todayHighlight: true
         }).datepicker('setDate', today);
+
+        today.setDate(today.getDate() + 1)
+        var endDate = today;
+        $('#endDate').datepicker({
+            format: 'MM/dd/yyyy',
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('setDate', endDate);
     });
 
     function validateDateRange() {
@@ -422,7 +430,7 @@
             case 'yesterday':
                 today.setDate(today.getDate() - 1);
                 startDate = today;
-                endDate = today+1;
+                endDate = new Date();
                 break;
             case 'last7days':
                 startDate = new Date(today);
