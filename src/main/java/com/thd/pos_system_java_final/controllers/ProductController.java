@@ -1,11 +1,13 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import com.thd.pos_system_java_final.services.CartService;
 import com.thd.pos_system_java_final.services.ImageService;
+import com.thd.pos_system_java_final.ultils.WebUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -46,6 +48,10 @@ public class ProductController {
     public String listProduct(Model model) {
         List<Product> productList = new ArrayList<>();
         productRepository.findAll().forEach(productList::add);
+
+        model.addAttribute("utils", new WebUtils());
+        model.addAttribute("account", session.getAttribute("account"));
+
         model.addAttribute("imageUtils", imageService);
         model.addAttribute("products", productList);
         return "Product/index";

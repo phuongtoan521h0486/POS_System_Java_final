@@ -58,7 +58,7 @@
                             <li>
                                 <a href="/product">Product Management</a>
                             </li>
-                            <li>
+                            <li th:if="${utils.isAdmin(account)}">
                                 <a href="/product/add">Add Product</a>
                             </li>
                         </ul>
@@ -68,7 +68,7 @@
 
 
 
-                    <li class="sidebar-item  has-sub">
+                    <li th:if="${utils.isAdmin(account)}" class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i data-feather="layers" width="20"></i>
                             <span>Staff</span>

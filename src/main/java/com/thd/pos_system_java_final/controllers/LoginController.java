@@ -56,6 +56,7 @@ public class LoginController {
                     return "/Login";
                 } else if (account.getRole() == AccountRole.ADMIN) {
                     session.setAttribute("username", loginRequest.getUsername());
+                    session.setAttribute("account", account);
                     return "redirect:/";
                 } else if (!account.isActivate()) {
                     model.addAttribute("error", "Please login through out email");
@@ -69,6 +70,7 @@ public class LoginController {
                 }
             }
             session.setAttribute("username", loginRequest.getUsername());
+            session.setAttribute("account", account);
             return "redirect:/";
         }catch (Exception e) {
             return "error";

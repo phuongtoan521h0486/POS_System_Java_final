@@ -68,7 +68,7 @@
                             <li>
                                 <a href="/product">Product Management</a>
                             </li>
-                            <li>
+                            <li th:if="${utils.isAdmin(account)}">
                                 <a href="/product/add">Add Product</a>
                             </li>
                         </ul>
@@ -78,7 +78,7 @@
 
 
 
-                    <li class="sidebar-item  has-sub">
+                    <li th:if="${utils.isAdmin(account)}" class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i data-feather="layers" width="20"></i>
                             <span>Staff</span>
@@ -209,7 +209,7 @@
                                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Total Spending
                                 </th>
-                                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                <th th:if="${utils.isAdmin(account)}" class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Actions
                                 </th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -237,7 +237,7 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <span th:text="${ #numbers.formatCurrency(customerService.calculateTotalSpend(customer.getCustomerId()))}"></span>
                                 </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <td th:if="${utils.isAdmin(account)}" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <a th:href="'#editCustomerModal-' + ${customer.getCustomerId()}" class="edit" data-toggle="modal"><i
                                             class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
                                     <a th:href="'#deleteCustomerModal-' + ${customer.getCustomerId()}" class="delete" data-toggle="modal"><i

@@ -62,7 +62,7 @@
               <li>
                 <a href="/product">Product Management</a>
               </li>
-              <li>
+              <li th:if="${utils.isAdmin(account)}">
                 <a href="/product/add">Add Product</a>
               </li>
             </ul>
@@ -72,7 +72,7 @@
 
 
 
-          <li class="sidebar-item  has-sub">
+          <li th:if="${utils.isAdmin(account)}" class="sidebar-item  has-sub">
             <a href="#" class='sidebar-link'>
               <i data-feather="layers" width="20"></i>
               <span>Staff</span>
@@ -174,8 +174,8 @@
                               Products
                             </h1>
                             <div class="text-2xl font-semibold text-gray-500" th:text="${products.size()}"></div>
-                            <div class="flex items-center">
-                              <a th:href="@{/product/add}"
+                            <div  class="flex items-center">
+                              <a th:if="${utils.isAdmin(account)}" th:href="@{/product/add}"
                                  class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Add product
                               </a>
@@ -193,18 +193,18 @@
                               <th class="text-sm font-medium px-6 py-4" scope="col">
                                 CATEGORY
                               </th>
-                              <th class="text-sm font-medium px-6 py-4" scope="col">
+                              <th th:if="${utils.isAdmin(account)}" class="text-sm font-medium px-6 py-4" scope="col">
                                 IMPORT PRICE
                               </th>
                               <th class="text-sm font-medium px-6 py-4" scope="col">
                                 RETAIL PRICE
                               </th>
 
-                              <th class="text-sm font-medium px-6 py-4" scope="col">
+                              <th th:if="${utils.isAdmin(account)}" class="text-sm font-medium px-6 py-4" scope="col">
                                 EDIT
                               </th>
 
-                              <th class="text-sm font-medium px-6 py-4" scope="col">
+                              <th th:if="${utils.isAdmin(account)}" class="text-sm font-medium px-6 py-4" scope="col">
                                 DELETE
                               </th>
                             </tr>
@@ -227,19 +227,19 @@
                                   th:text="${p.barcode}"></td>
                               <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
                                   th:text="${p.category}"></td>
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                              <td th:if="${utils.isAdmin(account)}" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
                                   th:text="${#numbers.formatCurrency(p.importPrice)}"></td>
 
                               <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
                                   th:text="${#numbers.formatCurrency(p.retailPrice)}"></td>
 
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                              <td th:if="${utils.isAdmin(account)}" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <a class="text-indigo-600 hover:text-indigo-900"
                                    th:href="@{'/product/edit/' + ${p.productId}}">
                                   Edit
                                 </a>
                               </td>
-                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                              <td th:if="${utils.isAdmin(account)}" class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                 <a th:href="'#deleteProductModal-' + ${p.productId}" class="delete" data-toggle="modal"><i
                                         class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                               </td>

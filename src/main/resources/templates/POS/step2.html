@@ -169,7 +169,7 @@
                         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                           <!-- Quantity -->
                           <div class="d-flex mb-4" style="max-width: 300px">
-                            <i class="btn btn-primary px-3 me-2" th:onclick="'updateQuantity(-1, ' + ${item.getProduct().getProductId()} + ')'">
+                            <i id="decrease-product" class="btn btn-primary px-3 me-2" th:onclick="'updateQuantity(-1, ' + ${item.getProduct().getProductId()} + ')'">
                               <i class="fas fa-minus"></i>
                             </i>
 
@@ -178,7 +178,7 @@
                               <input th:id="${'quantity'+item.getProduct().getProductId()}" min="1" name="quantity" th:value="${item.getQuantity()}" type="number" class="form-control" />
                             </div>
 
-                            <i class="btn btn-primary px-3 ms-2" th:onclick="'updateQuantity(1, ' + ${item.getProduct().getProductId()} + ')'" >
+                            <i id="increase-product" class="btn btn-primary px-3 ms-2" th:onclick="'updateQuantity(1, ' + ${item.getProduct().getProductId()} + ')'" >
                               <i class="fas fa-plus" ></i>
                             </i>
                           </div>
@@ -269,6 +269,7 @@
     document.getElementById('barcodePopup').style.display = 'none';
   }
   $(document).ready(function() {
+
     $('.remove-item-button').click(function() {
       var cardBody = $(this).closest('.card-body');
       var productId = cardBody.data('product-id');
@@ -364,6 +365,19 @@
 
         $('#totalAmount').text(formattedTotalAmount);
         $('#totalQuantity').text(totalQuantity);
+
+        var givenMoney = parseFloat($('#givenMoney').val());
+        if (!isNaN(givenMoney)) {
+          var totalAmount = parseFloat($('#totalAmount').text().replace('$', '').replace(',', ''));
+          var excessMoney = givenMoney - totalAmount;
+          var formatExcessMoney = excessMoney.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD'
+          });
+          $('#excessMoney').html('<strong>' + formatExcessMoney + '</strong>');
+        } else {
+          $('#excessMoney').html('<strong>$0.00</strong>')
+        }
 
         console.log('Recalculation complete');
       },
@@ -544,6 +558,16 @@
 </script>
 <script>
   $(document).ready(function () {
+    $('#givenMoney').on('input', function () {
+      var givenMoney = parseFloat($(this).val());
+
+      if (!isNaN(givenMoney)) {
+        updateExcessMoney(givenMoney)
+      } else {
+        $('#excessMoney').html('<strong>$0.00</strong>')
+      }
+    });
+
     $('#givenMoney').keypress(function (e) {
       // Check if the pressed key is "Enter" (key code 13)
       if (e.which === 13) {
@@ -560,6 +584,12 @@
       }
     });
 
+    function updateExcessMoney(givenMoney) {
+      var totalAmount = parseFloat($('#totalAmount').text().replace('$', '').replace(',', ''));
+      var excessMoney = givenMoney - totalAmount;
+      $('#excessMoney').html('<strong>' + formatCurrency(excessMoney) + '</strong>');
+    }
+
     function formatCurrency(amount) {
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -567,6 +597,8 @@
       }).format(amount);
     }
   });
+
+
 </script>
 <script>
   function checkAndSubmit() {

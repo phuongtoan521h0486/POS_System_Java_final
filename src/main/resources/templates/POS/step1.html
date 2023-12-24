@@ -68,7 +68,7 @@
             <div class="col-md-6">
               <div class="form-group">
 
-                <input type="tel" class="form-control" id="phone" placeholder="Enter phone" name="phone">
+                <input type="tel" class="form-control" id="phone" placeholder="Enter phone" name="phone" required>
                 <div id="customer-info" class="mt-2 p-4 text-lg text-gray-700 bg-gray-100 rounded-lg">
                   <span>Name: </span>
                   <br>
@@ -131,7 +131,12 @@
     nextButton.disabled = phoneNumber === '';
 
     if (event.key === 'Enter') {
-      checkCustomer(event);
+      if (isValidPhoneNumber(phoneNumber)) {
+        checkCustomer(event);
+      } else {
+        alert("Phone number is not valid")
+      }
+
     }
   });
 
@@ -212,6 +217,11 @@
     } finally {
       document.getElementById('new-customer-popup').classList.add('hidden');
     }
+  }
+
+  function isValidPhoneNumber(phoneNumber) {
+    var regex = /^\d{10}$/;
+    return regex.test(phoneNumber);
   }
 
 
