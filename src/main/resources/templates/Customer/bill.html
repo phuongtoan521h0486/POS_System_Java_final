@@ -21,114 +21,120 @@
 </head>
 
 <body>
-<section id="step-3" class="form-step">
-<div class="card card-lg mb-5">
-    <div class="card-body">
-        <div class="row justify-content-lg-between">
-            <div class="col-sm order-2 order-sm-1 mb-3">
-                <div class="mb-2">
-                    <img class="avatar rounded-circle" src="/images/logo.png" alt="Logo" width="128" height="128">
+    <section id="step-3" class="form-step">
+        <div class="card card-lg mb-5">
+            <div class="card-body">
+                <div class="row justify-content-lg-between">
+                    <div class="col-sm order-2 order-sm-1 mb-3">
+                        <div class="mb-2">
+                            <img class="avatar rounded-circle" src="/images/logo.png" alt="Logo" width="128"
+                                height="128">
+                        </div>
+                        <h1 class="h2 text-primary">GTV POS System</h1>
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-sm-auto order-1 order-sm-2 text-sm-end mb-3">
+                        <div class="mb-3">
+                            <h2>Invoice #</h2>
+                            <span id="numberInvoice" class="d-block" th:text="${order.getOrderId()}"></span>
+                        </div>
+
+                        <address class="text-dark">
+                            Ho Chi Minh City<br>
+                            Hoc Mon<br>
+                        </address>
+                        <div class="col-md">
+                            <dl class="row">
+                                <dt class="col-sm-6">Staff:</dt>
+                                <dd class="col-sm-6"
+                                    th:text="${accountService.getAccountById(order.getAccountId()).getFullName()}"></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <!-- End Col -->
                 </div>
-                <h1 class="h2 text-primary">GTV POS System</h1>
-            </div>
-            <!-- End Col -->
-
-            <div class="col-sm-auto order-1 order-sm-2 text-sm-end mb-3">
-                <div class="mb-3">
-                    <h2>Invoice #</h2>
-                    <span id="numberInvoice" class="d-block" th:text="${order.getOrderId()}"></span>
-                </div>
-
-                <address class="text-dark">
-                    Ho Chi Minh City<br>
-                    Hoc Mon<br>
-                </address>
-                <div class="col-md">
-                    <dl class="row">
-                        <dt class="col-sm-6">Staff:</dt>
-                        <dd class="col-sm-6" th:text="${accountService.getAccountById(order.getAccountId()).getFullName()}"></dd>
-                    </dl>
-                </div>
-            </div>
-            <!-- End Col -->
-        </div>
-        <!-- End Row -->
-
-        <div class="row justify-content-md-between mb-3">
-            <div class="col-md">
-                <h4>Bill to:</h4>
-                <h4 th:text="${customer.getName()}"></h4>
-
-                <address th:text="${customer.getAddress()}"></address>
-            </div>
-            <!-- End Col -->
-
-            <div class="col-md text-md-end">
-                <dl class="row">
-                    <dt class="col-sm-8">Invoice date:</dt>
-                    <dd class="col-sm-4" th:text="${#dates.format(order.getOrderDate(), 'MM/dd/yyyy')}"></dd>
-                </dl>
-            </div>
-            <!-- End Col -->
-        </div>
-        <!-- End Row -->
-
-        <!-- Table -->
-        <div class="table-responsive">
-            <table class="table table-borderless table-nowrap table-align-middle">
-                <thead class="thead-light">
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th class="table-text-end">Total Price</th>
-                </tr>
-
-                </thead>
-
-                <tbody th:each="item :${items}">
-
-                <tr>
-                    <th th:text="${item.getProduct() != null ?  item.getProduct().getProductName() : 'This Product has been deleted'}"></th>
-                    <td th:text="${item.getProduct() != null ? #numbers.formatCurrency(item.getProduct().getRetailPrice()) : '$0.00'}"></td>
-                    <td th:text="${item.getQuantity()}"></td>
-                    <td class="table-text-end"
-                        th:text="${item.getProduct() != null ? #numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity()): '$0.00'}">
-                    </td>
-                </tr>
-
-                </tbody>
-            </table>
-        </div>
-        <!-- End Table -->
-
-        <hr class="my-5">
-
-        <div class="row justify-content-md-end mb-3">
-            <div class="col-md-8 col-lg-7">
-                <dl class="row text-sm-end">
-                    <dt class="col-sm-6">Total Amount:</dt>
-                    <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>
-                    <dt class="col-sm-6">Given Money:</dt>
-                    <dd class="col-sm-6" th:text="${#numbers.formatCurrency(givenMoney)}">$3000.00</dd>
-                    <dt class="col-sm-6">Excess Money:</dt>
-                    <dd class="col-sm-6" th:text="${#numbers.formatCurrency(excessMoney)}">$250.00</dd>
-                </dl>
                 <!-- End Row -->
+
+                <div class="row justify-content-md-between mb-3">
+                    <div class="col-md">
+                        <h4>Bill to:</h4>
+                        <h4 th:text="${customer.getName()}"></h4>
+
+                        <address th:text="${customer.getAddress()}"></address>
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-md text-md-end">
+                        <dl class="row">
+                            <dt class="col-sm-8">Invoice date:</dt>
+                            <dd class="col-sm-4" th:text="${#dates.format(order.getOrderDate(), 'MM/dd/yyyy')}"></dd>
+                        </dl>
+                    </div>
+                    <!-- End Col -->
+                </div>
+                <!-- End Row -->
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-borderless table-nowrap table-align-middle">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Item</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th class="table-text-end">Total Price</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody th:each="item :${items}">
+
+                            <tr>
+                                <th
+                                    th:text="${item.getProduct() != null ?  item.getProduct().getProductName() : 'This Product has been deleted'}">
+                                </th>
+                                <td
+                                    th:text="${item.getProduct() != null ? #numbers.formatCurrency(item.getProduct().getRetailPrice()) : '$0.00'}">
+                                </td>
+                                <td th:text="${item.getQuantity()}"></td>
+                                <td class="table-text-end"
+                                    th:text="${item.getProduct() != null ? #numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity()): '$0.00'}">
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Table -->
+
+                <hr class="my-5">
+
+                <div class="row justify-content-md-end mb-3">
+                    <div class="col-md-8 col-lg-7">
+                        <dl class="row text-sm-end">
+                            <dt class="col-sm-6">Total Amount:</dt>
+                            <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>
+                            <dt class="col-sm-6">Given Money:</dt>
+                            <dd class="col-sm-6" th:text="${#numbers.formatCurrency(givenMoney)}">$3000.00</dd>
+                            <dt class="col-sm-6">Excess Money:</dt>
+                            <dd class="col-sm-6" th:text="${#numbers.formatCurrency(excessMoney)}">$250.00</dd>
+                        </dl>
+                        <!-- End Row -->
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <div class="mb-3">
+                    <h3>Thank you!</h3>
+                </div>
+
+                <p class="small mb-0" th:text="${#calendars.year(order.getOrderDate())} + ' GTV POS system.'"></p>
             </div>
         </div>
-        <!-- End Row -->
-
-        <div class="mb-3">
-            <h3>Thank you!</h3>
-        </div>
-
-        <p class="small mb-0" th:text="${#calendars.year(order.getOrderDate())} + ' GTV POS system.'"></p>
-    </div>
-</div>
-<button id="saveButton" class="button submit-btn" type="submit">Save</button>
-<a id="continueButton" class="button submit-btn" type="button" >Continue</a>
-</section>
+        <button id="saveButton" class="button submit-btn" type="submit">Save</button>
+        <a id="continueButton" class="button submit-btn" type="button">Continue</a>
+    </section>
 
 </body>
 <script>
@@ -171,4 +177,5 @@
         });
     });
 </script>
+
 </html>

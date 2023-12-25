@@ -21,41 +21,41 @@
 </head>
 
 <body>
-<div class="container">
-  <div>
-    <div id="multi-step-form-container">
-      <!-- Form Steps / Progress Bar -->
-      <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
-        <!-- Step 1 -->
-        <li class="form-stepper-active text-center form-stepper-list" step="1">
-          <a class="mx-2">
+  <div class="container">
+    <div>
+      <div id="multi-step-form-container">
+        <!-- Form Steps / Progress Bar -->
+        <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+          <!-- Step 1 -->
+          <li class="form-stepper-active text-center form-stepper-list" step="1">
+            <a class="mx-2">
               <span class="form-stepper-circle">
                 <span>1</span>
               </span>
-            <div class="label">Enter Phone Number</div>
-          </a>
-        </li>
-        <!-- Step 2 -->
-        <li class="form-stepper-active text-center form-stepper-list" step="2">
-          <a class="mx-2">
+              <div class="label">Enter Phone Number</div>
+            </a>
+          </li>
+          <!-- Step 2 -->
+          <li class="form-stepper-active text-center form-stepper-list" step="2">
+            <a class="mx-2">
               <span class="form-stepper-circle ">
                 <span>2</span>
               </span>
-            <div class="label">Checkout</div>
-          </a>
-        </li>
-        <!-- Step 3 -->
-        <li class="form-stepper-active text-center form-stepper-list" step="3">
-          <a class="mx-2">
+              <div class="label">Checkout</div>
+            </a>
+          </li>
+          <!-- Step 3 -->
+          <li class="form-stepper-active text-center form-stepper-list" step="3">
+            <a class="mx-2">
               <span class="form-stepper-circle">
                 <span>3</span>
               </span>
-            <div class="label">Invoice</div>
-          </a>
-        </li>
-      </ul>
-      <!-- Step Wise Form Content -->
-<!--      <form action="" id="userAccountSetupForm" name="userAccountSetupForm" method="POST">-->
+              <div class="label">Invoice</div>
+            </a>
+          </li>
+        </ul>
+        <!-- Step Wise Form Content -->
+        <!--      <form action="" id="userAccountSetupForm" name="userAccountSetupForm" method="POST">-->
         <!-- Step 3 Content, default hidden on page load. -->
         <section id="step-3" class="form-step">
           <!-- Step 3 input fields -->
@@ -116,25 +116,25 @@
               <div class="table-responsive">
                 <table class="table table-borderless table-nowrap table-align-middle">
                   <thead class="thead-light">
-                  <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th class="table-text-end">Total Price</th>
-                  </tr>
+                    <tr>
+                      <th>Item</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th class="table-text-end">Total Price</th>
+                    </tr>
 
                   </thead>
 
                   <tbody th:each="item :${items}">
 
-                  <tr>
-                    <th th:text="${item.getProduct().getProductName()}"></th>
-                    <td th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice())}"></td>
-                    <td th:text="${item.getQuantity()}"></td>
-                    <td class="table-text-end"
+                    <tr>
+                      <th th:text="${item.getProduct().getProductName()}"></th>
+                      <td th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice())}"></td>
+                      <td th:text="${item.getQuantity()}"></td>
+                      <td class="table-text-end"
                         th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity())}">
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
 
                   </tbody>
                 </table>
@@ -166,12 +166,13 @@
             </div>
           </div>
           <button id="saveButton" class="button submit-btn" type="submit">Save</button>
-          <button id="continueButton" class="button submit-btn" type="button" onclick="continueToStep3()">Continue</button>
+          <button id="continueButton" class="button submit-btn" type="button"
+            onclick="continueToStep3()">Continue</button>
         </section>
 
+      </div>
     </div>
   </div>
-</div>
 
 </body>
 <script>
@@ -219,4 +220,5 @@
     });
   }
 </script>
+
 </html>

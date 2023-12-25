@@ -251,11 +251,11 @@
                           <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                             <div th:switch="${staff.isStatus()}" class="btn-group">
                               <button th:case="${true}" th:data-id="${staff.getAccountId()}" type="button"
-                                      class="btn l-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-block">
+                                class="btn l-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-block">
                                 Block
                               </button>
                               <button th:case="${false}" th:data-id="${staff.getAccountId()}" type="button"
-                                      class="btn l-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-enable">
+                                class="btn l-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-enable">
                                 Enable
                               </button>
                               <button type="button"
@@ -273,14 +273,15 @@
                                     id="btn-delete">Delete</a>
                                 </li>
                                 <li>
-                                  <a type="submit" th:if="${staff.isActivate == false}" th:data-id="${staff.getAccountId()}"
-                                    class="dropdown-item" id="btn-resend">Resend email</a>
+                                  <a type="submit" th:if="${staff.isActivate == false}"
+                                    th:data-id="${staff.getAccountId()}" class="dropdown-item" id="btn-resend">Resend
+                                    email</a>
                                 </li>
                               </ul>
                             </div>
                           </td>
                         </tr>
-                    </tbody>
+                      </tbody>
                     </form>
                   </table>
                 </div>
@@ -333,7 +334,7 @@
       $("#user-info").submit();
     });
 
-    $(document).on("click", "#btn-delete", function(e) {
+    $(document).on("click", "#btn-delete", function (e) {
       const btn = e.target;
       const id = $(btn).data("id");
 
@@ -341,18 +342,18 @@
         $.ajax({
           type: "POST",
           url: "user/delete/" + id,
-          success: function(response) {
+          success: function (response) {
             console.log("User deleted successfully");
             location.reload();
           },
-          error: function(error) {
+          error: function (error) {
             console.error("Error deleting user", error);
           }
         });
       }
     });
 
-    $(document).on("click", "#btn-resend", function(e) {
+    $(document).on("click", "#btn-resend", function (e) {
       const btn = e.target;
       const id = $(btn).data("id");
 
@@ -360,10 +361,10 @@
       $.ajax({
         type: "POST",
         url: "user/resend/" + id,
-        success: function(response) {
+        success: function (response) {
           console.log("Email resend initiated successfully");
         },
-        error: function(error) {
+        error: function (error) {
           console.error("Error initiating email resend", error);
         }
       });
