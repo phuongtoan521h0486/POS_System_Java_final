@@ -65,7 +65,7 @@ public class UserController {
 
         List<Order> orders = new ArrayList<>();
         if (startDate != null && endDate != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM/dd/yyyy");
             try {
                 Date parsedStartDate = ( !startDate.isEmpty()) ? dateFormat.parse(startDate) : null;
                 Date parsedEndDate = (!endDate.isEmpty()) ? dateFormat.parse(endDate) : null;
