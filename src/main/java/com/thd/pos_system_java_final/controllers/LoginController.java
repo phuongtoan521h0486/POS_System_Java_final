@@ -120,6 +120,7 @@ public class LoginController {
 
             account.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(10)));
             accountService.updateAccount(account);
+            session.invalidate();
             return "redirect:/login";
         } catch (Exception e) {
             return "error";

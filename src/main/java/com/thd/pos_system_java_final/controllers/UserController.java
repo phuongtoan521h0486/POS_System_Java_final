@@ -12,6 +12,8 @@ import com.thd.pos_system_java_final.ultils.WebUtils;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -195,6 +198,8 @@ public class UserController {
         account.setPhone(phone);
         if (!pictureFile.isEmpty()) {
             account.setPicture(pictureFile.getBytes());
+        } else {
+            account.setPicture(getDefaultImageBytes());
         }
         accountService.updateAccount(account);
         model.addAttribute("account", account);
@@ -245,5 +250,15 @@ public class UserController {
         }
         session.invalidate(); // clear session
         return "Login";
+    }
+
+    private byte[] getDefaultImageBytes() {
+        try {
+            Resource resource = new ClassPathResource("static/images/avatar-default.png");
+            return Files.readAllBytes(resource.getFile().toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

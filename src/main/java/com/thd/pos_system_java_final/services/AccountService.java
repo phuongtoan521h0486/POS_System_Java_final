@@ -7,8 +7,12 @@ import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 @Service
@@ -30,6 +34,8 @@ public class AccountService {
         account.setStatus(true);
         account.setUsername(username);
         account.setPassword(hashedPassword);
+        account.setPicture(getDefaultImageBytes());
+        account.setPhone("");
         return repo.save(account);
     }
     public Account getAccountByUsername(String username) {
@@ -51,4 +57,13 @@ public class AccountService {
         return repo.findAllByRole(AccountRole.EMPLOYEE);
     }
 
+    private byte[] getDefaultImageBytes() {
+        try {
+            Resource resource = new ClassPathResource("static/images/avatar-default.png");
+            return Files.readAllBytes(resource.getFile().toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
