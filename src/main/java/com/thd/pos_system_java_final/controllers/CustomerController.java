@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Customer.Customer;
 import com.thd.pos_system_java_final.models.Customer.CustomerRepository;
@@ -11,6 +12,7 @@ import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.services.CustomerService;
+import com.thd.pos_system_java_final.ultils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,8 +72,11 @@ public class CustomerController {
     }
 
     @GetMapping("")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
         List<Customer> customers = customerRepository.findAll();
+
+        model.addAttribute("utils", new WebUtils());
+        model.addAttribute("account", session.getAttribute("account"));
 
         model.addAttribute("customers", customers);
         model.addAttribute("customerService", customerService);
@@ -101,7 +107,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public String detail(@PathVariable int id, Model model) {
+    public String detail(@PathVariable int id, Model model, HttpSession session) {
         Customer customer = customerRepository.findByCustomerId(id);
         model.addAttribute("customer", customer);
         model.addAttribute("totalOrder", customerService.calculateTotalOrder(id));
@@ -111,6 +117,9 @@ public class CustomerController {
 
         model.addAttribute("orders", orderRepository.findAllByCustomerId(id));
         model.addAttribute("accountService", accountService);
+
+        model.addAttribute("utils", new WebUtils());
+        model.addAttribute("account", session.getAttribute("account"));
         return "Customer/detail";
     }
 

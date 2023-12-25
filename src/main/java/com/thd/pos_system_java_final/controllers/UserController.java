@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.models.Account.AccountRole;
 import com.thd.pos_system_java_final.models.DataMail;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Order.Order;
@@ -7,6 +8,7 @@ import com.thd.pos_system_java_final.models.Order.OrderDetail;
 import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.services.*;
 import com.thd.pos_system_java_final.ultils.JwtUtil;
+import com.thd.pos_system_java_final.ultils.WebUtils;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,7 @@ public class UserController {
                             @RequestParam(name = "endDate", required = false) String endDate) {
         String username =  session.getAttribute("username").toString();
         Account account = accountService.getAccountByUsername(username);
+        model.addAttribute("utils", new WebUtils());
 
         model.addAttribute("account", account);
         model.addAttribute("imageUtils", imageService);
@@ -89,7 +92,9 @@ public class UserController {
     }
 
     @GetMapping("/add")
-    public String add() {
+    public String add(HttpSession session, Model model) {
+        model.addAttribute("utils", new WebUtils());
+        model.addAttribute("account", session.getAttribute("account"));
         return "User/add";
     }
 
@@ -170,6 +175,7 @@ public class UserController {
         String username =  session.getAttribute("username").toString();
         Account account = accountService.getAccountByUsername(username);
 
+        model.addAttribute("utils", new WebUtils());
         model.addAttribute("account", account);
         model.addAttribute("imageUtils", imageService);
 
