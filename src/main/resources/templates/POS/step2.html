@@ -609,6 +609,8 @@
     if (!isNaN(givenMoney)) {
       if (givenMoney < totalAmount) {
         alert('Given money must be equal or greater than the total amount.');
+      } else if(totalAmount === 0) {
+        alert('Please add product to cart.');
       } else {
         document.getElementById('userAccountSetupForm').submit();
       }

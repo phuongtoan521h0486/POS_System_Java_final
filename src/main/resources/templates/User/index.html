@@ -167,6 +167,7 @@
         </ul>
       </div>
     </nav>
+
     <section class="dashboard-light">
       <div class="dash-content">
         <div class="overview">
@@ -269,13 +270,17 @@
                               </button>
                               <ul class="dropdown-menu">
                                 <li>
-                                  <a type="submit" th:data-id="${staff.getAccountId()}" class="dropdown-item"
-                                    id="btn-delete">Delete</a>
+                                  <a type="submit"
+                                     th:data-id="${staff.getAccountId()}" class="dropdown-item btn-detail">Detail</a>
                                 </li>
                                 <li>
                                   <a type="submit" th:if="${staff.isActivate == false}"
                                     th:data-id="${staff.getAccountId()}" class="dropdown-item" id="btn-resend">Resend
                                     email</a>
+                                </li>
+                                <li>
+                                  <a type="submit" th:data-id="${staff.getAccountId()}" class="dropdown-item"
+                                     id="btn-delete">Delete</a>
                                 </li>
                               </ul>
                             </div>
@@ -321,7 +326,7 @@
     $(".btn-block").click((e) => {
       const btn = e.target;
       const id = $(btn).data("id");
-      console.log(id);
+
       $("#user-info").attr("action", "user/block/" + id);
       $("#user-info").submit();
     });
@@ -329,10 +334,23 @@
     $(".btn-enable").click((e) => {
       const btn = e.target;
       const id = $(btn).data("id");
-      console.log(id);
+
       $("#user-info").attr("action", "user/enable/" + id);
       $("#user-info").submit();
     });
+
+    $(document).ready(function (){
+      $(".btn-detail").click((e) => {
+        const btn = e.target;
+        const id = $(btn).data("id");
+
+        console.log(id)
+
+        window.location.pathname = '/user/' + id;
+      });
+    })
+
+
 
     $(document).on("click", "#btn-delete", function (e) {
       const btn = e.target;

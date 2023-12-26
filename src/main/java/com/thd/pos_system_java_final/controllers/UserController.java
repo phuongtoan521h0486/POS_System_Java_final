@@ -6,6 +6,7 @@ import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Order.Order;
 import com.thd.pos_system_java_final.models.Order.OrderDetail;
 import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
+import com.thd.pos_system_java_final.models.Order.OrderRepository;
 import com.thd.pos_system_java_final.services.*;
 import com.thd.pos_system_java_final.ultils.JwtUtil;
 import com.thd.pos_system_java_final.ultils.WebUtils;
@@ -49,6 +50,10 @@ public class UserController {
     private DashboardService dashboardService;
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Autowired
     private OrderDetailRepository orderDetailRepository;
 
@@ -106,6 +111,7 @@ public class UserController {
         Account acc = accountService.getAccountByEmail(account.getEmail());
         if (acc == null) {
             accountService.createAccount(account);
+            account.setPicture(getDefaultImageBytes());
             sendEmail(account.getEmail());
             return "redirect:/user";
         } else {
@@ -172,9 +178,6 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(HttpSession session, Model model, ImageService imageService) {
-        if (session.getAttribute("username") == null) {
-            return "Login";
-        }
         String username =  session.getAttribute("username").toString();
         Account account = accountService.getAccountByUsername(username);
 
@@ -187,9 +190,6 @@ public class UserController {
 
     @PostMapping("/profile")
     public String profile(HttpSession session, Model model, String name, String email, String phone, MultipartFile pictureFile) throws IOException {
-        if (session.getAttribute("username") == null) {
-            return "Login";
-        }
         String username =  session.getAttribute("username").toString();
         Account account = accountService.getAccountByUsername(username);
 
@@ -202,10 +202,7 @@ public class UserController {
             account.setPicture(getDefaultImageBytes());
         }
         accountService.updateAccount(account);
-        model.addAttribute("account", account);
-        model.addAttribute("imageUtils", imageService);
-
-        return "Dashboard/dashboard";
+        return "redirect:/user/dashboard";
     }
 
     @PostMapping("/delete/{id}")
@@ -250,6 +247,29 @@ public class UserController {
         }
         session.invalidate(); // clear session
         return "Login";
+    }
+
+    @GetMapping("/{id}")
+    public String userDetail(@PathVariable int id, Model model) {
+        Account staff = accountService.getAccountById(id);
+        List<Order> orders = orderRepository.findOrdersByAccountId(id);
+
+        double sum = 0;
+        for (Order order : orders) {
+            sum += order.getTotalAmount();
+        }
+
+
+        model.addAttribute("imageUtils", imageService);
+        model.addAttribute("staff", staff);
+        model.addAttribute("totalAmount", sum);
+
+        model.addAttribute("customerService", customerService);
+        model.addAttribute("orders", orders);
+
+        model.addAttribute("utils", new WebUtils());
+        model.addAttribute("account", session.getAttribute("account"));
+        return "User/detail";
     }
 
     private byte[] getDefaultImageBytes() {
