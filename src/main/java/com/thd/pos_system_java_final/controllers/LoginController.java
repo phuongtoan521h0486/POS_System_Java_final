@@ -84,7 +84,6 @@ public class LoginController {
                 System.out.println("Hello login successfully");
                 String username = jwt.extractUsername(token);
                 Account account = accountService.getAccountByUsername(username);
-                account.setActivate(true);
                 session.setAttribute("usernameWelcome", username);
                 accountService.updateAccount(account);
                 return "redirect:/welcome";
@@ -119,6 +118,7 @@ public class LoginController {
             }
 
             account.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(10)));
+            account.setActivate(true);
             accountService.updateAccount(account);
             session.invalidate();
             return "redirect:/login";
