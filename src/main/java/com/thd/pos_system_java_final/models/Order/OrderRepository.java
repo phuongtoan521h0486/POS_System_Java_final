@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.models.Order;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Date;
@@ -17,4 +18,6 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
     Order findByOrderId(int orderId);
 
     List<Order> findByOrderDateBetween(Date fromDate, Date toDate);
+
+    List<Order> findOrdersByAccountId(int id);
 }
