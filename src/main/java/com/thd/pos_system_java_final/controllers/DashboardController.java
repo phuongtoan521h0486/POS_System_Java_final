@@ -53,8 +53,29 @@ public class DashboardController {
                         Collectors.summingDouble(Order::getTotalAmount)
                 ));
 
-        List<Double> revenuesPerDay = new ArrayList<>(dailyRevenues.values());
+        List<String> allDates = getAllDatesBetween(from, to);
+
+        List<Double> revenuesPerDay = allDates.stream()
+                .map(date -> dailyRevenues.getOrDefault(date, 0.0))
+                .collect(Collectors.toList());
+
+        revenuesPerDay.forEach(System.out::println);
+
         return revenuesPerDay;
+    }
+    private static List<String> getAllDatesBetween(Date from, Date to) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        List<String> allDates = new ArrayList<>();
+
+        // Convert Date objects to LocalDate
+        LocalDate currentLocalDate = from.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        LocalDate toLocalDate = to.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+        while (!currentLocalDate.isAfter(toLocalDate)) {
+            allDates.add(dateFormat.format(Date.from(currentLocalDate.atStartOfDay().atZone(java.time.ZoneId.systemDefault()).toInstant())));
+            currentLocalDate = currentLocalDate.plusDays(1);
+        }
+        return allDates;
     }
 
 }
