@@ -39,8 +39,6 @@ public class UserController {
     @Autowired
     private AccountService accountService;
     @Autowired
-    private MailService mailService;
-    @Autowired
     private JwtUtil jwt;
     @Autowired
     private ImageService imageService;
@@ -135,8 +133,9 @@ public class UserController {
             String confirmationLink = "http://localhost:8888/confirm?token=" + token;
             props.put("link", confirmationLink);
             dataMail.setProps(props);
-
-            mailService.sendHtmlMail(dataMail, "Email/emailCreate");
+            // Apply Singleton pattern
+            EmailSenderService.getInstance().sendHtmlMail(dataMail, "Email/emailCreate");
+            // Apply Singleton pattern
             return true;
         } catch (MessagingException exp){
             exp.printStackTrace();
@@ -159,8 +158,9 @@ public class UserController {
             String confirmationLink = "http://localhost:8888/confirm?token=" + token;
             props.put("link", confirmationLink);
             dataMail.setProps(props);
-
-            mailService.sendHtmlMail(dataMail, "Email/emailResend");
+            // Apply Singleton pattern
+            EmailSenderService.getInstance().sendHtmlMail(dataMail, "Email/emailResend");
+            // Apply Singleton pattern
             return true;
         } catch (MessagingException exp){
             exp.printStackTrace();
