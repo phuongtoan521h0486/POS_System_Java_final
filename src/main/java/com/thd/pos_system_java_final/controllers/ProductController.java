@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.deletion.ProductDeletionController;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
@@ -119,13 +120,11 @@ public class ProductController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
-        List<Item> items = (List<Item>) session.getAttribute("cart");
-        if (!cartService.isInOrder(id) && !orderDetailRepository.existsByProductId(id)) {
-            productRepository.deleteById(id);
-        }
-
+        ProductDeletionController productDeletionController = new ProductDeletionController(cartService, orderDetailRepository, productRepository);  
+        productDeletionController.delete(id);
         return "redirect:/product";
     }
+
 
     private byte[] getDefaultImageBytes() {
         try {

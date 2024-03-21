@@ -1,5 +1,7 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.deletion.CustomerDeletionController;
+import com.thd.pos_system_java_final.deletion.DeletionController;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Customer.Customer;
@@ -86,8 +88,8 @@ public class CustomerController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
-        customerRepository.deleteById(id);
-        return "redirect:/customer";
+        DeletionController del = new CustomerDeletionController(customerRepository);
+        return del.delete(id);
     }
 
     @PostMapping("/edit/{id}")
