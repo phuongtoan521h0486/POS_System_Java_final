@@ -22,22 +22,32 @@ public class AccountService {
     @Autowired
     private AccountRepository repo;
 
+    @Autowired
+    private AccountBuilder accountBuilder;
+
     public Account getAccountByEmail(String email) {
         return repo.findAccountByEmail(email);
     }
 
+    // Apply Builder pattern
     public Account createAccount(Account account) {
         String username = account.getEmail().split("@")[0];
-        String hashedPassword = BCrypt.hashpw(username, BCrypt.gensalt(10));
-        account.setRole(AccountRole.EMPLOYEE);
-        account.setActivate(false);
-        account.setStatus(true);
-        account.setUsername(username);
-        account.setPassword(hashedPassword);
-        account.setPicture(getDefaultImageBytes());
-        account.setPhone("");
-        return repo.save(account);
+
+        Account newAccount = accountBuilder.setEmail(account.getEmail())
+                .setUsername(username)
+                .setPassword(BCrypt.hashpw(username, BCrypt.gensalt(10)))
+                .setFullName(account.getFullName())
+                .setRole(AccountRole.EMPLOYEE)
+                .setActivate(false)
+                .setStatus(true)
+                .setPicture(getDefaultImageBytes())
+                .setPhone("")
+                .build();
+        repo.save(newAccount);
+
+        return newAccount;
     }
+    // Apply Builder pattern
     public Account getAccountByUsername(String username) {
         return repo.findByUsername(username);
     }
