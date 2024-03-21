@@ -23,14 +23,14 @@ public class AccountService {
     private AccountRepository repo;
 
     @Autowired
-    private AccountBuilder accountBuilder;
+    private IAccountBuilder accountBuilder;
 
     public Account getAccountByEmail(String email) {
         return repo.findAccountByEmail(email);
     }
 
     // Apply Builder pattern
-    public Account createAccount(Account account) {
+    public void createAccount(Account account) {
         String username = account.getEmail().split("@")[0];
 
         Account newAccount = accountBuilder.setEmail(account.getEmail())
@@ -44,8 +44,6 @@ public class AccountService {
                 .setPhone("")
                 .build();
         repo.save(newAccount);
-
-        return newAccount;
     }
     // Apply Builder pattern
     public Account getAccountByUsername(String username) {
