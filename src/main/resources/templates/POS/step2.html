@@ -14,6 +14,46 @@
     .table thead th {
       border-bottom: 1px solid #eeeeee;
     }
+    .btn-custom {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1.25rem;
+      text-align: center;
+      background-color: #ffffff;
+      color: #3a82f6;
+      border: 1px solid #000000;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-custom:hover {
+      background-color: #f0f0f0;
+    }
+
+    .btn-custom img {
+      height: 30px;
+      width: auto;
+    }
+
+    .btn-custom .payment-options {
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .btn-custom .payment-options .radio-label-primary {
+      font-weight: bold;
+    }
+
+    .btn-custom .payment-options .quick-tagline {
+      display: none;
+    }
+
+    .btn-custom .payment-options .child-img {
+      height: 24px;
+      width: auto;
+    }
   </style>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <title>Multi-Step Form</title>
@@ -241,13 +281,35 @@
                     </ul>
 
                     <button type="button" step_number="3"
-                            style="display: block; width: 100%; padding: 10px; font-size: 1.25rem; text-align: center; background-color: #3a82f6; color: #ffffff; border-radius: 8px; transition: background-color 0.3s;"
+                            style="display: block; width: 100%; padding: 10px; font-size: 1.25rem; text-align: center; background-color: #3a82f6; color: #ffffff; border-radius: 8px; transition: background-color 0.3s; border: 1px solid #000000;"
                             onmouseover="this.style.backgroundColor='#1d4ed8'"
                             onmouseout="this.style.backgroundColor='#3a82f6'"
                             onclick="checkAndSubmit()"
                             >
                       Go to checkout
                     </button>
+
+                    <button type="button" class="btn btn-custom" onclick="vnpayCheckout()">
+                      <div class="payment-options" style="display: flex; justify-content: center; align-items: center;">
+                        <img src="https://hstatic.net/0/0/global/design/seller/image/payment/vnpay_new.svg?v=6" alt="VNPay Logo">
+                        <span class="radio-label-primary"> ATM/Visa/Master/JCB/QR Pay</span>
+                      </div>
+                      <div style="display: flex; justify-content: center; align-items: center;">
+                        <img class="child-img" src="https://hstatic.net/0/0/global/design/seller/image/payment/atm_visa_master_jcb.svg?v=6" alt="Payment Options Icons">
+                      </div>
+                    </button>
+
+                    <button type="button" class="btn btn-custom"  style="background-color: #ae2070" onclick="momoCheckout()">
+
+                      <div class="payment-options" style="display: flex; justify-content: center; align-items: center;">
+                        <img class="child-img" src="https://cdn.divineshop.vn/static/b77a2122717d76696bd2b87d7125fd47.svg" alt="Payment Options Icons">
+                        <span class="radio-label-primary" style="color: #ffffff"> MoMo</span>
+                      </div>
+                    </button>
+
+                    <a id="paymentLink" style="display:none;"></a>
+
+
 
                   </div>
                 </div>
@@ -617,6 +679,32 @@
     } else {
       alert('Please enter a valid number for Given Money.');
     }
+  }
+
+  function vnpayCheckout() {
+    var totalAmount = parseFloat($('#totalAmount').text().replace('$', '').replace(',', ''));
+
+    // Make an AJAX request to your backend
+    $.ajax({
+      type: "GET",
+      url: "/api/payment/create_payment",
+      data: {
+        totalAmount: totalAmount
+      },
+      success: function(response) {
+        $('#paymentLink').attr('href', response);
+        document.getElementById('paymentLink').click();
+      },
+      error: function(xhr, status, error) {
+        console.error("AJAX request failed:", error);
+        alert("Failed to create payment. Please try again later.");
+      }
+    });
+
+  }
+
+  function momoCheckout() {
+    alert("This payment method is not currently supported !")
   }
 </script>
 </body>

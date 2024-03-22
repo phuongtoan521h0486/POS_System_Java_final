@@ -1,6 +1,6 @@
 package com.thd.pos_system_java_final.services;
 
-import com.thd.pos_system_java_final.models.DataMail;
+import com.thd.pos_system_java_final.models.DTO.DataMail;
 
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;

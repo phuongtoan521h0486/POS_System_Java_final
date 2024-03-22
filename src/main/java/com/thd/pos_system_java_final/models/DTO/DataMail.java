@@ -1,4 +1,4 @@
-package com.thd.pos_system_java_final.models;
+package com.thd.pos_system_java_final.models.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

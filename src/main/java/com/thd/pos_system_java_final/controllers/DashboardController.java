@@ -44,7 +44,6 @@ public class DashboardController {
             to = calendar.getTime();
         }
 
-        System.out.println(from+", "+to);
 
         List<Order> orders = orderRepository.findByOrderDateBetween(from, to);
         Map<String, Double> dailyRevenues = orders.stream()

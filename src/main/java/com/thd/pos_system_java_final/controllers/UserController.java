@@ -1,10 +1,8 @@
 package com.thd.pos_system_java_final.controllers;
 
-import com.thd.pos_system_java_final.models.Account.AccountRole;
-import com.thd.pos_system_java_final.models.DataMail;
+import com.thd.pos_system_java_final.models.DTO.DataMail;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Order.Order;
-import com.thd.pos_system_java_final.models.Order.OrderDetail;
 import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.models.Order.OrderRepository;
 import com.thd.pos_system_java_final.services.*;
@@ -15,7 +13,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

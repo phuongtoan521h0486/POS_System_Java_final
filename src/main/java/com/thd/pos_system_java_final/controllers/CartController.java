@@ -60,9 +60,11 @@ public class CartController {
     }
 
     @GetMapping("/step-2")
-    @ResponseBody
-    public String step2() {
-        return "Not support this method";
+    public String step2(Model model) {
+        model.addAttribute("myCart", (List<Item>) session.getAttribute("cart"));
+        model.addAttribute("imageUtils", imageService);
+        model.addAttribute("cartService", cartService);
+        return "POS/step2";
     }
 
     @PostMapping("/step-2")
@@ -115,6 +117,51 @@ public class CartController {
         cartService.resetCart();
         session.removeAttribute("cart");
         return "redirect:/";
+    }
+
+    @GetMapping("/complete")
+    public String complete(Model model) {
+
+        Order order = new Order();
+        order.setOrderDate(new Date());
+
+        List<Item> items = cartService.getCartItems();
+        double totalAmount = cartService.calculateTotalAmount();
+        double givenMoney = totalAmount;
+        order.setTotalAmount(totalAmount);
+        order.setGivenMoney(givenMoney);
+        order.setExcessMoney(givenMoney - totalAmount);
+        order.setQuantity(cartService.calculateTotalQuantity());
+
+        Customer customer = (Customer) session.getAttribute("customer");
+        order.setCustomerId(customer.getCustomerId());
+
+        String username = (String) session.getAttribute("username");
+        Account account = accountService.getAccountByUsername(username);
+        order.setAccountId(account.getAccountId());
+
+        orderRepository.save(order);
+
+        int orderId = order.getOrderId();
+
+        for (Item item: items) {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setOrderId(orderId);
+            orderDetail.setProductId(item.getProduct().getProductId());
+            orderDetail.setQuantity(item.getQuantity());
+
+            orderDetailRepository.save(orderDetail);
+        }
+
+        model.addAttribute("order", order);
+        model.addAttribute("salespeople", username);
+        model.addAttribute("customer", customer);
+        model.addAttribute("items", items);
+        model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("givenMoney", givenMoney);
+        model.addAttribute("excessMoney", givenMoney - totalAmount);
+
+        return "POS/step3";
     }
 
     @PostMapping("/resetCart")
