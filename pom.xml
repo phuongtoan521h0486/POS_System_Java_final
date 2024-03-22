@@ -17,6 +17,12 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>1.4.2</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
         <dependency>
             <groupId>org.mindrot</groupId>
