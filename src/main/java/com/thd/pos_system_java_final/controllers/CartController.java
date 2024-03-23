@@ -12,6 +12,10 @@ import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.models.Order.OrderRepository;
 import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
+import com.thd.pos_system_java_final.payments.IPayment;
+import com.thd.pos_system_java_final.payments.PaymentMethod;
+import com.thd.pos_system_java_final.payments.PaymentParams;
+import com.thd.pos_system_java_final.payments.SimplePaymentFactory;
 import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.services.CartService;
 import com.thd.pos_system_java_final.services.ImageService;
@@ -22,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -30,8 +35,6 @@ import java.util.*;
 public class CartController {
     @Autowired
     private CustomerRepository customerRepository;
-    @Autowired
-    private ProductRepository productRepository;
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
@@ -68,13 +71,31 @@ public class CartController {
     }
 
     @PostMapping("/step-2")
-    public String step2(double givenMoney, Model model) {
-        // Order
+    public String step2(HttpServletRequest req, double givenMoney, Model model, PaymentMethod paymentMethod) {
+        if (paymentMethod == null) {
+            paymentMethod = PaymentMethod.Cash;
+        }
+        double totalAmount = cartService.calculateTotalAmount();
+        PaymentParams params = new PaymentParams();
+        params.setHttpServletRequest(req);
+        params.setTotalAmount(totalAmount);
+        params.setGivenMoney(givenMoney);
+
+        IPayment payment = new SimplePaymentFactory().createPayment(paymentMethod);
+        String paymentUrl = payment.processPayment(params);
+
+        saveTransaction(model, params);
+        return paymentUrl;
+    }
+
+    private void saveTransaction(Model model, PaymentParams params) {
+        double totalAmount = params.getTotalAmount();
+        double givenMoney = params.getGivenMoney();
+
         Order order = new Order();
         order.setOrderDate(new Date());
 
         List<Item> items = cartService.getCartItems();
-        double totalAmount = cartService.calculateTotalAmount();
 
         order.setTotalAmount(totalAmount);
         order.setGivenMoney(givenMoney);
@@ -108,9 +129,8 @@ public class CartController {
         model.addAttribute("totalAmount", totalAmount);
         model.addAttribute("givenMoney", givenMoney);
         model.addAttribute("excessMoney", givenMoney - totalAmount);
-
-        return "POS/step3";
     }
+
 
     @GetMapping("/step-3")
     public String step3() {
@@ -120,46 +140,15 @@ public class CartController {
     }
 
     @GetMapping("/complete")
-    public String complete(Model model) {
-
-        Order order = new Order();
-        order.setOrderDate(new Date());
-
-        List<Item> items = cartService.getCartItems();
+    public String complete(Model model, HttpServletRequest req) {
         double totalAmount = cartService.calculateTotalAmount();
         double givenMoney = totalAmount;
-        order.setTotalAmount(totalAmount);
-        order.setGivenMoney(givenMoney);
-        order.setExcessMoney(givenMoney - totalAmount);
-        order.setQuantity(cartService.calculateTotalQuantity());
+        PaymentParams params = new PaymentParams();
+        params.setHttpServletRequest(req);
+        params.setTotalAmount(totalAmount);
+        params.setGivenMoney(givenMoney);
 
-        Customer customer = (Customer) session.getAttribute("customer");
-        order.setCustomerId(customer.getCustomerId());
-
-        String username = (String) session.getAttribute("username");
-        Account account = accountService.getAccountByUsername(username);
-        order.setAccountId(account.getAccountId());
-
-        orderRepository.save(order);
-
-        int orderId = order.getOrderId();
-
-        for (Item item: items) {
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setOrderId(orderId);
-            orderDetail.setProductId(item.getProduct().getProductId());
-            orderDetail.setQuantity(item.getQuantity());
-
-            orderDetailRepository.save(orderDetail);
-        }
-
-        model.addAttribute("order", order);
-        model.addAttribute("salespeople", username);
-        model.addAttribute("customer", customer);
-        model.addAttribute("items", items);
-        model.addAttribute("totalAmount", totalAmount);
-        model.addAttribute("givenMoney", givenMoney);
-        model.addAttribute("excessMoney", givenMoney - totalAmount);
+        saveTransaction(model, params);
 
         return "POS/step3";
     }

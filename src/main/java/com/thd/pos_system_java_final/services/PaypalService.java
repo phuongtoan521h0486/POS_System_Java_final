@@ -3,6 +3,7 @@ package com.thd.pos_system_java_final.services;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+import com.thd.pos_system_java_final.conf.PaypalConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,14 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+
 public class PaypalService {
-    @Autowired
+
     private APIContext apiContext;
+
+    public PaypalService() throws PayPalRESTException {
+        apiContext = PaypalConfig.apiContext();
+    }
 
     public Payment createPayment(Double total) throws PayPalRESTException {
         Amount amount = new Amount();
