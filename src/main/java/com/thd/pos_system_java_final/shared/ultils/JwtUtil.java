@@ -1,4 +1,4 @@
-package com.thd.pos_system_java_final.ultils;
+package com.thd.pos_system_java_final.shared.ultils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

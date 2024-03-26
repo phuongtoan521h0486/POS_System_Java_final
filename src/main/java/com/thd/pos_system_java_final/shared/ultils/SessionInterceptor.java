@@ -1,4 +1,4 @@
-package com.thd.pos_system_java_final.ultils;
+package com.thd.pos_system_java_final.shared.ultils;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 

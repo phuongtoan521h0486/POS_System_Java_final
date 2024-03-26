@@ -1,14 +1,12 @@
 package com.thd.pos_system_java_final.controllers;
 
 import com.thd.pos_system_java_final.deletion.ProductDeletionController;
-import com.thd.pos_system_java_final.models.Account.Account;
-import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import com.thd.pos_system_java_final.services.CartService;
 import com.thd.pos_system_java_final.services.ImageService;
-import com.thd.pos_system_java_final.ultils.WebUtils;
+import com.thd.pos_system_java_final.shared.ultils.WebUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -21,8 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -82,10 +82,14 @@ public class CartController {
         params.setGivenMoney(givenMoney);
 
         IPayment payment = new SimplePaymentFactory().createPayment(paymentMethod);
-        String paymentUrl = payment.processPayment(params);
-
-        saveTransaction(model, params);
-        return paymentUrl;
+        String paymentUrl = null;
+        try {
+            paymentUrl = payment.processPayment(params);
+            saveTransaction(model, params);
+            return paymentUrl;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void saveTransaction(Model model, PaymentParams params) {

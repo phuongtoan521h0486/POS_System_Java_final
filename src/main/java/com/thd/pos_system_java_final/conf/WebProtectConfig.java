@@ -1,10 +1,9 @@
 package com.thd.pos_system_java_final.conf;
 
-import com.thd.pos_system_java_final.ultils.RoleInterceptor;
-import com.thd.pos_system_java_final.ultils.SessionInterceptor;
+import com.thd.pos_system_java_final.shared.ultils.RoleInterceptor;
+import com.thd.pos_system_java_final.shared.ultils.SessionInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 

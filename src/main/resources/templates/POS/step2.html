@@ -700,7 +700,7 @@
   function momoCheckout() {
     var totalAmount = parseFloat($('#totalAmount').text().replace('$', '').replace(',', ''));
     var paymentMethod = 'MoMo'
-    alert("This payment method is not currently supported !")
+    ajaxCheckout(totalAmount, paymentMethod)
   }
 
   function paypalCheckout() {

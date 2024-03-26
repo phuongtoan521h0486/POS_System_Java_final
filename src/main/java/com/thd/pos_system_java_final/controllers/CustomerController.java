@@ -2,7 +2,6 @@ package com.thd.pos_system_java_final.controllers;
 
 import com.thd.pos_system_java_final.deletion.CustomerDeletionController;
 import com.thd.pos_system_java_final.deletion.DeletionController;
-import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Customer.Customer;
 import com.thd.pos_system_java_final.models.Customer.CustomerRepository;
@@ -14,7 +13,7 @@ import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.services.CustomerService;
-import com.thd.pos_system_java_final.ultils.WebUtils;
+import com.thd.pos_system_java_final.shared.ultils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

@@ -20,7 +20,7 @@ public class PaymentController { // Apply Strategy pattern
     }
 
     @GetMapping("/create_payment")
-    public String createPayment(HttpServletRequest req, Double totalAmount, Double givenMoney, PaymentMethod paymentMethod) {
+    public String createPayment(HttpServletRequest req, Double totalAmount, Double givenMoney, PaymentMethod paymentMethod) throws Exception {
         PaymentParams params = new PaymentParams();
         params.setHttpServletRequest(req);
         params.setTotalAmount(totalAmount);

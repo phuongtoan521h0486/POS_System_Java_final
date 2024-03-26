@@ -1,4 +1,4 @@
-package com.thd.pos_system_java_final.ultils;
+package com.thd.pos_system_java_final.shared.ultils;
 
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Account.AccountRole;
