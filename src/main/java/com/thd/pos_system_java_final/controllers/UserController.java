@@ -107,7 +107,7 @@ public class UserController {
         if (acc == null) {
             accountService.createAccount(account);
             account.setPicture(getDefaultImageBytes());
-            sendEmail(account.getEmail());
+            sendEmail(account.getEmail(), "Invitation to POS system", "Email/emailCreate");
             return "redirect:/user";
         } else {
             redirectAttributes.addFlashAttribute("error", "email " + account.getEmail() + " is already exist");
@@ -115,14 +115,12 @@ public class UserController {
         }
     }
 
-    private boolean sendEmail(String email) {
+    private void sendEmail(String email, String subject, String templateName) {
         String defaultUsername = email.split("@")[0];
         try {
             DataMail dataMail = new DataMail();
-
             dataMail.setTo(email);
-            dataMail.setSubject("Invitation to POS system");
-
+            dataMail.setSubject(subject);
             Map<String, Object> props = new HashMap<>();
             props.put("username", defaultUsername);
 
@@ -130,40 +128,17 @@ public class UserController {
             String confirmationLink = "http://localhost:8888/confirm?token=" + token;
             props.put("link", confirmationLink);
             dataMail.setProps(props);
+
             // Apply Singleton pattern
-            EmailSenderService.getInstance().sendHtmlMail(dataMail, "Email/emailCreate");
+            EmailSenderService.getInstance().sendHtmlMail(dataMail, templateName);
             // Apply Singleton pattern
-            return true;
+
         } catch (MessagingException exp){
             exp.printStackTrace();
         }
-        return  false;
+
     }
 
-    private boolean resendEmail(String email) {
-        String defaultUsername = email.split("@")[0];
-        try {
-            DataMail dataMail = new DataMail();
-
-            dataMail.setTo(email);
-            dataMail.setSubject("Resend email to POS system");
-
-            Map<String, Object> props = new HashMap<>();
-            props.put("username", defaultUsername);
-
-            String token = jwt.createToken(defaultUsername);
-            String confirmationLink = "http://localhost:8888/confirm?token=" + token;
-            props.put("link", confirmationLink);
-            dataMail.setProps(props);
-            // Apply Singleton pattern
-            EmailSenderService.getInstance().sendHtmlMail(dataMail, "Email/emailResend");
-            // Apply Singleton pattern
-            return true;
-        } catch (MessagingException exp){
-            exp.printStackTrace();
-        }
-        return  false;
-    }
 
     @GetMapping("")
     public String showStaff(Model model, ImageService imageService) {
@@ -228,7 +203,7 @@ public class UserController {
     public String resendEmailForUser(@PathVariable int id) {
         Account account = accountService.getAccountById(id);
 
-        resendEmail(account.getEmail());
+        sendEmail(account.getEmail(), "Resend email to POS system", "Email/emailResend");
 
         return "redirect:/user";
     }
