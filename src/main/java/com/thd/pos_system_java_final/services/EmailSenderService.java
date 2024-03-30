@@ -2,6 +2,8 @@ package com.thd.pos_system_java_final.services;
 
 import com.thd.pos_system_java_final.models.DTO.DataMail;
 
+import com.thd.pos_system_java_final.commands.EmailCommand;
+import com.thd.pos_system_java_final.commands.ICommand;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,8 @@ public class EmailSenderService implements MailService{
         return instance;
     }
     // Apply Singleton pattern
+
+    //reciever
     private final JavaMailSenderImpl mailSender;
 
     @Override
@@ -53,7 +57,9 @@ public class EmailSenderService implements MailService{
         helper.setSubject(dataMail.getSubject());
         helper.setText(html, true);
 
-        mailSender.send(message);
+        // Apply command pattern
+        ICommand emailCommand = new EmailCommand(mailSender, message);
+        emailCommand.execute();
     }
 
     public SpringTemplateEngine getSpringTemplateEngine() {

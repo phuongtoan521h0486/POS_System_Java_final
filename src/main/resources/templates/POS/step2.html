@@ -602,7 +602,7 @@
       // Perform AJAX request to check if barcode exists
       $.ajax({
         type: 'GET',
-        url: '/api/checkBarcode',
+        url: '/api/searchBarcode',
         data: { barcode: barcode },
         success: function (response) {
           if (response) {

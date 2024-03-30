@@ -22,15 +22,9 @@ public class SearchController {
         return productRepository.findAllByProductNameContaining(keyword);
     }
 
-    @GetMapping("/checkBarcode")
-    public ResponseEntity<Product> searchBarcode(@RequestParam String barcode) {
-        Product product = productRepository.findByBarcode(barcode);
-
-        if (product != null) {
-            return ResponseEntity.ok(product);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/searchBarcode")
+    public Product searchBarcode(@RequestParam String barcode) {
+        return  productRepository.findByBarcode(barcode);
     }
 }
 
