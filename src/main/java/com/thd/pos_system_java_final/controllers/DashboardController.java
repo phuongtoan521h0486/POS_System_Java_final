@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.facade.DashboardFacade;
 import com.thd.pos_system_java_final.models.Order.Order;
 import com.thd.pos_system_java_final.models.Order.OrderRepository;
 import lombok.Data;

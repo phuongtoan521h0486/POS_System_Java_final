@@ -1,5 +1,7 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.facade.DashboardFacade;
+import com.thd.pos_system_java_final.models.DTO.DashboardData;
 import com.thd.pos_system_java_final.models.DTO.DataMail;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Order.Order;
@@ -42,54 +44,20 @@ public class UserController {
     @Autowired
     private HttpSession session;
     @Autowired
-    private DashboardService dashboardService;
-    @Autowired
     private CustomerService customerService;
-
     @Autowired
     private OrderRepository orderRepository;
-
     @Autowired
-    private OrderDetailRepository orderDetailRepository;
+    private DashboardFacade dashboardFacade;
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model,
                             @RequestParam(name = "startDate", required = false) String startDate,
                             @RequestParam(name = "endDate", required = false) String endDate) {
-        String username =  session.getAttribute("username").toString();
-        Account account = accountService.getAccountByUsername(username);
-        model.addAttribute("utils", new WebUtils());
 
-        model.addAttribute("account", account);
-        model.addAttribute("imageUtils", imageService);
-
-        model.addAttribute("accountService", accountService);
-        model.addAttribute("customerService", customerService);
-
-        List<Order> orders = new ArrayList<>();
-        if (startDate != null && endDate != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM/dd/yyyy");
-            try {
-                Date parsedStartDate = ( !startDate.isEmpty()) ? dateFormat.parse(startDate) : null;
-                Date parsedEndDate = (!endDate.isEmpty()) ? dateFormat.parse(endDate) : null;
-
-                orders = dashboardService.getOrdersByDateRange(parsedStartDate, parsedEndDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        } else {
-            // Today
-            LocalDate today = LocalDate.now();
-            Date fromDate = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            Date toDate = Date.from(today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-            orders = dashboardService.getOrdersByDateRange(fromDate, toDate);
-
-        }
-        model.addAttribute("totalProduct", dashboardService.countProductsOfOrders(orders));
-        model.addAttribute("orders", orders);
-        model.addAttribute("revenue", dashboardService.getRevenue(orders));
-        model.addAttribute("profit", dashboardService.getProfit(orders));
+        String username = session.getAttribute("username").toString();
+        DashboardData dashboardData = dashboardFacade.getDashboardData(username, startDate, endDate);
+        model.addAttribute("dashboardData", dashboardData);
 
         return "Dashboard/dashboard";
     }
