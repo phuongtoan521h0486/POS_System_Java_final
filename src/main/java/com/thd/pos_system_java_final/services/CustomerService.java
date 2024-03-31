@@ -16,7 +16,6 @@ public class CustomerService {
 
     @Autowired
     private OrderRepository orderRepository;
-
     @Autowired
     private OrderDetailRepository orderDetailRepository;
     @Autowired
