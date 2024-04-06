@@ -11,14 +11,17 @@ import com.thd.pos_system_java_final.services.ImageService;
 import com.thd.pos_system_java_final.shared.ultils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.time.ZoneId;
 
 @Component
 public class DashboardFacade { // Apply Facade pattern
@@ -33,6 +36,9 @@ public class DashboardFacade { // Apply Facade pattern
     @Autowired
     private WebUtils webUtils;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     public DashboardData getDashboardData(String username, String startDate, String endDate) {
         Account account = accountService.getAccountByUsername(username);
         List<Order> orders = getOrders(startDate, endDate);
@@ -43,7 +49,6 @@ public class DashboardFacade { // Apply Facade pattern
         return new DashboardData(account, orders, totalProduct, revenue, profit,
                 imageService, webUtils, customerService, accountService);
     }
-
     private List<Order> getOrders(String startDate, String endDate) {
         List<Order> orders = new ArrayList<>();
         if (startDate != null && endDate != null) {
@@ -65,5 +70,53 @@ public class DashboardFacade { // Apply Facade pattern
             orders = dashboardService.getOrdersByDateRange(fromDate, toDate);
         }
         return orders;
+    }
+    public List<Double> getRevenuesPerDay(String startDate, String endDate) throws ParseException, UnsupportedEncodingException {
+        if (startDate == null && endDate == null) {
+            startDate = endDate = new Date().toString();
+        }
+        String decodedStartDate = URLDecoder.decode(startDate, "UTF-8");
+        String decodedEndDate = URLDecoder.decode(endDate, "UTF-8");
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+        Date from = dateFormat.parse(decodedStartDate);
+        Date to = dateFormat.parse(decodedEndDate);
+
+        if (from.equals(to)) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(to);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            to = calendar.getTime();
+        }
+
+        List<Order> orders = orderRepository.findByOrderDateBetween(from, to);
+        Map<String, Double> dailyRevenues = orders.stream()
+                .collect(Collectors.groupingBy(
+                        order -> dateFormat.format(order.getOrderDate()),
+                        Collectors.summingDouble(Order::getTotalAmount)
+                ));
+
+        List<String> allDates = getAllDatesBetween(from, to);
+
+        return allDates.stream()
+                .map(date -> dailyRevenues.getOrDefault(date, 0.0))
+                .collect(Collectors.toList());
+    }
+
+    private static List<String> getAllDatesBetween(Date from, Date to) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        List<String> allDates = new ArrayList<>();
+
+        // Convert Date objects to LocalDate
+        LocalDate currentLocalDate = from.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate toLocalDate = to.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        while (!currentLocalDate.isAfter(toLocalDate)) {
+            allDates.add(dateFormat.format(Date.from(currentLocalDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant())));
+            currentLocalDate = currentLocalDate.plusDays(1);
+        }
+        return allDates;
     }
 }
