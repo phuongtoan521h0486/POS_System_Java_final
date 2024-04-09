@@ -59,7 +59,7 @@
         </li>
       </ul>
       <!-- Step Wise Form Content -->
-      <form action="/cart/step-1" id="userAccountSetupForm" name="userAccountSetupForm" method="POST" onsubmit="return checkCustomerBeforeSubmit()">
+      <form action="/cart/step-1" id="userAccountSetupForm" name="userAccountSetupForm" method="POST" onsubmit="return checkCustomerBeforeSubmit()" onchange="phoneChanged()">
         <!-- Step 1 Content -->
         <section id="step-1" class="form-step">
           <h1 class="text-2xl font-medium mb-4 text-center">Enter customer's phone number</h1>
@@ -72,7 +72,7 @@
                 <div id="customer-info" class="mt-2 p-4 text-lg text-gray-700 bg-gray-100 rounded-lg">
                   <span>Name: </span>
                   <br>
-                  <span>Adress: </span>
+                  <span>Address: </span>
                 </div>
               </div>
 
@@ -105,6 +105,15 @@
 </div>
 
 <script>
+  function phoneChanged() {
+    nextButton.style.display = 'none';
+    document.getElementById('customer-info').innerHTML = `
+        <span>Name: </span><br>
+        <span>Address: </span>
+      `;
+  }
+
+
   document.getElementById('cancel-btn').addEventListener('click', function() {
     document.getElementById('new-customer-popup').classList.add('hidden');
   });
