@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Cart.Cart;
 import com.thd.pos_system_java_final.models.Cart.Item;
+import com.thd.pos_system_java_final.models.Coupon.Coupon;
+import com.thd.pos_system_java_final.models.Coupon.CouponType;
 import com.thd.pos_system_java_final.models.Customer.Customer;
 import com.thd.pos_system_java_final.models.Customer.CustomerRepository;
 import com.thd.pos_system_java_final.models.Order.Order;
@@ -18,6 +20,7 @@ import com.thd.pos_system_java_final.payments.PaymentParams;
 import com.thd.pos_system_java_final.payments.SimplePaymentFactory;
 import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.services.CartService;
+import com.thd.pos_system_java_final.services.CouponService;
 import com.thd.pos_system_java_final.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +50,8 @@ public class CartController {
     private CartService cartService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private CouponService couponService;
     @GetMapping("/step-1")
     public String step1() {
         return "POS/step1";
@@ -126,13 +131,24 @@ public class CartController {
             orderDetailRepository.save(orderDetail);
         }
 
+        if (totalAmount > 999) {
+            couponService.addCoupon(CouponType.PERCENTAGE, 5, order);
+        } else {
+            couponService.addCoupon(CouponType.FIXED_AMOUNT, 50, order);
+        }
+
+        String couponCode = couponService.getCouponCodeByOrderId(orderId);
+
         model.addAttribute("order", order);
         model.addAttribute("salespeople", username);
         model.addAttribute("customer", customer);
         model.addAttribute("items", items);
         model.addAttribute("totalAmount", totalAmount);
+//        model.addAttribute("totalDiscount", totalDiscount);
         model.addAttribute("givenMoney", givenMoney);
         model.addAttribute("excessMoney", givenMoney - totalAmount);
+
+        model.addAttribute("couponCode", couponCode);
     }
 
 

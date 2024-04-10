@@ -3,6 +3,8 @@ package com.thd.pos_system_java_final.services;
 import com.thd.pos_system_java_final.models.Coupon.Coupon;
 import com.thd.pos_system_java_final.models.Coupon.CouponRepository;
 import com.thd.pos_system_java_final.models.Coupon.CouponType;
+import com.thd.pos_system_java_final.models.Coupon.SimpleCouponFactory;
+import com.thd.pos_system_java_final.models.Order.Order;
 import com.thd.pos_system_java_final.shared.ultils.CouponCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +25,19 @@ public class CouponService {
         return repo.findByCode(code);
     }
 
-    public void addCoupon(CouponType type) {
-//        Coupon coupon = getCouponByCode();
-//        coupon.setCouponType(type);
-//
-//        repo.save();
+    public void addCoupon(CouponType type, double valueDiscount, Order order) {
+        Coupon coupon = SimpleCouponFactory.createCoupon(type, valueDiscount, order);
+        if (coupon != null) {
+            repo.save(coupon);
+        }
+    }
 
-        // continue
+    public String getCouponCodeByOrderId(int orderId) {
+        return repo.findCodeByOrderId(orderId);
+    }
+
+    public double getDiscountAmount(double totalAmount, Coupon coupon) {
+        return coupon.getAmountDiscount(totalAmount);
     }
 
     public String getStatus(String code, double totalAmount) {
@@ -54,15 +62,6 @@ public class CouponService {
             return String.format("Your coupon must apply for orders with total amount greater than %s",
                     formattedMinOrderAmount);
         }
-        return "";
-    }
-
-    public String getCode() {
-        List<String> codes = repo.findAllCodes();
-        String code;
-        do {
-            code = CouponCodeGenerator.generateRandomCode();
-        } while(codes.contains(code));
-        return code;
+        return "Apply coupon successful";
     }
 }

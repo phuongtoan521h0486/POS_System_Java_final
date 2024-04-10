@@ -15,164 +15,294 @@
       border-bottom: 1px solid #eeeeee;
     }
   </style>
+  <style type="text/css">
+    @media only screen and (min-width: 620px) {
+      .u-row {
+        width: 600px !important;
+      }
+
+      .u-row .u-col {
+        vertical-align: top;
+      }
+
+      .u-row .u-col-100 {
+        width: 600px !important;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .u-row-container {
+        max-width: 100% !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+      }
+
+      .u-row .u-col {
+        min-width: 320px !important;
+        max-width: 100% !important;
+        display: block !important;
+      }
+
+      .u-row {
+        width: 100% !important;
+      }
+
+      .u-col {
+        width: 100% !important;
+      }
+
+      .u-col>div {
+        margin: 0 auto;
+      }
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    table,
+    tr,
+    td {
+      vertical-align: top;
+      border-collapse: collapse;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .ie-container table,
+    .mso-container table {
+      table-layout: fixed;
+    }
+
+    * {
+      line-height: inherit;
+    }
+
+    a[x-apple-data-detectors="true"] {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+
+    @media (min-width: 481px) and (max-width: 768px) {}
+
+    table,
+    td {
+      color: #000000;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
   <script src="/js/jspdf/dist/jspdf.umd.js"></script>
   <script src="/js/html2canvas/dist/html2canvas.min.js"></script>
   <title>Multi-Step Form</title>
 </head>
 
 <body>
-  <div class="container">
-    <div>
-      <div id="multi-step-form-container">
-        <!-- Form Steps / Progress Bar -->
-        <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
-          <!-- Step 1 -->
-          <li class="form-stepper-active text-center form-stepper-list" step="1">
-            <a class="mx-2">
+<div class="container">
+  <div>
+    <div id="multi-step-form-container">
+      <!-- Form Steps / Progress Bar -->
+      <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+        <!-- Step 1 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="1">
+          <a class="mx-2">
               <span class="form-stepper-circle">
                 <span>1</span>
               </span>
-              <div class="label">Enter Phone Number</div>
-            </a>
-          </li>
-          <!-- Step 2 -->
-          <li class="form-stepper-active text-center form-stepper-list" step="2">
-            <a class="mx-2">
+            <div class="label">Enter Phone Number</div>
+          </a>
+        </li>
+        <!-- Step 2 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="2">
+          <a class="mx-2">
               <span class="form-stepper-circle ">
                 <span>2</span>
               </span>
-              <div class="label">Checkout</div>
-            </a>
-          </li>
-          <!-- Step 3 -->
-          <li class="form-stepper-active text-center form-stepper-list" step="3">
-            <a class="mx-2">
+            <div class="label">Checkout</div>
+          </a>
+        </li>
+        <!-- Step 3 -->
+        <li class="form-stepper-active text-center form-stepper-list" step="3">
+          <a class="mx-2">
               <span class="form-stepper-circle">
                 <span>3</span>
               </span>
-              <div class="label">Invoice</div>
-            </a>
-          </li>
-        </ul>
-        <!-- Step Wise Form Content -->
-        <!--      <form action="" id="userAccountSetupForm" name="userAccountSetupForm" method="POST">-->
-        <!-- Step 3 Content, default hidden on page load. -->
-        <section id="step-3" class="form-step">
-          <!-- Step 3 input fields -->
-          <div class="card card-lg mb-5">
-            <div class="card-body">
-              <div class="row justify-content-lg-between">
-                <div class="col-sm order-2 order-sm-1 mb-3">
-                  <div class="mb-2">
-                    <img class="avatar rounded-circle" src="/images/logo.png" alt="Logo" width="128" height="128">
-                  </div>
-
-
-                  <h1 class="h2 text-primary">GTV POS System</h1>
+            <div class="label">Invoice</div>
+          </a>
+        </li>
+      </ul>
+      <!-- Step Wise Form Content -->
+      <!--      <form action="" id="userAccountSetupForm" name="userAccountSetupForm" method="POST">-->
+      <!-- Step 3 Content, default hidden on page load. -->
+      <section id="step-3" class="form-step">
+        <!-- Step 3 input fields -->
+        <div class="card card-lg mb-5">
+          <div class="card-body">
+            <div class="row justify-content-lg-between">
+              <div class="col-sm order-2 order-sm-1 mb-3">
+                <div class="mb-2">
+                  <img class="avatar rounded-circle" src="/images/logo.png" alt="Logo" width="128" height="128">
                 </div>
-                <!-- End Col -->
 
-                <div class="col-sm-auto order-1 order-sm-2 text-sm-end mb-3">
-                  <div class="mb-3">
-                    <h2>Invoice #</h2>
-                    <span id="numberInvoice" class="d-block" th:text="${order.getOrderId()}"></span>
-                  </div>
 
-                  <address class="text-dark">
-                    Ho Chi Minh City<br>
-                    Hoc Mon<br>
-                  </address>
-                  <div class="col-md">
-                    <dl class="row">
-                      <dt class="col-sm-6">Staff:</dt>
-                      <dd class="col-sm-6" th:text="${salespeople}"></dd>
-                    </dl>
-                  </div>
-                </div>
-                <!-- End Col -->
+                <h1 class="h2 text-primary">GTV POS System</h1>
               </div>
-              <!-- End Row -->
+              <!-- End Col -->
 
-              <div class="row justify-content-md-between mb-3">
+              <div class="col-sm-auto order-1 order-sm-2 text-sm-end mb-3">
+                <div class="mb-3">
+                  <h2>Invoice #</h2>
+                  <span id="numberInvoice" class="d-block" th:text="${order.getOrderId()}"></span>
+                </div>
+
+                <address class="text-dark">
+                  Ho Chi Minh City<br>
+                  Hoc Mon<br>
+                </address>
                 <div class="col-md">
-                  <h4>Bill to:</h4>
-                  <h4 th:text="${customer.getName()}"></h4>
-
-                  <address th:text="${customer.getAddress()}"></address>
-                </div>
-                <!-- End Col -->
-
-                <div class="col-md text-md-end">
                   <dl class="row">
-                    <dt class="col-sm-8">Invoice date:</dt>
-                    <dd class="col-sm-4" th:text="${#dates.format(order.getOrderDate(), 'MM/dd/yyyy')}"></dd>
+                    <dt class="col-sm-6">Staff:</dt>
+                    <dd class="col-sm-6" th:text="${salespeople}"></dd>
                   </dl>
                 </div>
-                <!-- End Col -->
               </div>
-              <!-- End Row -->
-
-              <!-- Table -->
-              <div class="table-responsive">
-                <table class="table table-borderless table-nowrap table-align-middle">
-                  <thead class="thead-light">
-                    <tr>
-                      <th>Item</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th class="table-text-end">Total Price</th>
-                    </tr>
-
-                  </thead>
-
-                  <tbody th:each="item :${items}">
-
-                    <tr>
-                      <th th:text="${item.getProduct().getProductName()}"></th>
-                      <td th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice())}"></td>
-                      <td th:text="${item.getQuantity()}"></td>
-                      <td class="table-text-end"
-                        th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity())}">
-                      </td>
-                    </tr>
-
-                  </tbody>
-                </table>
-              </div>
-              <!-- End Table -->
-
-              <hr class="my-5">
-
-              <div class="row justify-content-md-end mb-3">
-                <div class="col-md-8 col-lg-7">
-                  <dl class="row text-sm-end">
-                    <dt class="col-sm-6">Total Amount:</dt>
-                    <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>
-                    <dt class="col-sm-6">Given Money:</dt>
-                    <dd class="col-sm-6" th:text="${#numbers.formatCurrency(givenMoney)}">$3000.00</dd>
-                    <dt class="col-sm-6">Excess Money:</dt>
-                    <dd class="col-sm-6" th:text="${#numbers.formatCurrency(excessMoney)}">$250.00</dd>
-                  </dl>
-                  <!-- End Row -->
-                </div>
-              </div>
-              <!-- End Row -->
-
-              <div class="mb-3">
-                <h3>Thank you!</h3>
-              </div>
-
-              <p class="small mb-0" th:text="${#calendars.year(#dates.createNow())} + ' GTV POS system.'"></p>
+              <!-- End Col -->
             </div>
-          </div>
-          <button id="saveButton" class="button submit-btn" type="submit">Save</button>
-          <button id="continueButton" class="button submit-btn" type="button"
-            onclick="continueToStep3()">Continue</button>
-        </section>
+            <!-- End Row -->
 
-      </div>
+            <div class="row justify-content-md-between mb-3">
+              <div class="col-md">
+                <h4>Bill to:</h4>
+                <h4 th:text="${customer.getName()}"></h4>
+
+                <address th:text="${customer.getAddress()}"></address>
+              </div>
+              <!-- End Col -->
+
+              <div class="col-md text-md-end">
+                <dl class="row">
+                  <dt class="col-sm-8">Invoice date:</dt>
+                  <dd class="col-sm-4" th:text="${#dates.format(order.getOrderDate(), 'MM/dd/yyyy')}"></dd>
+                </dl>
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
+
+            <!-- Table -->
+            <div class="table-responsive">
+              <table class="table table-borderless table-nowrap table-align-middle">
+                <thead class="thead-light">
+                <tr>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th class="table-text-end">Total Price</th>
+                </tr>
+
+                </thead>
+
+                <tbody th:each="item :${items}">
+
+                <tr>
+                  <th th:text="${item.getProduct().getProductName()}"></th>
+                  <td th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice())}"></td>
+                  <td th:text="${item.getQuantity()}"></td>
+                  <td class="table-text-end"
+                      th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity())}">
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <!-- End Table -->
+
+            <hr class="my-5">
+
+            <div class="row justify-content-md-end mb-3">
+              <div class="col-md-8 col-lg-7">
+                <dl class="row text-sm-end">
+                  <dt class="col-sm-6">Total Amount:</dt>
+                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>
+                  <dt class="col-sm-6">Discount Amount:</dt>
+<!--                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>-->
+                  <dd class="col-sm-6">-$123.00</dd>
+                  <dt class="col-sm-6">Discount Amount:</dt>
+                  <!--                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>-->
+                  <dd class="col-sm-6">-$123.00</dd>
+                  <dt class="col-sm-6">Given Money:</dt>
+                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(givenMoney)}">$3000.00</dd>
+                  <dt class="col-sm-6">Excess Money:</dt>
+                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(excessMoney)}">$250.00</dd>
+                </dl>
+                <!-- End Row -->
+              </div>
+            </div>
+            <!-- End Row -->
+
+            <div class="mb-3">
+              <h3>Thank you!</h3>
+            </div>
+            <div class="mb-3">
+              <div style="
+            border-collapse: collapse;
+            display: table;
+            width: 100%;
+            height: 100%;
+            background-image: url('/images/coupon.png');
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-color: transparent;
+          ">
+                <div class="u-col u-col-100" style="
+              max-width: 320px;
+              min-width: 600px;
+              display: table-cell;
+              vertical-align: top;
+            ">
+                  <div style="height: 100%; width: 100% !important">
+                    <table style="font-family: 'Lato', sans-serif" role="presentation">
+                      <tbody>
+                      <tr>
+                        <td style="
+                        overflow-wrap: break-word;
+                        word-break: break-word;
+                        padding: 35px 10px 40px 75px;
+                        font-family: 'Lato', sans-serif;
+                      ">
+                          <div style="
+                          font-size: 14px;
+                          line-height: 140%;
+                          text-align: center;
+                          word-wrap: break-word;
+                        ">
+                            <p style="font-size: 14px; line-height: 140%">
+                              <strong><span style="font-size: 24px; line-height: 33.6px; margin-left: 24px" th:text="${couponCode}"></span></strong>
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="small mb-0" th:text="${#calendars.year(#dates.createNow())} + ' GTV POS system.'"></p>
+          </div>
+        </div>
+        <button id="saveButton" class="button submit-btn" type="submit">Save</button>
+        <button id="continueButton" class="button submit-btn" type="button"
+                onclick="continueToStep3()">Continue</button>
+      </section>
+
     </div>
   </div>
+</div>
 
 </body>
 <script>
@@ -198,7 +328,6 @@
         doc.save('invoice-' + invoiceNumber + '.pdf');
       },
       margin: [5, 5, 5, 5],
-      autoPaging: 'text',
       x: 0,
       y: 0,
       width: 190,

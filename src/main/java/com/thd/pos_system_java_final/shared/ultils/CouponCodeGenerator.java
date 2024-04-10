@@ -11,9 +11,10 @@ public class CouponCodeGenerator {
 
     public static String generateRandomCode() {
         StringBuilder code = new StringBuilder(PREFIX);
-        for (int i = 0; i < CODE_LENGTH; i++) {
+        while(code.length() < CODE_LENGTH) {
             code.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
         }
+
         return code.toString();
     }
 

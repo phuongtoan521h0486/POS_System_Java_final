@@ -1,13 +1,11 @@
 package com.thd.pos_system_java_final.models.Order;
 
+import com.thd.pos_system_java_final.models.Coupon.Coupon;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -26,4 +24,7 @@ public class Order {
     private int quantity;
     private int customerId;
     private int accountId;
+
+    @OneToOne(mappedBy = "order")
+    private Coupon coupon;
 }

@@ -12,6 +12,7 @@ import com.thd.pos_system_java_final.models.Order.OrderRepository;
 import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import com.thd.pos_system_java_final.services.AccountService;
+import com.thd.pos_system_java_final.services.CouponService;
 import com.thd.pos_system_java_final.services.CustomerService;
 import com.thd.pos_system_java_final.shared.ultils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class CustomerController {
     private AccountService accountService;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CouponService couponService;
 
     @GetMapping("/check")
     public ResponseEntity<Customer> checkCustomer(@RequestParam String phone) {
@@ -134,6 +137,10 @@ public class CustomerController {
             Product p = productRepository.findByProductId(detail.getProductId());
             items.add(new Item(p, detail.getQuantity()));
         }
+        String couponCode = couponService.getCouponCodeByOrderId(orderId);
+        if (couponCode == null) {
+            couponCode = "------------------";
+        }
 
         model.addAttribute("order", order);
         model.addAttribute("accountService", accountService);
@@ -143,6 +150,8 @@ public class CustomerController {
         model.addAttribute("totalAmount", order.getTotalAmount());
         model.addAttribute("givenMoney", order.getGivenMoney());
         model.addAttribute("excessMoney", order.getExcessMoney());
+
+        model.addAttribute("couponCode", couponCode);
 
         return "Customer/bill";
     }

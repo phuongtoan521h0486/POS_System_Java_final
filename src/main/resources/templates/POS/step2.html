@@ -255,7 +255,7 @@
                   <div class="card-body">
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                        Total Amount
+                        Subtotal Amount
                         <span id="totalAmount" th:text="${#numbers.formatCurrency(cartService.calculateTotalAmount())}"></span>
                       </li>
 
@@ -263,6 +263,25 @@
                         Total Quantity
                         <span id="totalQuantity" th:text="${cartService.calculateTotalQuantity()}"></span>
                       </li>
+
+                      <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <div class="d-flex w-100 align-items-center">
+                          <label for="couponCode" class="mb-0 me-2"></label>
+                          <div class="flex-fill">
+                            <input type="text" id="couponCode" name="couponCode" class="form-control" placeholder="Enter Coupon Code">
+                          </div>
+                          <button type="button" class="btn btn-primary ms-2" onclick="applyCoupon()">Apply</button>
+                        </div>
+                      <li  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                        Discount:
+                        <span id="discount" ></span>
+                      </li>
+                      <li  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                        Total Amount:
+                        <span id="total" ></span>
+                      </li>
+                      </li>
+
                       <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                         <div class="d-flex w-100">
                           <label for="givenMoney" class="mb-0 align-self-center me-2">Given Money</label>
@@ -729,7 +748,21 @@
 </script>
 
 <script>
+  function applyCoupon() {
+    var code = $('#couponCode').val();
+    var totalAmount = parseFloat($('#totalAmount').text().replace('$', '').replace(',', ''));
 
+    $.ajax({
+      type: 'GET',
+      url: '/api/getStatus',
+      data: { code: code,
+        totalAmount: totalAmount},
+      success: function (response) {
+        alert(response)
+      },
+
+    });
+  }
 </script>
 
 </body>

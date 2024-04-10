@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.models.Coupon;
 
+import com.thd.pos_system_java_final.models.Order.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,13 +11,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Coupon {
+public abstract class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int couponId;
     @Column(unique = true)
     private String code;
-    private double discountAmount;
     private Date startDate;
     private Date endDate;
     private double minOrderAmount;
@@ -24,4 +24,10 @@ public class Coupon {
 
     @Enumerated(EnumType.STRING)
     private CouponType couponType;
+
+    @OneToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "orderId")
+    private Order order;
+
+    public abstract double getAmountDiscount(double totalAmount);
 }
