@@ -36,8 +36,8 @@ public class CouponService {
         return repo.findCodeByOrderId(orderId);
     }
 
-    public double getDiscountAmount(double totalAmount, Coupon coupon) {
-        return coupon.getAmountDiscount(totalAmount);
+    public double getDiscountAmount(String code, double totalAmount) {
+        return getCouponByCode(code).getAmountDiscount(totalAmount);
     }
 
     public String getStatus(String code, double totalAmount) {

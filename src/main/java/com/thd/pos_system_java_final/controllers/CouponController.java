@@ -15,7 +15,12 @@ public class CouponController {
     private CouponService couponService;
 
     @GetMapping("/getStatus")
-    public String searchBarcode(String code, double totalAmount) {
+    public String getStatus(String code, double totalAmount) {
         return couponService.getStatus(code, totalAmount);
+    }
+
+    @GetMapping("/getDiscountAmount")
+    public double getDiscountAmount(String code, double totalAmount) {
+        return couponService.getDiscountAmount(code, totalAmount);
     }
 }

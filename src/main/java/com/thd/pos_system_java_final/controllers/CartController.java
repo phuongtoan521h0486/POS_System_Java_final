@@ -76,7 +76,7 @@ public class CartController {
     }
 
     @PostMapping("/step-2")
-    public String step2(HttpServletRequest req, double givenMoney, Model model, PaymentMethod paymentMethod) {
+    public String step2(HttpServletRequest req, double givenMoney, Model model, PaymentMethod paymentMethod, String couponCode) {
         if (paymentMethod == null) {
             paymentMethod = PaymentMethod.Cash;
         }
@@ -90,14 +90,14 @@ public class CartController {
         String paymentUrl = null;
         try {
             paymentUrl = payment.processPayment(params);
-            saveTransaction(model, params);
+            saveTransaction(model, params, couponCode);
             return paymentUrl;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void saveTransaction(Model model, PaymentParams params) {
+    private void saveTransaction(Model model, PaymentParams params, String applyCode) {
         double totalAmount = params.getTotalAmount();
         double givenMoney = params.getGivenMoney();
 
@@ -139,14 +139,29 @@ public class CartController {
 
         String couponCode = couponService.getCouponCodeByOrderId(orderId);
 
+        double discount = 0;
+        if (applyCode != null) {
+            System.out.println(applyCode);
+            Coupon applyCoupon = couponService.getCouponByCode(applyCode);
+            if (applyCoupon != null) {
+                applyCoupon.setActive(true);
+                discount = applyCoupon.getAmountDiscount(totalAmount);
+                order.setCouponCode(applyCoupon.getCode());
+                order.setExcessMoney(givenMoney - totalAmount + discount);
+                orderRepository.save(order);
+            }
+        }
+        double total = totalAmount - discount;
+
         model.addAttribute("order", order);
         model.addAttribute("salespeople", username);
         model.addAttribute("customer", customer);
         model.addAttribute("items", items);
         model.addAttribute("totalAmount", totalAmount);
-//        model.addAttribute("totalDiscount", totalDiscount);
+        model.addAttribute("discount", discount);
+        model.addAttribute("total", total);
         model.addAttribute("givenMoney", givenMoney);
-        model.addAttribute("excessMoney", givenMoney - totalAmount);
+        model.addAttribute("excessMoney", givenMoney - total);
 
         model.addAttribute("couponCode", couponCode);
     }
@@ -160,7 +175,7 @@ public class CartController {
     }
 
     @GetMapping("/complete")
-    public String complete(Model model, HttpServletRequest req) {
+    public String complete(Model model, HttpServletRequest req, String couponCode) {
         double totalAmount = cartService.calculateTotalAmount();
         double givenMoney = totalAmount;
         PaymentParams params = new PaymentParams();
@@ -168,7 +183,7 @@ public class CartController {
         params.setTotalAmount(totalAmount);
         params.setGivenMoney(givenMoney);
 
-        saveTransaction(model, params);
+        saveTransaction(model, params, couponCode);
 
         return "POS/step3";
     }

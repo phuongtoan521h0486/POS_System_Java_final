@@ -25,6 +25,6 @@ public class Order {
     private int customerId;
     private int accountId;
 
-    @OneToOne(mappedBy = "order")
-    private Coupon coupon;
+    @Column(name = "couponCode")
+    private String couponCode;
 }

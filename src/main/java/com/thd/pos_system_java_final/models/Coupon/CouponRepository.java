@@ -10,6 +10,6 @@ public interface CouponRepository extends CrudRepository<Coupon, Integer> {
     @Query("SELECT c.code FROM Coupon c")
     List<String> findAllCodes();
 
-    @Query("SELECT c.code FROM Coupon c WHERE c.order.orderId = :orderId")
+    @Query("SELECT c.code FROM Coupon c WHERE c.orderId = :orderId")
     String findCodeByOrderId(@Param("orderId") int orderId);
 }

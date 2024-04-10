@@ -25,9 +25,8 @@ public abstract class Coupon {
     @Enumerated(EnumType.STRING)
     private CouponType couponType;
 
-    @OneToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "orderId")
-    private Order order;
+    @Column(name = "order_id")
+    private int orderId;
 
     public abstract double getAmountDiscount(double totalAmount);
 }

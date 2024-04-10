@@ -3,6 +3,7 @@ package com.thd.pos_system_java_final.controllers;
 import com.thd.pos_system_java_final.deletion.CustomerDeletionController;
 import com.thd.pos_system_java_final.deletion.DeletionController;
 import com.thd.pos_system_java_final.models.Cart.Item;
+import com.thd.pos_system_java_final.models.Coupon.Coupon;
 import com.thd.pos_system_java_final.models.Customer.Customer;
 import com.thd.pos_system_java_final.models.Customer.CustomerRepository;
 import com.thd.pos_system_java_final.models.Order.Order;
@@ -137,16 +138,26 @@ public class CustomerController {
             Product p = productRepository.findByProductId(detail.getProductId());
             items.add(new Item(p, detail.getQuantity()));
         }
+        double discount = 0;
+        double total = 0;
         String couponCode = couponService.getCouponCodeByOrderId(orderId);
         if (couponCode == null) {
             couponCode = "------------------";
+        }
+
+        String applyCouponCode = order.getCouponCode();
+
+        if (applyCouponCode != null) {
+            discount = couponService.getDiscountAmount(applyCouponCode, order.getTotalAmount());
+            total = order.getTotalAmount() - discount;
         }
 
         model.addAttribute("order", order);
         model.addAttribute("accountService", accountService);
         model.addAttribute("customer", customer);
         model.addAttribute("items", items);
-
+        model.addAttribute("discount", discount);
+        model.addAttribute("total", total);
         model.addAttribute("totalAmount", order.getTotalAmount());
         model.addAttribute("givenMoney", order.getGivenMoney());
         model.addAttribute("excessMoney", order.getExcessMoney());

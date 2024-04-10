@@ -26,7 +26,7 @@ public class SimpleCouponFactory {
         coupon.setCouponType(type);
         coupon.setCode(CouponCodeGenerator.generateRandomCode());
         coupon.setActive(false);
-        coupon.setOrder(order);
+        coupon.setOrderId(order.getOrderId());
         return coupon;
     }
 }

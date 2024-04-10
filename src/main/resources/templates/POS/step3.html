@@ -225,14 +225,12 @@
             <div class="row justify-content-md-end mb-3">
               <div class="col-md-8 col-lg-7">
                 <dl class="row text-sm-end">
-                  <dt class="col-sm-6">Total Amount:</dt>
+                  <dt class="col-sm-6">SubTotal Amount:</dt>
                   <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>
                   <dt class="col-sm-6">Discount Amount:</dt>
-<!--                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>-->
-                  <dd class="col-sm-6">-$123.00</dd>
-                  <dt class="col-sm-6">Discount Amount:</dt>
-                  <!--                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>-->
-                  <dd class="col-sm-6">-$123.00</dd>
+                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(-1 * discount)}"></dd>
+                  <dt class="col-sm-6">Total Amount:</dt>
+                  <dd class="col-sm-6" th:text="${#numbers.formatCurrency(total)}"></dd>
                   <dt class="col-sm-6">Given Money:</dt>
                   <dd class="col-sm-6" th:text="${#numbers.formatCurrency(givenMoney)}">$3000.00</dd>
                   <dt class="col-sm-6">Excess Money:</dt>
