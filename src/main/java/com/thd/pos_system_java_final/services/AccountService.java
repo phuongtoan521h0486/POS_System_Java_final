@@ -65,6 +65,9 @@ public class AccountService {
         return repo.findAllByRole(AccountRole.EMPLOYEE);
     }
 
+    public List<Account> getAllAccounts() {
+        return  repo.findAll();
+    }
     private byte[] getDefaultImageBytes() {
         try {
             Resource resource = new ClassPathResource("static/images/avatar-default.png");

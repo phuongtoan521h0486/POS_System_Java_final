@@ -8,6 +8,7 @@ import com.thd.pos_system_java_final.models.Order.Order;
 import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.models.Order.OrderRepository;
 import com.thd.pos_system_java_final.services.*;
+import com.thd.pos_system_java_final.shared.ultils.CSVExporter;
 import com.thd.pos_system_java_final.shared.ultils.JwtUtil;
 import com.thd.pos_system_java_final.shared.ultils.WebUtils;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,10 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +55,8 @@ public class UserController {
     private OrderRepository orderRepository;
     @Autowired
     private DashboardFacade dashboardFacade;
+    @Autowired
+    private CSVExporter csvExporter;
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model,
@@ -214,8 +221,15 @@ public class UserController {
     }
 
     @GetMapping("/export")
-    public void export(HttpServletResponse response) {
+    public ResponseEntity<byte[]> export() {
+        List<Account> accounts = accountService.getAllAccounts();
+        byte[] csvData = csvExporter.generateCSV(accounts);
 
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        headers.setContentDispositionFormData("filename", "staffs.csv");
+
+        return new ResponseEntity<>(csvData, headers, HttpStatus.OK);
     }
 
     private byte[] getDefaultImageBytes() {
