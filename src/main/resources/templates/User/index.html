@@ -181,6 +181,10 @@
                   <div class="flex justify-between items-center">
                     <div class="text-lg font-semibold">All staffs</div>
                     <div>
+                      <a class="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                         th:href="@{/user/export}">
+                        Export
+                      </a>
                       <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onclick="location.href='/user/add'">
                         Add staff
@@ -387,7 +391,6 @@
         }
       });
     });
-
 
   </script>
   <script th:src="@{/js/feather.min.js}"></script>

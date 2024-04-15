@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -210,6 +211,11 @@ public class UserController {
         model.addAttribute("utils", new WebUtils());
         model.addAttribute("account", session.getAttribute("account"));
         return "User/detail";
+    }
+
+    @GetMapping("/export")
+    public void export(HttpServletResponse response) {
+
     }
 
     private byte[] getDefaultImageBytes() {
