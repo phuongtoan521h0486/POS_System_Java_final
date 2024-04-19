@@ -2,7 +2,6 @@ package com.thd.pos_system_java_final.shared.ultils;
 
 import com.opencsv.CSVWriter;
 import com.thd.pos_system_java_final.models.Account.Account;
-import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
