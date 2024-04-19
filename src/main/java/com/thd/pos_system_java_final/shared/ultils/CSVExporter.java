@@ -10,9 +10,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.List;
 
-@Component
-public class CSVExporter {
-    public byte[] generateCSV(List<Account> accounts) {
+public class CSVExporter implements Exporter{
+    public byte[] generate(List<Account> accounts) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              Writer writer = new OutputStreamWriter(baos)) {
             CSVWriter csvWriter = new CSVWriter(writer,
