@@ -182,9 +182,42 @@
                     <div class="text-lg font-semibold">All staffs</div>
                     <div>
                       <a class="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                         th:href="@{/user/export}">
+                         onclick="showExportOptions()">
                         Export
                       </a>
+
+                      <!-- Export Options Modal -->
+                      <div class="modal fade" id="exportOptionsModal" tabindex="-1" role="dialog"
+                           aria-labelledby="exportOptionsModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exportOptionsModalLabel">Select Export Format</h5>
+                              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="exportForm">
+                                <div class="form-group">
+                                  <label for="fileFormat">Select File Format:</label>
+                                  <select class="form-control" id="fileFormat">
+                                    <option value="CSV">CSV</option>
+                                    <option value="XLSX">XLSX</option>
+                                  </select>
+                                </div>
+                                <div class="form-group form-check">
+                                  <input type="checkbox" class="form-check-input" id="compress" name="compress">
+                                  <label class="form-check-label" for="compress">Compress before download?</label>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-success" onclick="exportData()">Export</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                       <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onclick="location.href='/user/add'">
                         Add staff
@@ -401,6 +434,25 @@
   <script th:src="@{/js/apexcharts.min.js}"></script>
 
   <script th:src="@{/js/main.js}"></script>
+
+  <script>
+    function showExportOptions() {
+      $('#exportOptionsModal').modal('show');
+    }
+
+    function exportData() {
+      var fileFormat = $('#fileFormat').val();
+      var compress = $('#compress').prop('checked');
+      var url = "/user/export?format=" + fileFormat + "&compress=" + compress;
+      window.location.href = url;
+      $('#exportOptionsModal').modal('hide');
+    }
+
+    $('.btn-close, .btn-secondary').click(function () {
+      $('#exportOptionsModal').modal('hide');
+    });
+  </script>
+
 </body>
 
 </html>

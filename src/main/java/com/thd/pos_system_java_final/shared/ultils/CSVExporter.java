@@ -10,6 +10,11 @@ import java.io.Writer;
 import java.util.List;
 
 public class CSVExporter implements Exporter{
+    @Override
+    public String getExtensionPart() {
+        return ".csv";
+    }
+
     public byte[] generate(List<Account> accounts) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              Writer writer = new OutputStreamWriter(baos)) {

@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.enums.ExportFormat;
 import com.thd.pos_system_java_final.facade.DashboardFacade;
 import com.thd.pos_system_java_final.models.DTO.DashboardData;
 import com.thd.pos_system_java_final.models.DTO.DataMail;
@@ -217,14 +218,19 @@ public class UserController {
     }
 
     @GetMapping("/export")
-    public ResponseEntity<byte[]> export() {
+    public ResponseEntity<byte[]> export(ExportFormat format, boolean compress) {
         List<Account> accounts = accountService.getAllAccounts();
-        Exporter exporter = new CompressDecorator(new CSVExporter());
+        Exporter exporter = SimpleExporterFactory.createExporter(format);
+
+        if (compress) {
+            exporter = new CompressDecorator(exporter);
+        }
+
         byte[] data = exporter.generate(accounts);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_PLAIN);
-        headers.setContentDispositionFormData("filename", "staffs.zip");
+        headers.setContentDispositionFormData("filename", "staffs" + exporter.getExtensionPart());
 
         return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }

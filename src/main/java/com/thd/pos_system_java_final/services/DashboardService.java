@@ -22,8 +22,6 @@ public class DashboardService {
     OrderDetailRepository orderDetailRepository;
     @Autowired
     ProductRepository productRepository;
-
-
     public List<Order> getOrdersByDateRange(Date fromDate, Date toDate) {
         LocalDate today = LocalDate.now();
         Date from, to = null;

@@ -3,7 +3,7 @@ package com.thd.pos_system_java_final.services;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Account.AccountRole;
 
-public interface IAccountBuilder {// Apply Builder pattern
+public interface IAccountBuilder {
     Account build();
     IAccountBuilder setUsername(String username);
     IAccountBuilder setPassword(String password);

@@ -10,23 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 
-@RestController
-@RequestMapping("/api/payment")
-public class PaymentController { // Apply Strategy pattern
-    private IPayment paymentStrategy;
+    @RestController
+    @RequestMapping("/api/payment")
+    public class PaymentController {
+        private IPayment paymentStrategy;
 
-    public void setPaymentStrategy(IPayment paymentStrategy) {
-        this.paymentStrategy = paymentStrategy;
+        public void setPaymentStrategy(IPayment paymentStrategy) {
+            this.paymentStrategy = paymentStrategy;
+        }
+
+        @GetMapping("/create_payment")
+        public String createPayment(
+                HttpServletRequest req, Double totalAmount, Double givenMoney, PaymentMethod paymentMethod)
+                throws Exception {
+            PaymentParams params = new PaymentParams();
+            params.setHttpServletRequest(req);
+            params.setTotalAmount(totalAmount);
+            params.setGivenMoney(givenMoney);
+
+            setPaymentStrategy(new SimplePaymentFactory().createPayment(paymentMethod));
+            return paymentStrategy.processPayment(params);
+        }
     }
-
-    @GetMapping("/create_payment")
-    public String createPayment(HttpServletRequest req, Double totalAmount, Double givenMoney, PaymentMethod paymentMethod) throws Exception {
-        PaymentParams params = new PaymentParams();
-        params.setHttpServletRequest(req);
-        params.setTotalAmount(totalAmount);
-        params.setGivenMoney(givenMoney);
-
-        setPaymentStrategy(new SimplePaymentFactory().createPayment(paymentMethod)); // Apply SimpleFactory
-        return paymentStrategy.processPayment(params);
-    }
-}

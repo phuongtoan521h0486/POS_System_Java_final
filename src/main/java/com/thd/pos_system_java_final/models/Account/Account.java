@@ -13,7 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 public class Account {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int accountId;

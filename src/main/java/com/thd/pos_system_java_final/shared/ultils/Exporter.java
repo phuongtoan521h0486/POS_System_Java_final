@@ -5,5 +5,6 @@ import com.thd.pos_system_java_final.models.Account.Account;
 import java.util.List;
 
 public interface Exporter {
-    public byte[] generate(List<Account> accounts);
+    String getExtensionPart();
+    byte[] generate(List<Account> accounts);
 }

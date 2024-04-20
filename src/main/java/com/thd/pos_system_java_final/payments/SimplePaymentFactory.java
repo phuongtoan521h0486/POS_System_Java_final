@@ -1,7 +1,6 @@
 package com.thd.pos_system_java_final.payments;
 
-public class SimplePaymentFactory { // Apply SimpleFactory
-
+public class SimplePaymentFactory {
     public IPayment createPayment(PaymentMethod method) {
         switch (method) {
             case Cash:

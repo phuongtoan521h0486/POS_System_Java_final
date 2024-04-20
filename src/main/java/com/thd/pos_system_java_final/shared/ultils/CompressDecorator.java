@@ -11,6 +11,12 @@ public class CompressDecorator extends Decorator{
     public CompressDecorator(Exporter wrapObj) {
         super(wrapObj);
     }
+
+    @Override
+    public String getExtensionPart() {
+        return ".zip";
+    }
+
     @Override
     public byte[] generate(List<Account> accounts) {
         byte[] data = super.generate(accounts);
@@ -18,7 +24,7 @@ public class CompressDecorator extends Decorator{
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              ZipOutputStream zipOut = new ZipOutputStream(baos)) {
 
-            zipOut.putNextEntry(new ZipEntry("staff.csv"));
+            zipOut.putNextEntry(new ZipEntry("staff" + wrapObj.getExtensionPart()));
 
             zipOut.write(data);
             zipOut.closeEntry();
