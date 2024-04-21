@@ -21,7 +21,7 @@ public class MoMo implements IPayment{
 
         PaymentResponse captureWalletMoMoResponse = null;
         try {
-            captureWalletMoMoResponse = CreateOrderMoMo.process(environment, orderId, requestId, Long.toString(amount), orderInfo, returnURL, notifyURL, "", RequestType.PAY_WITH_METHOD, Boolean.TRUE);
+            captureWalletMoMoResponse = CreateOrderMoMo.process(environment, orderId, requestId, Long.toString(amount), orderInfo, returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
             return captureWalletMoMoResponse.getPayUrl();
         } catch (Exception e) {
             throw new RuntimeException(e);
