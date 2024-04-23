@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.controllers;
 
+import com.thd.pos_system_java_final.middlewares.*;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Account.AccountRole;
 import com.thd.pos_system_java_final.models.Account.LoginRequest;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -43,37 +43,13 @@ public class LoginController {
     @PostMapping("/login")
     public String login(LoginRequest loginRequest, Model model, HttpSession session)
     {
-        try {
-            Account account = accountService.getAccountByUsername(loginRequest.getUsername());
-            if (account == null) {
-                model.addAttribute("error", "Your account is not exist, please contact to admin");
-                return "/Login";
-            } else {
-                String hashedPassword = account.getPassword();
-                if (!BCrypt.checkpw(loginRequest.getPassword(), hashedPassword)) {
-                    model.addAttribute("error", "Your username or password is not correct");
-                    return "/Login";
-                } else if (account.getRole() == AccountRole.ADMIN) {
-                    session.setAttribute("username", loginRequest.getUsername());
-                    session.setAttribute("account", account);
-                    return "redirect:/";
-                } else if (!account.isActivate()) {
-                    model.addAttribute("error", "Please login through out email");
-                    return "/Login";
-                } else if (!account.isStatus()) {
-                    model.addAttribute("error", "Your account is blocked, please contact Admin");
-                    return "/Login";
-                } else if (loginRequest.getPassword().equals(loginRequest.getUsername())) {
-                    session.setAttribute("usernameWelcome", loginRequest.getUsername());
-                    return "redirect:/welcome";
-                }
-            }
-            session.setAttribute("username", loginRequest.getUsername());
-            session.setAttribute("account", account);
-            return "redirect:/";
-        }catch (Exception e) {
-            return "error";
-        }
+            Middleware authenticationChain = new AccountExistMiddleware();
+            authenticationChain.setNextChain(new AccountPasswordMiddleware())
+                    .setNextChain(new AccountActivateMiddleware())
+                    .setNextChain(new AccountStatusMiddleware())
+                    .setNextChain(new AccountFirstLoginMiddleware());
+
+            return authenticationChain.check(loginRequest, model, session, accountService);
     }
 
     @GetMapping("/confirm")
