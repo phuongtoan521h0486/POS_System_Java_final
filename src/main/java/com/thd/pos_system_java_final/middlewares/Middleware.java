@@ -1,5 +1,6 @@
 package com.thd.pos_system_java_final.middlewares;
 
+import com.thd.pos_system_java_final.models.Account.AuthenticationParams;
 import com.thd.pos_system_java_final.models.Account.LoginRequest;
 import com.thd.pos_system_java_final.services.AccountService;
 import org.springframework.ui.Model;
@@ -14,14 +15,14 @@ public abstract class Middleware {
         return next;
     }
 
-    public abstract String check(LoginRequest loginRequest, Model model, HttpSession session, AccountService accountService);
+    public abstract String check(AuthenticationParams params);
 
-    protected String checkNext(LoginRequest loginRequest, Model model, HttpSession session, AccountService accountService) {
+    protected String checkNext(AuthenticationParams params) {
         if (next != null) {
-            return next.check(loginRequest, model, session, accountService);
+            return next.check(params);
         }
-        session.setAttribute("username", loginRequest.getUsername());
-        session.setAttribute("account", accountService.getAccountByUsername(loginRequest.getUsername()));
+        params.session.setAttribute("username", params.loginRequest.getUsername());
+        params.session.setAttribute("account", params.accountService.getAccountByUsername(params.loginRequest.getUsername()));
         return "redirect:/";
     }
 }

@@ -3,6 +3,7 @@ package com.thd.pos_system_java_final.controllers;
 import com.thd.pos_system_java_final.middlewares.*;
 import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Account.AccountRole;
+import com.thd.pos_system_java_final.models.Account.AuthenticationParams;
 import com.thd.pos_system_java_final.models.Account.LoginRequest;
 import com.thd.pos_system_java_final.services.AccountService;
 import com.thd.pos_system_java_final.shared.ultils.JwtUtil;
@@ -43,13 +44,14 @@ public class LoginController {
     @PostMapping("/login")
     public String login(LoginRequest loginRequest, Model model, HttpSession session)
     {
-            Middleware authenticationChain = new AccountExistMiddleware();
-            authenticationChain.setNextChain(new AccountPasswordMiddleware())
-                    .setNextChain(new AccountActivateMiddleware())
-                    .setNextChain(new AccountStatusMiddleware())
-                    .setNextChain(new AccountFirstLoginMiddleware());
+        AuthenticationParams params = new AuthenticationParams(loginRequest, model, session, accountService);
+        Middleware authenticationChain = new AccountExistMiddleware();
+        authenticationChain.setNextChain(new AccountPasswordMiddleware())
+                .setNextChain(new AccountActivateMiddleware())
+                .setNextChain(new AccountStatusMiddleware())
+                .setNextChain(new AccountFirstLoginMiddleware());
 
-            return authenticationChain.check(loginRequest, model, session, accountService);
+        return authenticationChain.check(params);
     }
 
     @GetMapping("/confirm")
