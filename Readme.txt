@@ -7,7 +7,7 @@ Extract the file POS_System_Java_Final.zip in folder Source code
 Open Intellij IDEA and open project with the folder: POS_System_Java_Final in folder source code.
 
 You can clone the POS_System_Java_Final in https://github.com/phuongtoan521h0486/POS_System_Java_final
-
+                                        or https://gitlab.duthu.net/521h0486/POS_System_Java_final
 Run Xampp and start Service Apache and MySql.
 
 Access the http://localhost/phpmyadmin/ by click at Admin button.

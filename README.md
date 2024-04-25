@@ -58,6 +58,10 @@ Clone this repository
 ```bash
   git clone https://github.com/phuongtoan521h0486/POS_System_Java_final
 ```
+or 
+```bash
+  git clone https://gitlab.duthu.net/521h0486/POS_System_Java_final
+```
     
 ## Guide for import data to Database
 
