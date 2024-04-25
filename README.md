@@ -14,7 +14,7 @@ This project is the final assignment for the Java Technology course.
 - Transaction Processing
 - Reporting and Analytics
 
-For detail: [Specification Requirements](https://tgmteam-my.sharepoint.com/:b:/g/personal/toangtv_tgmteam_onmicrosoft_com/EfYIFcO0TBJMsqSyBeHc_CoBIkqfQI3Xcf9GM4esnHwkjA?e=J9g3zQ)
+For detail: [Specification Requirements](https://github.com/phuongtoan521h0486/POS_System_Java_final/blob/master/documents/Java%20Technology%20-%20Final%20Project%20Specification%20Hk1_2324.pdf)
 
 
 ## Desgin patterns
@@ -30,7 +30,7 @@ For detail: [Specification Requirements](https://tgmteam-my.sharepoint.com/:b:/g
 - Adapter
 - Chain of Responsibility
 
-For detail: [Desgin Patterns Document](https://linktodocumentation)
+For detail: [Desgin Patterns Document](https://github.com/phuongtoan521h0486/POS_System_Java_final/blob/master/documents/pattern.pdf)
 
 
 
