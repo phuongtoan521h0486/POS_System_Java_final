@@ -11,6 +11,14 @@ public class Execute {
 
     OkHttpClient client = new OkHttpClient();
 
+    public static Request createRequest(HttpRequest request) {
+        RequestBody body = RequestBody.create(MediaType.get(request.getContentType()), request.getPayload());
+        return new Request.Builder()
+                .method(request.getMethod(), body)
+                .url(request.getEndpoint())
+                .build();
+    }
+
     public HttpResponse sendToMoMo(String endpoint, String payload) {
 
         try {
@@ -24,22 +32,14 @@ public class Execute {
             Response result = client.newCall(request).execute();
             HttpResponse response = new HttpResponse(result.code(), result.body().string(), result.headers());
 
-            LogUtils.info("[HttpResponseFromMoMo] " + response.toString());
+            LogUtils.info("[HttpResponseFromMoMo] " + response);
 
             return response;
         } catch (Exception e) {
-            LogUtils.error("[ExecuteSendToMoMo] "+ e);
+            LogUtils.error("[ExecuteSendToMoMo] " + e);
         }
 
         return null;
-    }
-
-    public static Request createRequest(HttpRequest request) {
-        RequestBody body = RequestBody.create(MediaType.get(request.getContentType()), request.getPayload());
-        return new Request.Builder()
-                .method(request.getMethod(), body)
-                .url(request.getEndpoint())
-                .build();
     }
 
     public String getBodyAsString(Request request) throws IOException {

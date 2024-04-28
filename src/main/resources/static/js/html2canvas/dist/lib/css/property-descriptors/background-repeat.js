@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.backgroundRepeat = void 0;
 var parser_1 = require("../syntax/parser");
 exports.backgroundRepeat = {
@@ -10,11 +10,13 @@ exports.backgroundRepeat = {
     parse: function (_context, tokens) {
         return parser_1.parseFunctionArgs(tokens)
             .map(function (values) {
-            return values
-                .filter(parser_1.isIdentToken)
-                .map(function (token) { return token.value; })
-                .join(' ');
-        })
+                return values
+                    .filter(parser_1.isIdentToken)
+                    .map(function (token) {
+                        return token.value;
+                    })
+                    .join(' ');
+            })
             .map(parseBackgroundRepeat);
     }
 };

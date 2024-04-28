@@ -3,7 +3,8 @@
     <Appenders>
         <!-- Console Appender -->
         <Console name="LogToConsole" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight{%-5level}{FATAL=white, ERROR=red, WARN=yellow, INFO=green, DEBUG=cyan} %logger{1} : %msg%n"/>
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight{%-5level}{FATAL=white, ERROR=red, WARN=yellow, INFO=green, DEBUG=cyan} %logger{1} : %msg%n"/>
         </Console>
         <!-- RollingFile Appender -->
         <RollingFile name="LogToFile"

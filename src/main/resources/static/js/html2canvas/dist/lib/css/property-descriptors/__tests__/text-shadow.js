@@ -1,22 +1,30 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 var assert_1 = require("assert");
 var parser_1 = require("../../syntax/parser");
 var color_1 = require("../../types/color");
 var text_shadow_1 = require("../text-shadow");
 var tokenizer_1 = require("../../syntax/tokenizer");
 var length_percentage_1 = require("../../types/length-percentage");
-var textShadowParse = function (value) { return text_shadow_1.textShadow.parse({}, parser_1.Parser.parseValues(value)); };
-var colorParse = function (value) { return color_1.color.parse({}, parser_1.Parser.parseValue(value)); };
-var dimension = function (number, unit) { return ({
-    flags: tokenizer_1.FLAG_INTEGER,
-    number: number,
-    unit: unit,
-    type: 15 /* DIMENSION_TOKEN */
-}); };
+var textShadowParse = function (value) {
+    return text_shadow_1.textShadow.parse({}, parser_1.Parser.parseValues(value));
+};
+var colorParse = function (value) {
+    return color_1.color.parse({}, parser_1.Parser.parseValue(value));
+};
+var dimension = function (number, unit) {
+    return ({
+        flags: tokenizer_1.FLAG_INTEGER,
+        number: number,
+        unit: unit,
+        type: 15 /* DIMENSION_TOKEN */
+    });
+};
 describe('property-descriptors', function () {
     describe('text-shadow', function () {
-        it('none', function () { return assert_1.deepStrictEqual(textShadowParse('none'), []); });
+        it('none', function () {
+            return assert_1.deepStrictEqual(textShadowParse('none'), []);
+        });
         it('1px 1px 2px pink', function () {
             return assert_1.deepStrictEqual(textShadowParse('1px 1px 2px pink'), [
                 {

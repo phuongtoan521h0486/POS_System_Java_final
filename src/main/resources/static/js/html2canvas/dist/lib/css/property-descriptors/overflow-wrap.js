@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.overflowWrap = void 0;
 exports.overflowWrap = {
     name: 'overflow-wrap',

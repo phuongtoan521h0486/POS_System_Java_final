@@ -1,15 +1,15 @@
 package com.thd.pos_system_java_final.shared.ultils;
 
 import com.thd.pos_system_java_final.models.Account.Account;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-public class ExcelAdapter implements Exporter{
-    private Workbook workbook;
+
+public class ExcelAdapter implements Exporter {
+    private final Workbook workbook;
 
     public ExcelAdapter() {
         this.workbook = new XSSFWorkbook();
@@ -67,7 +67,7 @@ public class ExcelAdapter implements Exporter{
 
             dataRow.createCell(1).setCellValue(account.getFullName());
             dataRow.createCell(2).setCellValue(account.getEmail());
-            dataRow.createCell(3).setCellValue(account.isStatus() ? "Normal": "Blocked");
+            dataRow.createCell(3).setCellValue(account.isStatus() ? "Normal" : "Blocked");
             dataRow.createCell(4).setCellValue(account.getRole().toString());
             dataRow.createCell(5).setCellValue(account.getPhone());
 

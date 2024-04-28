@@ -15,11 +15,11 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Data
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int customerId;
     public String name;
     @NotNull
     public String phoneNumber;
     public String address;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int customerId;
 }

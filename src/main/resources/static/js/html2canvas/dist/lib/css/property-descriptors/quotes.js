@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.getQuote = exports.quotes = void 0;
 var parser_1 = require("../syntax/parser");
 exports.quotes = {
@@ -23,7 +23,7 @@ exports.quotes = {
         for (var i = 0; i < filtered.length; i += 2) {
             var open_1 = filtered[i].value;
             var close_1 = filtered[i + 1].value;
-            quotes.push({ open: open_1, close: close_1 });
+            quotes.push({open: open_1, close: close_1});
         }
         return quotes;
     }

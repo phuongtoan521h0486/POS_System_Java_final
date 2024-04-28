@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface Exporter {
     String getExtensionPart();
+
     byte[] generate(List<Account> accounts);
 }

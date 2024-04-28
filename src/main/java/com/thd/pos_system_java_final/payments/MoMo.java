@@ -6,9 +6,9 @@ import com.thd.pos_system_java_final.models.MoMoModels.PaymentResponse;
 import com.thd.pos_system_java_final.processor.CreateOrderMoMo;
 import com.thd.pos_system_java_final.shared.ultils.LogUtils;
 
-public class MoMo implements IPayment{
+public class MoMo implements IPayment {
     @Override
-    public String processPayment(PaymentParams params){
+    public String processPayment(PaymentParams params) {
         LogUtils.init();
         String requestId = String.valueOf(System.currentTimeMillis());
         String orderId = String.valueOf(System.currentTimeMillis());

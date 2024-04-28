@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.webkitGradient = void 0;
 var parser_1 = require("../../syntax/parser");
 var angle_1 = require("../angle");
@@ -18,8 +18,7 @@ var webkitGradient = function (context, tokens) {
             if (parser_1.isIdentToken(firstToken) && firstToken.value === 'linear') {
                 type = 1 /* LINEAR_GRADIENT */;
                 return;
-            }
-            else if (parser_1.isIdentToken(firstToken) && firstToken.value === 'radial') {
+            } else if (parser_1.isIdentToken(firstToken) && firstToken.value === 'radial') {
                 type = 2 /* RADIAL_GRADIENT */;
                 return;
             }
@@ -27,20 +26,18 @@ var webkitGradient = function (context, tokens) {
         if (firstToken.type === 18 /* FUNCTION */) {
             if (firstToken.name === 'from') {
                 var color = color_1.color.parse(context, firstToken.values[0]);
-                stops.push({ stop: length_percentage_1.ZERO_LENGTH, color: color });
-            }
-            else if (firstToken.name === 'to') {
+                stops.push({stop: length_percentage_1.ZERO_LENGTH, color: color});
+            } else if (firstToken.name === 'to') {
                 var color = color_1.color.parse(context, firstToken.values[0]);
-                stops.push({ stop: length_percentage_1.HUNDRED_PERCENT, color: color });
-            }
-            else if (firstToken.name === 'color-stop') {
+                stops.push({stop: length_percentage_1.HUNDRED_PERCENT, color: color});
+            } else if (firstToken.name === 'color-stop') {
                 var values = firstToken.values.filter(parser_1.nonFunctionArgSeparator);
                 if (values.length === 2) {
                     var color = color_1.color.parse(context, values[1]);
                     var stop_1 = values[0];
                     if (parser_1.isNumberToken(stop_1)) {
                         stops.push({
-                            stop: { type: 16 /* PERCENTAGE_TOKEN */, number: stop_1.number * 100, flags: stop_1.flags },
+                            stop: {type: 16 /* PERCENTAGE_TOKEN */, number: stop_1.number * 100, flags: stop_1.flags},
                             color: color
                         });
                     }
@@ -54,7 +51,7 @@ var webkitGradient = function (context, tokens) {
             stops: stops,
             type: type
         }
-        : { size: size, shape: shape, stops: stops, position: position, type: type };
+        : {size: size, shape: shape, stops: stops, position: position, type: type};
 };
 exports.webkitGradient = webkitGradient;
 //# sourceMappingURL=-webkit-gradient.js.map

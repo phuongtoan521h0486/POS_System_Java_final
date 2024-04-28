@@ -1,12 +1,15 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.calculateRadius = exports.calculateGradientDirection = exports.processColorStops = exports.parseColorStop = void 0;
 var color_1 = require("../color");
 var length_percentage_1 = require("../length-percentage");
 var parseColorStop = function (context, args) {
     var color = color_1.color.parse(context, args[0]);
     var stop = args[1];
-    return stop && length_percentage_1.isLengthPercentage(stop) ? { color: color, stop: stop } : { color: color, stop: null };
+    return stop && length_percentage_1.isLengthPercentage(stop) ? {color: color, stop: stop} : {
+        color: color,
+        stop: null
+    };
 };
 exports.parseColorStop = parseColorStop;
 var processColorStops = function (stops, lineLength) {
@@ -26,13 +29,11 @@ var processColorStops = function (stops, lineLength) {
             var absoluteValue = length_percentage_1.getAbsoluteValue(stop_1, lineLength);
             if (absoluteValue > previous) {
                 processStops.push(absoluteValue);
-            }
-            else {
+            } else {
                 processStops.push(previous);
             }
             previous = absoluteValue;
-        }
-        else {
+        } else {
             processStops.push(null);
         }
     }
@@ -43,8 +44,7 @@ var processColorStops = function (stops, lineLength) {
             if (gapBegin === null) {
                 gapBegin = i;
             }
-        }
-        else if (gapBegin !== null) {
+        } else if (gapBegin !== null) {
             var gapLength = i - gapBegin;
             var beforeGap = processStops[gapBegin - 1];
             var gapValue = (stop_2 - beforeGap) / (gapLength + 1);
@@ -56,7 +56,7 @@ var processColorStops = function (stops, lineLength) {
     }
     return stops.map(function (_a, i) {
         var color = _a.color;
-        return { color: color, stop: Math.max(Math.min(1, processStops[i] / lineLength), 0) };
+        return {color: color, stop: Math.max(Math.min(1, processStops[i] / lineLength), 0)};
     });
 };
 exports.processColorStops = processColorStops;
@@ -78,7 +78,9 @@ var calculateGradientDirection = function (angle, width, height) {
     return [lineLength, halfWidth - xDiff, halfWidth + xDiff, halfHeight - yDiff, halfHeight + yDiff];
 };
 exports.calculateGradientDirection = calculateGradientDirection;
-var distance = function (a, b) { return Math.sqrt(a * a + b * b); };
+var distance = function (a, b) {
+    return Math.sqrt(a * a + b * b);
+};
 var findCorner = function (width, height, x, y, closest) {
     var corners = [
         [0, 0],
@@ -105,24 +107,24 @@ var calculateRadius = function (gradient, x, y, width, height) {
     var rx = 0;
     var ry = 0;
     switch (gradient.size) {
-        case 0 /* CLOSEST_SIDE */:
+        case 0 /* CLOSEST_SIDE */
+        :
             // The ending shape is sized so that that it exactly meets the side of the gradient box closest to the gradient’s center.
             // If the shape is an ellipse, it exactly meets the closest side in each dimension.
             if (gradient.shape === 0 /* CIRCLE */) {
                 rx = ry = Math.min(Math.abs(x), Math.abs(x - width), Math.abs(y), Math.abs(y - height));
-            }
-            else if (gradient.shape === 1 /* ELLIPSE */) {
+            } else if (gradient.shape === 1 /* ELLIPSE */) {
                 rx = Math.min(Math.abs(x), Math.abs(x - width));
                 ry = Math.min(Math.abs(y), Math.abs(y - height));
             }
             break;
-        case 2 /* CLOSEST_CORNER */:
+        case 2 /* CLOSEST_CORNER */
+        :
             // The ending shape is sized so that that it passes through the corner of the gradient box closest to the gradient’s center.
             // If the shape is an ellipse, the ending shape is given the same aspect-ratio it would have if closest-side were specified.
             if (gradient.shape === 0 /* CIRCLE */) {
                 rx = ry = Math.min(distance(x, y), distance(x, y - height), distance(x - width, y), distance(x - width, y - height));
-            }
-            else if (gradient.shape === 1 /* ELLIPSE */) {
+            } else if (gradient.shape === 1 /* ELLIPSE */) {
                 // Compute the ratio ry/rx (which is to be the same as for "closest-side")
                 var c = Math.min(Math.abs(y), Math.abs(y - height)) / Math.min(Math.abs(x), Math.abs(x - width));
                 var _a = findCorner(width, height, x, y, true), cx = _a[0], cy = _a[1];
@@ -130,23 +132,23 @@ var calculateRadius = function (gradient, x, y, width, height) {
                 ry = c * rx;
             }
             break;
-        case 1 /* FARTHEST_SIDE */:
+        case 1 /* FARTHEST_SIDE */
+        :
             // Same as closest-side, except the ending shape is sized based on the farthest side(s)
             if (gradient.shape === 0 /* CIRCLE */) {
                 rx = ry = Math.max(Math.abs(x), Math.abs(x - width), Math.abs(y), Math.abs(y - height));
-            }
-            else if (gradient.shape === 1 /* ELLIPSE */) {
+            } else if (gradient.shape === 1 /* ELLIPSE */) {
                 rx = Math.max(Math.abs(x), Math.abs(x - width));
                 ry = Math.max(Math.abs(y), Math.abs(y - height));
             }
             break;
-        case 3 /* FARTHEST_CORNER */:
+        case 3 /* FARTHEST_CORNER */
+        :
             // Same as closest-corner, except the ending shape is sized based on the farthest corner.
             // If the shape is an ellipse, the ending shape is given the same aspect ratio it would have if farthest-side were specified.
             if (gradient.shape === 0 /* CIRCLE */) {
                 rx = ry = Math.max(distance(x, y), distance(x, y - height), distance(x - width, y), distance(x - width, y - height));
-            }
-            else if (gradient.shape === 1 /* ELLIPSE */) {
+            } else if (gradient.shape === 1 /* ELLIPSE */) {
                 // Compute the ratio ry/rx (which is to be the same as for "farthest-side")
                 var c = Math.max(Math.abs(y), Math.abs(y - height)) / Math.max(Math.abs(x), Math.abs(x - width));
                 var _b = findCorner(width, height, x, y, false), cx = _b[0], cy = _b[1];

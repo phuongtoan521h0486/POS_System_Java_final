@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.counterReset = void 0;
 var parser_1 = require("../syntax/parser");
 exports.counterReset = {
@@ -18,7 +18,7 @@ exports.counterReset = {
             var next = filtered[i + 1];
             if (parser_1.isIdentToken(counter) && counter.value !== 'none') {
                 var reset = next && parser_1.isNumberToken(next) ? next.number : 0;
-                resets.push({ counter: counter.value, reset: reset });
+                resets.push({counter: counter.value, reset: reset});
             }
         }
         return resets;

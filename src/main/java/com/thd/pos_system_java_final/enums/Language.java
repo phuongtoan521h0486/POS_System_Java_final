@@ -1,4 +1,5 @@
 package com.thd.pos_system_java_final.enums;
+
 import com.google.gson.annotations.SerializedName;
 import com.thd.pos_system_java_final.shared.constants.Constants;
 
@@ -26,6 +27,8 @@ public enum Language {
         return null;
     }
 
-    public String getLanguage() { return value; }
+    public String getLanguage() {
+        return value;
+    }
 
 }

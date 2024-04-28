@@ -3,8 +3,6 @@ package com.thd.pos_system_java_final.controllers;
 import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +22,7 @@ public class SearchController {
 
     @GetMapping("/searchBarcode")
     public Product searchBarcode(@RequestParam String barcode) {
-        return  productRepository.findByBarcode(barcode);
+        return productRepository.findByBarcode(barcode);
     }
 }
 

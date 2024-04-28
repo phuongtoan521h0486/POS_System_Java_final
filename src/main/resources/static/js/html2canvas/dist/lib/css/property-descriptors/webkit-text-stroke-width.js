@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.webkitTextStrokeWidth = void 0;
 var parser_1 = require("../syntax/parser");
 exports.webkitTextStrokeWidth = {

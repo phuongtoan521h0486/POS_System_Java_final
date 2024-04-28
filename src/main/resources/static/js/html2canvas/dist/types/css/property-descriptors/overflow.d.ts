@@ -1,4 +1,5 @@
-import { IPropertyListDescriptor } from '../IPropertyDescriptor';
+import {IPropertyListDescriptor} from '../IPropertyDescriptor';
+
 export declare const enum OVERFLOW {
     VISIBLE = 0,
     HIDDEN = 1,
@@ -6,4 +7,5 @@ export declare const enum OVERFLOW {
     CLIP = 3,
     AUTO = 4
 }
+
 export declare const overflow: IPropertyListDescriptor<OVERFLOW[]>;

@@ -4,8 +4,6 @@ import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.thd.pos_system_java_final.conf.PaypalConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,7 +13,7 @@ import java.util.List;
 
 public class PaypalService {
 
-    private APIContext apiContext;
+    private final APIContext apiContext;
 
     public PaypalService() throws PayPalRESTException {
         apiContext = PaypalConfig.apiContext();
@@ -49,7 +47,7 @@ public class PaypalService {
         return payment.create(apiContext);
     }
 
-    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException{
+    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
         Payment payment = new Payment();
         payment.setId(paymentId);
         PaymentExecution paymentExecute = new PaymentExecution();

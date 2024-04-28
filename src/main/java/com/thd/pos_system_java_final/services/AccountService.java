@@ -6,7 +6,6 @@ import com.thd.pos_system_java_final.models.Account.AccountRole;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -45,10 +44,12 @@ public class AccountService {
                 .build();
         repo.save(newAccount);
     }
+
     // Apply Builder pattern
     public Account getAccountByUsername(String username) {
         return repo.findByUsername(username);
     }
+
     public void deleteAccount(int id) {
         repo.deleteById(id);
     }
@@ -66,8 +67,9 @@ public class AccountService {
     }
 
     public List<Account> getAllAccounts() {
-        return  repo.findAll();
+        return repo.findAll();
     }
+
     private byte[] getDefaultImageBytes() {
         try {
             Resource resource = new ClassPathResource("static/images/avatar-default.png");

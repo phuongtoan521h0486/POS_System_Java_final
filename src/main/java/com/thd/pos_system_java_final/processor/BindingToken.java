@@ -24,7 +24,7 @@ public class BindingToken extends AbstractProcess<BindingTokenRequest, BindingTo
 
             return bindingTokenResponse;
         } catch (Exception exception) {
-            LogUtils.error("[BindingTokenProcess] "+ exception);
+            LogUtils.error("[BindingTokenProcess] " + exception);
         }
         return null;
     }
@@ -41,7 +41,7 @@ public class BindingToken extends AbstractProcess<BindingTokenRequest, BindingTo
                 throw new MoMoException("[BindingTokenResponse] [" + request.getOrderId() + "] -> Error API");
             }
 
-            System.out.println("uweryei7rye8wyreow8: "+ response.getData());
+            System.out.println("uweryei7rye8wyreow8: " + response.getData());
 
             BindingTokenResponse BindingTokenResponse = getGson().fromJson(response.getData(), BindingTokenResponse.class);
             String responserawData = Parameter.REQUEST_ID + "=" + BindingTokenResponse.getRequestId() +
@@ -54,7 +54,7 @@ public class BindingToken extends AbstractProcess<BindingTokenRequest, BindingTo
             return BindingTokenResponse;
 
         } catch (Exception exception) {
-            LogUtils.error("[BindingTokenResponse] "+ exception);
+            LogUtils.error("[BindingTokenResponse] " + exception);
             throw new IllegalArgumentException("Invalid params capture MoMo Request");
         }
     }
@@ -62,21 +62,19 @@ public class BindingToken extends AbstractProcess<BindingTokenRequest, BindingTo
     public BindingTokenRequest createBindingTokenRequest(String orderId, String requestId, String partnerClientId, String callbackToken) {
 
         try {
-            String requestRawData = new StringBuilder()
-                    .append(Parameter.ACCESS_KEY).append("=").append(partnerInfo.getAccessKey()).append("&")
-                    .append(Parameter.CALLBACK_TOKEN).append("=").append(callbackToken).append("&")
-                    .append(Parameter.ORDER_ID).append("=").append(orderId).append("&")
-                    .append(Parameter.PARTNER_CLIENT_ID).append("=").append(partnerClientId).append("&")
-                    .append(Parameter.PARTNER_CODE).append("=").append(partnerInfo.getPartnerCode()).append("&")
-                    .append(Parameter.REQUEST_ID).append("=").append(requestId)
-                    .toString();
+            String requestRawData = Parameter.ACCESS_KEY + "=" + partnerInfo.getAccessKey() + "&" +
+                    Parameter.CALLBACK_TOKEN + "=" + callbackToken + "&" +
+                    Parameter.ORDER_ID + "=" + orderId + "&" +
+                    Parameter.PARTNER_CLIENT_ID + "=" + partnerClientId + "&" +
+                    Parameter.PARTNER_CODE + "=" + partnerInfo.getPartnerCode() + "&" +
+                    Parameter.REQUEST_ID + "=" + requestId;
 
             String signRequest = Encoder.signHmacSHA256(requestRawData, partnerInfo.getSecretKey());
             LogUtils.debug("[BindingTokenRequest] rawData: " + requestRawData + ", [Signature] -> " + signRequest);
 
             return new BindingTokenRequest(partnerInfo.getPartnerCode(), orderId, requestId, Language.EN, partnerClientId, callbackToken, signRequest);
         } catch (Exception e) {
-            LogUtils.error("[BindingTokenResponse] "+ e);
+            LogUtils.error("[BindingTokenResponse] " + e);
         }
 
         return null;

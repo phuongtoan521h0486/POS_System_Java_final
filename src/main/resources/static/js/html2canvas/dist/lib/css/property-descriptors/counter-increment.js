@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.counterIncrement = void 0;
 var parser_1 = require("../syntax/parser");
 exports.counterIncrement = {
@@ -22,7 +22,7 @@ exports.counterIncrement = {
             var next = filtered[i + 1];
             if (counter.type === 20 /* IDENT_TOKEN */) {
                 var increment = next && parser_1.isNumberToken(next) ? next.number : 1;
-                increments.push({ counter: counter.value, increment: increment });
+                increments.push({counter: counter.value, increment: increment});
             }
         }
         return increments;

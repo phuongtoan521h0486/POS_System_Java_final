@@ -1,2 +1,3 @@
-import { IPropertyListDescriptor } from '../IPropertyDescriptor';
+import {IPropertyListDescriptor} from '../IPropertyDescriptor';
+
 export declare const duration: IPropertyListDescriptor<number[]>;

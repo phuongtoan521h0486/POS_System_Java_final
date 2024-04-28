@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.parseDocumentSize = exports.parseBounds = exports.Bounds = void 0;
 var Bounds = /** @class */ (function () {
     function Bounds(left, top, width, height) {
@@ -8,6 +8,7 @@ var Bounds = /** @class */ (function () {
         this.width = width;
         this.height = height;
     }
+
     Bounds.prototype.add = function (x, y, w, h) {
         return new Bounds(this.left + x, this.top + y, this.width + w, this.height + h);
     };
@@ -15,7 +16,9 @@ var Bounds = /** @class */ (function () {
         return new Bounds(clientRect.left + context.windowBounds.left, clientRect.top + context.windowBounds.top, clientRect.width, clientRect.height);
     };
     Bounds.fromDOMRectList = function (context, domRectList) {
-        var domRect = Array.from(domRectList).find(function (rect) { return rect.width !== 0; });
+        var domRect = Array.from(domRectList).find(function (rect) {
+            return rect.width !== 0;
+        });
         return domRect
             ? new Bounds(domRect.left + context.windowBounds.left, domRect.top + context.windowBounds.top, domRect.width, domRect.height)
             : Bounds.EMPTY;

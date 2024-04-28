@@ -1,50 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link href="https://cdn.jsdelivr.net/npm/fastbootstrap@2.1.0/dist/css/fastbootstrap.min.css" rel="stylesheet"
-    integrity="sha256-7gHJpsgk5BJHsd/tOfDnH0qKNCzmTMJ8zv+UYYw9CXE=" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Document</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/fastbootstrap@2.1.0/dist/css/fastbootstrap.min.css"
+          integrity="sha256-7gHJpsgk5BJHsd/tOfDnH0qKNCzmTMJ8zv+UYYw9CXE=" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">GTV Team</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- Content -->
-  <div class="content container-fluid">
-    <div id="welcome" class="row justify-content-sm-center text-center py-10">
-      <div class="col-sm-7 col-md-5">
-        <img class="img-fluid mb-5 mt-5" src="/images/oc-building-apps.svg" alt="Image Description"
-          data-hs-theme-appearance="default">
-        <!-- <img class="img-fluid mb-5" src="./assets/svg/illustrations-light/oc-collaboration.svg" alt="Image Description" data-hs-theme-appearance="dark"> -->
-
-        <h1>Welcome to GTV POS System!</h1>
-        <p>This is your first time to access the system. Enjoy!</p>
-
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Click here to change your password
+        <a class="navbar-brand" href="#">GTV Team</a>
+        <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
         </button>
-      </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a aria-current="page" class="nav-link active" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Content -->
+<div class="content container-fluid">
+    <div class="row justify-content-sm-center text-center py-10" id="welcome">
+        <div class="col-sm-7 col-md-5">
+            <img alt="Image Description" class="img-fluid mb-5 mt-5" data-hs-theme-appearance="default"
+                 src="/images/oc-building-apps.svg">
+            <!-- <img class="img-fluid mb-5" src="./assets/svg/illustrations-light/oc-collaboration.svg" alt="Image Description" data-hs-theme-appearance="dark"> -->
+
+            <h1>Welcome to GTV POS System!</h1>
+            <p>This is your first time to access the system. Enjoy!</p>
+
+            <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal" type="button">
+                Click here to change your password
+            </button>
+        </div>
     </div>
 
 
@@ -53,45 +53,45 @@
     <!-- End Button trigger modal -->
 
 
-  </div>
-  <!-- End Content -->
+</div>
+<!-- End Content -->
 
 
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="staticBackdropLabel" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"
+     id="staticBackdrop" tabindex="-1">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Change Password</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Change Password</h5>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <form action="/welcome" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control" id="password" name="password" type="password"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Repassword</label>
+                        <input class="form-control" id="repassword" name="rePassword" type="password"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-subtle" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" type="submit">Change</button>
+                </div>
+            </form>
         </div>
-        <form method="post" action="/welcome">
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input name="password" type="password" class="form-control" id="password" />
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Repassword</label>
-              <input name="rePassword" type="password" class="form-control" id="repassword" />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-subtle" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Change</button>
-          </div>
-        </form>
-      </div>
     </div>
-  </div>
+</div>
 </body>
 <script>
-  $(document).ready(function () {
-    $("#btn-next").on("click", e => {
-      $("#welcome").hide()
-      $(".create-password").show()
-    })
-  });
+    $(document).ready(function () {
+        $("#btn-next").on("click", e => {
+            $("#welcome").hide()
+            $(".create-password").show()
+        })
+    });
 </script>
 
 </html>

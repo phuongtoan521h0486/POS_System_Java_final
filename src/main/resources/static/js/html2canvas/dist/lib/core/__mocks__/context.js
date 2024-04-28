@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.Context = void 0;
 var logger_1 = require("./logger");
 var Context = /** @class */ (function () {
@@ -16,6 +16,7 @@ var Context = /** @class */ (function () {
             })
         };
     }
+
     return Context;
 }());
 exports.Context = Context;

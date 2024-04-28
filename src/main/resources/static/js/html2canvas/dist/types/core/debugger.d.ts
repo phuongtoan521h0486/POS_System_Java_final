@@ -5,4 +5,5 @@ export declare const enum DebuggerType {
     PARSE = 3,
     RENDER = 4
 }
+
 export declare const isDebugging: (element: Element, type: Omit<DebuggerType, DebuggerType.NONE>) => boolean;

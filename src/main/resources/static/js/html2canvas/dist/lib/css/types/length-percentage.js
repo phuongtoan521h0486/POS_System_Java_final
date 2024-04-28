@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.getAbsoluteValue = exports.getAbsoluteValueForTuple = exports.HUNDRED_PERCENT = exports.FIFTY_PERCENT = exports.ZERO_LENGTH = exports.parseLengthPercentageTuple = exports.isLengthPercentage = void 0;
 var tokenizer_1 = require("../syntax/tokenizer");
 var parser_1 = require("../syntax/parser");

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.fontVariant = void 0;
 var parser_1 = require("../syntax/parser");
 exports.fontVariant = {
@@ -8,7 +8,9 @@ exports.fontVariant = {
     type: 1 /* LIST */,
     prefix: false,
     parse: function (_context, tokens) {
-        return tokens.filter(parser_1.isIdentToken).map(function (token) { return token.value; });
+        return tokens.filter(parser_1.isIdentToken).map(function (token) {
+            return token.value;
+        });
     }
 };
 //# sourceMappingURL=font-variant.js.map

@@ -1,6 +1,6 @@
 package com.thd.pos_system_java_final.models.MoMoModels;
 
-public class BindingTokenResponse extends Response{
+public class BindingTokenResponse extends Response {
     private String requestId;
     private String partnerClientId;
     private String aesToken;

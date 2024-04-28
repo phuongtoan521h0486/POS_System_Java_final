@@ -3,7 +3,6 @@ package com.thd.pos_system_java_final.controllers;
 import com.thd.pos_system_java_final.deletion.CustomerDeletionController;
 import com.thd.pos_system_java_final.deletion.DeletionController;
 import com.thd.pos_system_java_final.models.Cart.Item;
-import com.thd.pos_system_java_final.models.Coupon.Coupon;
 import com.thd.pos_system_java_final.models.Customer.Customer;
 import com.thd.pos_system_java_final.models.Customer.CustomerRepository;
 import com.thd.pos_system_java_final.models.Order.Order;
@@ -134,7 +133,7 @@ public class CustomerController {
         Customer customer = customerRepository.findByCustomerId(customerId);
         List<OrderDetail> orderDetails = orderDetailRepository.findAllByOrderId(orderId);
         List<Item> items = new ArrayList<>();
-        for(OrderDetail detail: orderDetails) {
+        for (OrderDetail detail : orderDetails) {
             Product p = productRepository.findByProductId(detail.getProductId());
             items.add(new Item(p, detail.getQuantity()));
         }

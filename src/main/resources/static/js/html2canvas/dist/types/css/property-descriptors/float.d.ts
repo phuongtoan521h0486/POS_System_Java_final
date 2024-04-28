@@ -1,4 +1,5 @@
-import { IPropertyIdentValueDescriptor } from '../IPropertyDescriptor';
+import {IPropertyIdentValueDescriptor} from '../IPropertyDescriptor';
+
 export declare const enum FLOAT {
     NONE = 0,
     LEFT = 1,
@@ -6,4 +7,5 @@ export declare const enum FLOAT {
     INLINE_START = 3,
     INLINE_END = 4
 }
+
 export declare const float: IPropertyIdentValueDescriptor<FLOAT>;

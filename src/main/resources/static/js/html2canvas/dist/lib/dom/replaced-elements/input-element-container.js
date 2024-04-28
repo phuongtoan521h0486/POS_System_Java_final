@@ -2,19 +2,27 @@
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+            ({__proto__: []} instanceof Array && function (d, b) {
+                d.__proto__ = b;
+            }) ||
+            function (d, b) {
+                for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+            };
         return extendStatics(d, b);
     };
     return function (d, b) {
         if (typeof b !== "function" && b !== null)
             throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
-        function __() { this.constructor = d; }
+
+        function __() {
+            this.constructor = d;
+        }
+
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.InputElementContainer = exports.INPUT_COLOR = exports.PASSWORD = exports.RADIO = exports.CHECKBOX = void 0;
 var element_container_1 = require("../element-container");
 var bounds_1 = require("../../css/layout/bounds");
@@ -36,8 +44,7 @@ var RADIO_BORDER_RADIUS = [
 var reformatInputBounds = function (bounds) {
     if (bounds.width > bounds.height) {
         return new bounds_1.Bounds(bounds.left + (bounds.width - bounds.height) / 2, bounds.top, bounds.height, bounds.height);
-    }
-    else if (bounds.width < bounds.height) {
+    } else if (bounds.width < bounds.height) {
         return new bounds_1.Bounds(bounds.left, bounds.top + (bounds.height - bounds.width) / 2, bounds.width, bounds.width);
     }
     return bounds;
@@ -52,6 +59,7 @@ exports.PASSWORD = 'password';
 exports.INPUT_COLOR = 0x2a2a2aff;
 var InputElementContainer = /** @class */ (function (_super) {
     __extends(InputElementContainer, _super);
+
     function InputElementContainer(context, input) {
         var _this = _super.call(this, context, input) || this;
         _this.type = input.type.toLowerCase();
@@ -96,6 +104,7 @@ var InputElementContainer = /** @class */ (function (_super) {
         }
         return _this;
     }
+
     return InputElementContainer;
 }(element_container_1.ElementContainer));
 exports.InputElementContainer = InputElementContainer;

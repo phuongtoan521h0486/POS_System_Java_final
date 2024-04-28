@@ -1,6 +1,7 @@
-import { CSSValue } from '../../syntax/parser';
-import { CSSRadialGradientImage } from '../image';
-import { Context } from '../../../core/context';
+import {CSSValue} from '../../syntax/parser';
+import {CSSRadialGradientImage} from '../image';
+import {Context} from '../../../core/context';
+
 export declare const CLOSEST_SIDE = "closest-side";
 export declare const FARTHEST_SIDE = "farthest-side";
 export declare const CLOSEST_CORNER = "closest-corner";

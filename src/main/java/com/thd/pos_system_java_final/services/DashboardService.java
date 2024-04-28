@@ -8,11 +8,12 @@ import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.temporal.TemporalAdjusters;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class DashboardService {
@@ -22,6 +23,7 @@ public class DashboardService {
     OrderDetailRepository orderDetailRepository;
     @Autowired
     ProductRepository productRepository;
+
     public List<Order> getOrdersByDateRange(Date fromDate, Date toDate) {
         LocalDate today = LocalDate.now();
         Date from, to = null;
@@ -97,7 +99,7 @@ public class DashboardService {
         double revenue = 0;
         List<OrderDetail> details = orderDetailRepository.findAllByOrderId(order.getOrderId());
         double totalImportPrice = 0;
-        for(OrderDetail detail: details) {
+        for (OrderDetail detail : details) {
             if (productRepository.findByProductId(detail.getProductId()) != null) {
                 totalImportPrice += detail.getQuantity() * productRepository.findByProductId(detail.getProductId()).getImportPrice();
             }
@@ -106,17 +108,17 @@ public class DashboardService {
     }
 
     public List<Double> getProfitOfOrders(List<Order> orders) {
-        List<Double>  revenues = new ArrayList<>();
-        for(Order order: orders) {
+        List<Double> revenues = new ArrayList<>();
+        for (Order order : orders) {
             revenues.add(getProfitOfAnOrder(order));
         }
-        return  revenues;
+        return revenues;
     }
 
     public double getProfit(List<Order> orders) {
-        List<Double>  revenues = getProfitOfOrders(orders);
+        List<Double> revenues = getProfitOfOrders(orders);
         double total = 0;
-        for(Double revenue: revenues) {
+        for (Double revenue : revenues) {
             total += revenue;
         }
         return total;
@@ -124,9 +126,9 @@ public class DashboardService {
 
     public int countProductsOfOrders(List<Order> orders) {
         int count = 0;
-        for (Order order: orders) {
+        for (Order order : orders) {
             List<OrderDetail> details = orderDetailRepository.findAllByOrderId(order.getOrderId());
-            for (OrderDetail detail: details) {
+            for (OrderDetail detail : details) {
                 count += detail.getQuantity();
             }
         }
@@ -135,7 +137,7 @@ public class DashboardService {
 
     public double getRevenue(List<Order> orders) {
         double revenue = 0;
-        for (Order order: orders) {
+        for (Order order : orders) {
             revenue += order.getTotalAmount();
         }
         return revenue;

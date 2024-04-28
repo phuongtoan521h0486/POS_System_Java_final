@@ -1,6 +1,5 @@
 package com.thd.pos_system_java_final.models.Order;
 
-import com.thd.pos_system_java_final.models.Coupon.Coupon;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

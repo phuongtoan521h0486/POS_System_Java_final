@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.backgroundImage = void 0;
 var image_1 = require("../types/image");
 var parser_1 = require("../syntax/parser");
@@ -17,8 +17,12 @@ exports.backgroundImage = {
             return [];
         }
         return tokens
-            .filter(function (value) { return parser_1.nonFunctionArgSeparator(value) && image_1.isSupportedImage(value); })
-            .map(function (value) { return image_1.image.parse(context, value); });
+            .filter(function (value) {
+                return parser_1.nonFunctionArgSeparator(value) && image_1.isSupportedImage(value);
+            })
+            .map(function (value) {
+                return image_1.image.parse(context, value);
+            });
     }
 };
 //# sourceMappingURL=background-image.js.map

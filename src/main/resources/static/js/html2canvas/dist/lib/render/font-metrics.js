@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.FontMetrics = void 0;
 var util_1 = require("../core/util");
 var SAMPLE_TEXT = 'Hidden Text';
@@ -8,6 +8,7 @@ var FontMetrics = /** @class */ (function () {
         this._data = {};
         this._document = document;
     }
+
     FontMetrics.prototype.parseMetrics = function (fontFamily, fontSize) {
         var container = this._document.createElement('div');
         var img = this._document.createElement('img');
@@ -40,7 +41,7 @@ var FontMetrics = /** @class */ (function () {
         img.style.verticalAlign = 'super';
         var middle = img.offsetTop - container.offsetTop + 2;
         body.removeChild(container);
-        return { baseline: baseline, middle: middle };
+        return {baseline: baseline, middle: middle};
     };
     FontMetrics.prototype.getMetrics = function (fontFamily, fontSize) {
         var key = fontFamily + " " + fontSize;

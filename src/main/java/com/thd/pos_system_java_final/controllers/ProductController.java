@@ -65,10 +65,10 @@ public class ProductController {
         p.setImportPrice(importPrice);
         p.setCategory(category);
         if (!picture.isEmpty()) {
-                p.setPicture(picture.getBytes());
-            } else {
-                p.setPicture(getDefaultImageBytes());
-            }
+            p.setPicture(picture.getBytes());
+        } else {
+            p.setPicture(getDefaultImageBytes());
+        }
         p.setCreationDate(new Date());
 
         productRepository.save(p);
@@ -116,7 +116,7 @@ public class ProductController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
-        ProductDeletionController productDeletionController = new ProductDeletionController(cartService, orderDetailRepository, productRepository);  
+        ProductDeletionController productDeletionController = new ProductDeletionController(cartService, orderDetailRepository, productRepository);
         productDeletionController.delete(id);
         return "redirect:/product";
     }

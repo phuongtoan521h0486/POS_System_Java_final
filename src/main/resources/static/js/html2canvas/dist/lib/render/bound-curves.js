@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.calculatePaddingBoxPath = exports.calculateContentBoxPath = exports.calculateBorderBoxPath = exports.BoundCurves = void 0;
 var length_percentage_1 = require("../css/types/length-percentage");
 var vector_1 = require("./vector");
@@ -8,10 +8,14 @@ var BoundCurves = /** @class */ (function () {
     function BoundCurves(element) {
         var styles = element.styles;
         var bounds = element.bounds;
-        var _a = length_percentage_1.getAbsoluteValueForTuple(styles.borderTopLeftRadius, bounds.width, bounds.height), tlh = _a[0], tlv = _a[1];
-        var _b = length_percentage_1.getAbsoluteValueForTuple(styles.borderTopRightRadius, bounds.width, bounds.height), trh = _b[0], trv = _b[1];
-        var _c = length_percentage_1.getAbsoluteValueForTuple(styles.borderBottomRightRadius, bounds.width, bounds.height), brh = _c[0], brv = _c[1];
-        var _d = length_percentage_1.getAbsoluteValueForTuple(styles.borderBottomLeftRadius, bounds.width, bounds.height), blh = _d[0], blv = _d[1];
+        var _a = length_percentage_1.getAbsoluteValueForTuple(styles.borderTopLeftRadius, bounds.width, bounds.height),
+            tlh = _a[0], tlv = _a[1];
+        var _b = length_percentage_1.getAbsoluteValueForTuple(styles.borderTopRightRadius, bounds.width, bounds.height),
+            trh = _b[0], trv = _b[1];
+        var _c = length_percentage_1.getAbsoluteValueForTuple(styles.borderBottomRightRadius, bounds.width, bounds.height),
+            brh = _c[0], brv = _c[1];
+        var _d = length_percentage_1.getAbsoluteValueForTuple(styles.borderBottomLeftRadius, bounds.width, bounds.height),
+            blh = _d[0], blv = _d[1];
         var factors = [];
         factors.push((tlh + trh) / bounds.width);
         factors.push((blh + brh) / bounds.width);
@@ -137,6 +141,7 @@ var BoundCurves = /** @class */ (function () {
                 ? getCurvePoints(bounds.left + borderLeftWidth + paddingLeft, bounds.top + leftHeight, Math.max(0, blh - (borderLeftWidth + paddingLeft)), blv - (borderBottomWidth + paddingBottom), CORNER.BOTTOM_LEFT)
                 : new vector_1.Vector(bounds.left + borderLeftWidth + paddingLeft, bounds.top + bounds.height - (borderBottomWidth + paddingBottom));
     }
+
     return BoundCurves;
 }());
 exports.BoundCurves = BoundCurves;

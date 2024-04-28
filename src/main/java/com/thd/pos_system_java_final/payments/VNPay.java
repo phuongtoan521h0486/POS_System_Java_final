@@ -2,16 +2,15 @@ package com.thd.pos_system_java_final.payments;
 
 import com.thd.pos_system_java_final.conf.VNPayConfig;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class VNPay implements IPayment{
+public class VNPay implements IPayment {
     @Override
     public String processPayment(PaymentParams params) {
-        long amount = (long) (params.getTotalAmount()*23000.0*100);
+        long amount = (long) (params.getTotalAmount() * 23000.0 * 100);
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
 
         Map<String, String> vnp_Params = new HashMap<>();
@@ -43,21 +42,17 @@ public class VNPay implements IPayment{
         Iterator itr = fieldNames.iterator();
         while (itr.hasNext()) {
             String fieldName = (String) itr.next();
-            String fieldValue = (String) vnp_Params.get(fieldName);
+            String fieldValue = vnp_Params.get(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                try {
-                    hashData.append(fieldName);
-                    hashData.append('=');
-                    hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                    query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
-                    query.append('=');
-                    query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                    if (itr.hasNext()) {
-                        query.append('&');
-                        hashData.append('&');
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
+                hashData.append(fieldName);
+                hashData.append('=');
+                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII));
+                query.append('=');
+                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                if (itr.hasNext()) {
+                    query.append('&');
+                    hashData.append('&');
                 }
             }
         }

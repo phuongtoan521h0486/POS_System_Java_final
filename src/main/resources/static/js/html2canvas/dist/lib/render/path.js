@@ -1,9 +1,11 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.transformPath = exports.equalPath = void 0;
 var equalPath = function (a, b) {
     if (a.length === b.length) {
-        return a.some(function (v, i) { return v === b[i]; });
+        return a.some(function (v, i) {
+            return v === b[i];
+        });
     }
     return false;
 };

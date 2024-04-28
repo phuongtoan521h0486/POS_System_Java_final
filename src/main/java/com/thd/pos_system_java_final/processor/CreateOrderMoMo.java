@@ -27,7 +27,7 @@ public class CreateOrderMoMo extends AbstractProcess<PaymentRequest, PaymentResp
 
             return captureMoMoResponse;
         } catch (Exception exception) {
-            LogUtils.error("[CreateOrderMoMoProcess] "+ exception);
+            LogUtils.error("[CreateOrderMoMoProcess] " + exception);
         }
         return null;
     }
@@ -44,7 +44,7 @@ public class CreateOrderMoMo extends AbstractProcess<PaymentRequest, PaymentResp
                 throw new MoMoException("[PaymentResponse] [" + request.getOrderId() + "] -> Error API");
             }
 
-            System.out.println("uweryei7rye8wyreow8: "+ response.getData());
+            System.out.println("uweryei7rye8wyreow8: " + response.getData());
 
             PaymentResponse captureMoMoResponse = getGson().fromJson(response.getData(), PaymentResponse.class);
             String responserawData = Parameter.REQUEST_ID + "=" + captureMoMoResponse.getRequestId() +
@@ -58,26 +58,25 @@ public class CreateOrderMoMo extends AbstractProcess<PaymentRequest, PaymentResp
             return captureMoMoResponse;
 
         } catch (Exception exception) {
-            LogUtils.error("[PaymentMoMoResponse] "+ exception);
+            LogUtils.error("[PaymentMoMoResponse] " + exception);
             throw new IllegalArgumentException("Invalid params capture MoMo Request");
         }
     }
+
     public PaymentRequest createPaymentCreationRequest(String orderId, String requestId, String amount, String orderInfo,
                                                        String returnUrl, String notifyUrl, String extraData, RequestType requestType, Boolean autoCapture) {
 
         try {
-            String requestRawData = new StringBuilder()
-                    .append(Parameter.ACCESS_KEY).append("=").append(partnerInfo.getAccessKey()).append("&")
-                    .append(Parameter.AMOUNT).append("=").append(amount).append("&")
-                    .append(Parameter.EXTRA_DATA).append("=").append(extraData).append("&")
-                    .append(Parameter.IPN_URL).append("=").append(notifyUrl).append("&")
-                    .append(Parameter.ORDER_ID).append("=").append(orderId).append("&")
-                    .append(Parameter.ORDER_INFO).append("=").append(orderInfo).append("&")
-                    .append(Parameter.PARTNER_CODE).append("=").append(partnerInfo.getPartnerCode()).append("&")
-                    .append(Parameter.REDIRECT_URL).append("=").append(returnUrl).append("&")
-                    .append(Parameter.REQUEST_ID).append("=").append(requestId).append("&")
-                    .append(Parameter.REQUEST_TYPE).append("=").append(requestType.getRequestType())
-                    .toString();
+            String requestRawData = Parameter.ACCESS_KEY + "=" + partnerInfo.getAccessKey() + "&" +
+                    Parameter.AMOUNT + "=" + amount + "&" +
+                    Parameter.EXTRA_DATA + "=" + extraData + "&" +
+                    Parameter.IPN_URL + "=" + notifyUrl + "&" +
+                    Parameter.ORDER_ID + "=" + orderId + "&" +
+                    Parameter.ORDER_INFO + "=" + orderInfo + "&" +
+                    Parameter.PARTNER_CODE + "=" + partnerInfo.getPartnerCode() + "&" +
+                    Parameter.REDIRECT_URL + "=" + returnUrl + "&" +
+                    Parameter.REQUEST_ID + "=" + requestId + "&" +
+                    Parameter.REQUEST_TYPE + "=" + requestType.getRequestType();
 
             String signRequest = Encoder.signHmacSHA256(requestRawData, partnerInfo.getSecretKey());
             LogUtils.debug("[PaymentRequest] rawData: " + requestRawData + ", [Signature] -> " + signRequest);
@@ -85,7 +84,7 @@ public class CreateOrderMoMo extends AbstractProcess<PaymentRequest, PaymentResp
             return new PaymentRequest(partnerInfo.getPartnerCode(), orderId, requestId, Language.EN, orderInfo, Long.valueOf(amount), "test MoMo", null, requestType,
                     returnUrl, notifyUrl, "test store ID", extraData, null, autoCapture, null, signRequest);
         } catch (Exception e) {
-            LogUtils.error("[PaymentRequest] "+ e);
+            LogUtils.error("[PaymentRequest] " + e);
         }
 
         return null;

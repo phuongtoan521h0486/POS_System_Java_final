@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.backgroundColor = void 0;
 exports.backgroundColor = {
     name: "background-color",

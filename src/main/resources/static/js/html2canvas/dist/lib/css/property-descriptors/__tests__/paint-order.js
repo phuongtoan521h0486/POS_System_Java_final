@@ -1,9 +1,11 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 var assert_1 = require("assert");
 var parser_1 = require("../../syntax/parser");
 var paint_order_1 = require("../paint-order");
-var paintOrderParse = function (value) { return paint_order_1.paintOrder.parse({}, parser_1.Parser.parseValues(value)); };
+var paintOrderParse = function (value) {
+    return paint_order_1.paintOrder.parse({}, parser_1.Parser.parseValues(value));
+};
 describe('property-descriptors', function () {
     describe('paint-order', function () {
         it('none', function () {

@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.List;
 
-public class CSVExporter implements Exporter{
+public class CSVExporter implements Exporter {
     @Override
     public String getExtensionPart() {
         return ".csv";

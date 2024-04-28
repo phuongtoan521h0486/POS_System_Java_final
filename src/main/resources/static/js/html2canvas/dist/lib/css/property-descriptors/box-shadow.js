@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.boxShadow = void 0;
 var parser_1 = require("../syntax/parser");
 var length_percentage_1 = require("../types/length-percentage");
@@ -28,23 +28,18 @@ exports.boxShadow = {
                 var token = values[i];
                 if (parser_1.isIdentWithValue(token, 'inset')) {
                     shadow.inset = true;
-                }
-                else if (length_1.isLength(token)) {
+                } else if (length_1.isLength(token)) {
                     if (c === 0) {
                         shadow.offsetX = token;
-                    }
-                    else if (c === 1) {
+                    } else if (c === 1) {
                         shadow.offsetY = token;
-                    }
-                    else if (c === 2) {
+                    } else if (c === 2) {
                         shadow.blur = token;
-                    }
-                    else {
+                    } else {
                         shadow.spread = token;
                     }
                     c++;
-                }
-                else {
+                } else {
                     shadow.color = color_1.color.parse(context, token);
                 }
             }

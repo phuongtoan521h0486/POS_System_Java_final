@@ -1,6 +1,6 @@
 "use strict";
 // https://www.w3.org/TR/css-syntax-3
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.Tokenizer = exports.EOF_TOKEN = exports.FLAG_NUMBER = exports.FLAG_INTEGER = exports.FLAG_ID = exports.FLAG_UNRESTRICTED = void 0;
 var css_line_break_1 = require("css-line-break");
 exports.FLAG_UNRESTRICTED = 1 << 0;
@@ -60,15 +60,27 @@ var E = 0x0045;
 var F = 0x0046;
 var U = 0x0055;
 var Z = 0x005a;
-var isDigit = function (codePoint) { return codePoint >= ZERO && codePoint <= 0x0039; };
-var isSurrogateCodePoint = function (codePoint) { return codePoint >= 0xd800 && codePoint <= 0xdfff; };
+var isDigit = function (codePoint) {
+    return codePoint >= ZERO && codePoint <= 0x0039;
+};
+var isSurrogateCodePoint = function (codePoint) {
+    return codePoint >= 0xd800 && codePoint <= 0xdfff;
+};
 var isHex = function (codePoint) {
     return isDigit(codePoint) || (codePoint >= A && codePoint <= F) || (codePoint >= a && codePoint <= f);
 };
-var isLowerCaseLetter = function (codePoint) { return codePoint >= a && codePoint <= z; };
-var isUpperCaseLetter = function (codePoint) { return codePoint >= A && codePoint <= Z; };
-var isLetter = function (codePoint) { return isLowerCaseLetter(codePoint) || isUpperCaseLetter(codePoint); };
-var isNonASCIICodePoint = function (codePoint) { return codePoint >= CONTROL; };
+var isLowerCaseLetter = function (codePoint) {
+    return codePoint >= a && codePoint <= z;
+};
+var isUpperCaseLetter = function (codePoint) {
+    return codePoint >= A && codePoint <= Z;
+};
+var isLetter = function (codePoint) {
+    return isLowerCaseLetter(codePoint) || isUpperCaseLetter(codePoint);
+};
+var isNonASCIICodePoint = function (codePoint) {
+    return codePoint >= CONTROL;
+};
 var isWhiteSpace = function (codePoint) {
     return codePoint === LINE_FEED || codePoint === CHARACTER_TABULATION || codePoint === SPACE;
 };
@@ -93,11 +105,9 @@ var isValidEscape = function (c1, c2) {
 var isIdentifierStart = function (c1, c2, c3) {
     if (c1 === HYPHEN_MINUS) {
         return isNameStartCodePoint(c2) || isValidEscape(c2, c3);
-    }
-    else if (isNameStartCodePoint(c1)) {
+    } else if (isNameStartCodePoint(c1)) {
         return true;
-    }
-    else if (c1 === REVERSE_SOLIDUS && isValidEscape(c1, c2)) {
+    } else if (c1 === REVERSE_SOLIDUS && isValidEscape(c1, c2)) {
         return true;
     }
     return false;
@@ -160,37 +170,38 @@ var LEFT_PARENTHESIS_TOKEN = {
 var RIGHT_PARENTHESIS_TOKEN = {
     type: 3 /* RIGHT_PARENTHESIS_TOKEN */
 };
-var COMMA_TOKEN = { type: 4 /* COMMA_TOKEN */ };
-var SUFFIX_MATCH_TOKEN = { type: 13 /* SUFFIX_MATCH_TOKEN */ };
-var PREFIX_MATCH_TOKEN = { type: 8 /* PREFIX_MATCH_TOKEN */ };
-var COLUMN_TOKEN = { type: 21 /* COLUMN_TOKEN */ };
-var DASH_MATCH_TOKEN = { type: 9 /* DASH_MATCH_TOKEN */ };
-var INCLUDE_MATCH_TOKEN = { type: 10 /* INCLUDE_MATCH_TOKEN */ };
+var COMMA_TOKEN = {type: 4 /* COMMA_TOKEN */};
+var SUFFIX_MATCH_TOKEN = {type: 13 /* SUFFIX_MATCH_TOKEN */};
+var PREFIX_MATCH_TOKEN = {type: 8 /* PREFIX_MATCH_TOKEN */};
+var COLUMN_TOKEN = {type: 21 /* COLUMN_TOKEN */};
+var DASH_MATCH_TOKEN = {type: 9 /* DASH_MATCH_TOKEN */};
+var INCLUDE_MATCH_TOKEN = {type: 10 /* INCLUDE_MATCH_TOKEN */};
 var LEFT_CURLY_BRACKET_TOKEN = {
     type: 11 /* LEFT_CURLY_BRACKET_TOKEN */
 };
 var RIGHT_CURLY_BRACKET_TOKEN = {
     type: 12 /* RIGHT_CURLY_BRACKET_TOKEN */
 };
-var SUBSTRING_MATCH_TOKEN = { type: 14 /* SUBSTRING_MATCH_TOKEN */ };
-var BAD_URL_TOKEN = { type: 23 /* BAD_URL_TOKEN */ };
-var BAD_STRING_TOKEN = { type: 1 /* BAD_STRING_TOKEN */ };
-var CDO_TOKEN = { type: 25 /* CDO_TOKEN */ };
-var CDC_TOKEN = { type: 24 /* CDC_TOKEN */ };
-var COLON_TOKEN = { type: 26 /* COLON_TOKEN */ };
-var SEMICOLON_TOKEN = { type: 27 /* SEMICOLON_TOKEN */ };
+var SUBSTRING_MATCH_TOKEN = {type: 14 /* SUBSTRING_MATCH_TOKEN */};
+var BAD_URL_TOKEN = {type: 23 /* BAD_URL_TOKEN */};
+var BAD_STRING_TOKEN = {type: 1 /* BAD_STRING_TOKEN */};
+var CDO_TOKEN = {type: 25 /* CDO_TOKEN */};
+var CDC_TOKEN = {type: 24 /* CDC_TOKEN */};
+var COLON_TOKEN = {type: 26 /* COLON_TOKEN */};
+var SEMICOLON_TOKEN = {type: 27 /* SEMICOLON_TOKEN */};
 var LEFT_SQUARE_BRACKET_TOKEN = {
     type: 28 /* LEFT_SQUARE_BRACKET_TOKEN */
 };
 var RIGHT_SQUARE_BRACKET_TOKEN = {
     type: 29 /* RIGHT_SQUARE_BRACKET_TOKEN */
 };
-var WHITESPACE_TOKEN = { type: 31 /* WHITESPACE_TOKEN */ };
-exports.EOF_TOKEN = { type: 32 /* EOF_TOKEN */ };
+var WHITESPACE_TOKEN = {type: 31 /* WHITESPACE_TOKEN */};
+exports.EOF_TOKEN = {type: 32 /* EOF_TOKEN */};
 var Tokenizer = /** @class */ (function () {
     function Tokenizer() {
         this._value = [];
     }
+
     Tokenizer.prototype.write = function (chunk) {
         this._value = this._value.concat(css_line_break_1.toCodePoints(chunk));
     };
@@ -215,7 +226,7 @@ var Tokenizer = /** @class */ (function () {
                 if (isNameCodePoint(c1) || isValidEscape(c2, c3)) {
                     var flags = isIdentifierStart(c1, c2, c3) ? exports.FLAG_ID : exports.FLAG_UNRESTRICTED;
                     var value = this.consumeName();
-                    return { type: 5 /* HASH_TOKEN */, value: value, flags: flags };
+                    return {type: 5 /* HASH_TOKEN */, value: value, flags: flags};
                 }
                 break;
             case DOLLAR_SIGN:
@@ -304,7 +315,7 @@ var Tokenizer = /** @class */ (function () {
                 var a3 = this.peekCodePoint(2);
                 if (isIdentifierStart(a1, a2, a3)) {
                     var value = this.consumeName();
-                    return { type: 7 /* AT_KEYWORD_TOKEN */, value: value };
+                    return {type: 7 /* AT_KEYWORD_TOKEN */, value: value};
                 }
                 break;
             case LEFT_SQUARE_BRACKET:
@@ -368,7 +379,7 @@ var Tokenizer = /** @class */ (function () {
             this.reconsumeCodePoint(codePoint);
             return this.consumeIdentLikeToken();
         }
-        return { type: 6 /* DELIM_TOKEN */, value: css_line_break_1.fromCodePoint(codePoint) };
+        return {type: 6 /* DELIM_TOKEN */, value: css_line_break_1.fromCodePoint(codePoint)};
     };
     Tokenizer.prototype.consumeCodePoint = function () {
         var value = this._value.shift();
@@ -397,9 +408,13 @@ var Tokenizer = /** @class */ (function () {
             questionMarks = true;
         }
         if (questionMarks) {
-            var start_1 = parseInt(css_line_break_1.fromCodePoint.apply(void 0, digits.map(function (digit) { return (digit === QUESTION_MARK ? ZERO : digit); })), 16);
-            var end = parseInt(css_line_break_1.fromCodePoint.apply(void 0, digits.map(function (digit) { return (digit === QUESTION_MARK ? F : digit); })), 16);
-            return { type: 30 /* UNICODE_RANGE_TOKEN */, start: start_1, end: end };
+            var start_1 = parseInt(css_line_break_1.fromCodePoint.apply(void 0, digits.map(function (digit) {
+                return (digit === QUESTION_MARK ? ZERO : digit);
+            })), 16);
+            var end = parseInt(css_line_break_1.fromCodePoint.apply(void 0, digits.map(function (digit) {
+                return (digit === QUESTION_MARK ? F : digit);
+            })), 16);
+            return {type: 30 /* UNICODE_RANGE_TOKEN */, start: start_1, end: end};
         }
         var start = parseInt(css_line_break_1.fromCodePoint.apply(void 0, digits), 16);
         if (this.peekCodePoint(0) === HYPHEN_MINUS && isHex(this.peekCodePoint(1))) {
@@ -411,10 +426,9 @@ var Tokenizer = /** @class */ (function () {
                 codePoint = this.consumeCodePoint();
             }
             var end = parseInt(css_line_break_1.fromCodePoint.apply(void 0, endDigits), 16);
-            return { type: 30 /* UNICODE_RANGE_TOKEN */, start: start, end: end };
-        }
-        else {
-            return { type: 30 /* UNICODE_RANGE_TOKEN */, start: start, end: start };
+            return {type: 30 /* UNICODE_RANGE_TOKEN */, start: start, end: end};
+        } else {
+            return {type: 30 /* UNICODE_RANGE_TOKEN */, start: start, end: start};
         }
     };
     Tokenizer.prototype.consumeIdentLikeToken = function () {
@@ -422,18 +436,17 @@ var Tokenizer = /** @class */ (function () {
         if (value.toLowerCase() === 'url' && this.peekCodePoint(0) === LEFT_PARENTHESIS) {
             this.consumeCodePoint();
             return this.consumeUrlToken();
-        }
-        else if (this.peekCodePoint(0) === LEFT_PARENTHESIS) {
+        } else if (this.peekCodePoint(0) === LEFT_PARENTHESIS) {
             this.consumeCodePoint();
-            return { type: 19 /* FUNCTION_TOKEN */, value: value };
+            return {type: 19 /* FUNCTION_TOKEN */, value: value};
         }
-        return { type: 20 /* IDENT_TOKEN */, value: value };
+        return {type: 20 /* IDENT_TOKEN */, value: value};
     };
     Tokenizer.prototype.consumeUrlToken = function () {
         var value = [];
         this.consumeWhiteSpace();
         if (this.peekCodePoint(0) === EOF) {
-            return { type: 22 /* URL_TOKEN */, value: '' };
+            return {type: 22 /* URL_TOKEN */, value: ''};
         }
         var next = this.peekCodePoint(0);
         if (next === APOSTROPHE || next === QUOTATION_MARK) {
@@ -442,7 +455,7 @@ var Tokenizer = /** @class */ (function () {
                 this.consumeWhiteSpace();
                 if (this.peekCodePoint(0) === EOF || this.peekCodePoint(0) === RIGHT_PARENTHESIS) {
                     this.consumeCodePoint();
-                    return { type: 22 /* URL_TOKEN */, value: stringToken.value };
+                    return {type: 22 /* URL_TOKEN */, value: stringToken.value};
                 }
             }
             this.consumeBadUrlRemnants();
@@ -451,34 +464,29 @@ var Tokenizer = /** @class */ (function () {
         while (true) {
             var codePoint = this.consumeCodePoint();
             if (codePoint === EOF || codePoint === RIGHT_PARENTHESIS) {
-                return { type: 22 /* URL_TOKEN */, value: css_line_break_1.fromCodePoint.apply(void 0, value) };
-            }
-            else if (isWhiteSpace(codePoint)) {
+                return {type: 22 /* URL_TOKEN */, value: css_line_break_1.fromCodePoint.apply(void 0, value)};
+            } else if (isWhiteSpace(codePoint)) {
                 this.consumeWhiteSpace();
                 if (this.peekCodePoint(0) === EOF || this.peekCodePoint(0) === RIGHT_PARENTHESIS) {
                     this.consumeCodePoint();
-                    return { type: 22 /* URL_TOKEN */, value: css_line_break_1.fromCodePoint.apply(void 0, value) };
+                    return {type: 22 /* URL_TOKEN */, value: css_line_break_1.fromCodePoint.apply(void 0, value)};
                 }
                 this.consumeBadUrlRemnants();
                 return BAD_URL_TOKEN;
-            }
-            else if (codePoint === QUOTATION_MARK ||
+            } else if (codePoint === QUOTATION_MARK ||
                 codePoint === APOSTROPHE ||
                 codePoint === LEFT_PARENTHESIS ||
                 isNonPrintableCodePoint(codePoint)) {
                 this.consumeBadUrlRemnants();
                 return BAD_URL_TOKEN;
-            }
-            else if (codePoint === REVERSE_SOLIDUS) {
+            } else if (codePoint === REVERSE_SOLIDUS) {
                 if (isValidEscape(codePoint, this.peekCodePoint(0))) {
                     value.push(this.consumeEscapedCodePoint());
-                }
-                else {
+                } else {
                     this.consumeBadUrlRemnants();
                     return BAD_URL_TOKEN;
                 }
-            }
-            else {
+            } else {
                 value.push(codePoint);
             }
         }
@@ -517,7 +525,7 @@ var Tokenizer = /** @class */ (function () {
             var codePoint = this._value[i];
             if (codePoint === EOF || codePoint === undefined || codePoint === endingCodePoint) {
                 value += this.consumeStringSlice(i);
-                return { type: 0 /* STRING_TOKEN */, value: value };
+                return {type: 0 /* STRING_TOKEN */, value: value};
             }
             if (codePoint === LINE_FEED) {
                 this._value.splice(0, i);
@@ -530,8 +538,7 @@ var Tokenizer = /** @class */ (function () {
                         value += this.consumeStringSlice(i);
                         i = -1;
                         this._value.shift();
-                    }
-                    else if (isValidEscape(codePoint, next)) {
+                    } else if (isValidEscape(codePoint, next)) {
                         value += this.consumeStringSlice(i);
                         value += css_line_break_1.fromCodePoint(this.consumeEscapedCodePoint());
                         i = -1;
@@ -579,13 +586,13 @@ var Tokenizer = /** @class */ (function () {
         var c3 = this.peekCodePoint(2);
         if (isIdentifierStart(c1, c2, c3)) {
             var unit = this.consumeName();
-            return { type: 15 /* DIMENSION_TOKEN */, number: number, flags: flags, unit: unit };
+            return {type: 15 /* DIMENSION_TOKEN */, number: number, flags: flags, unit: unit};
         }
         if (c1 === PERCENTAGE_SIGN) {
             this.consumeCodePoint();
-            return { type: 16 /* PERCENTAGE_TOKEN */, number: number, flags: flags };
+            return {type: 16 /* PERCENTAGE_TOKEN */, number: number, flags: flags};
         }
-        return { type: 17 /* NUMBER_TOKEN */, number: number, flags: flags };
+        return {type: 17 /* NUMBER_TOKEN */, number: number, flags: flags};
     };
     Tokenizer.prototype.consumeEscapedCodePoint = function () {
         var codePoint = this.consumeCodePoint();
@@ -614,11 +621,9 @@ var Tokenizer = /** @class */ (function () {
             var codePoint = this.consumeCodePoint();
             if (isNameCodePoint(codePoint)) {
                 result += css_line_break_1.fromCodePoint(codePoint);
-            }
-            else if (isValidEscape(codePoint, this.peekCodePoint(0))) {
+            } else if (isValidEscape(codePoint, this.peekCodePoint(0))) {
                 result += css_line_break_1.fromCodePoint(this.consumeEscapedCodePoint());
-            }
-            else {
+            } else {
                 this.reconsumeCodePoint(codePoint);
                 return result;
             }

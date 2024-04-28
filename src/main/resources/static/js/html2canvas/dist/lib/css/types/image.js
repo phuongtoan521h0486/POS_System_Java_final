@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.isSupportedImage = exports.image = exports.isRadialGradient = exports.isLinearGradient = void 0;
 var linear_gradient_1 = require("./functions/linear-gradient");
 var _prefix_linear_gradient_1 = require("./functions/-prefix-linear-gradient");
@@ -18,7 +18,7 @@ exports.image = {
     name: 'image',
     parse: function (context, value) {
         if (value.type === 22 /* URL_TOKEN */) {
-            var image_1 = { url: value.value, type: 0 /* URL */ };
+            var image_1 = {url: value.value, type: 0 /* URL */};
             context.cache.addImage(value.value);
             return image_1;
         }
@@ -32,10 +32,12 @@ exports.image = {
         throw new Error("Unsupported image type " + value.type);
     }
 };
+
 function isSupportedImage(value) {
     return (!(value.type === 20 /* IDENT_TOKEN */ && value.value === 'none') &&
         (value.type !== 18 /* FUNCTION */ || !!SUPPORTED_IMAGE_FUNCTIONS[value.name]));
 }
+
 exports.isSupportedImage = isSupportedImage;
 var SUPPORTED_IMAGE_FUNCTIONS = {
     'linear-gradient': linear_gradient_1.linearGradient,

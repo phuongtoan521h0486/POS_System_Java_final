@@ -1,4 +1,5 @@
-import { IPropertyIdentValueDescriptor } from '../IPropertyDescriptor';
+import {IPropertyIdentValueDescriptor} from '../IPropertyDescriptor';
+
 export declare const enum LIST_STYLE_TYPE {
     NONE = -1,
     DISC = 0,
@@ -55,4 +56,5 @@ export declare const enum LIST_STYLE_TYPE {
     DISCLOSURE_OPEN = 50,
     DISCLOSURE_CLOSED = 51
 }
+
 export declare const listStyleType: IPropertyIdentValueDescriptor<LIST_STYLE_TYPE>;

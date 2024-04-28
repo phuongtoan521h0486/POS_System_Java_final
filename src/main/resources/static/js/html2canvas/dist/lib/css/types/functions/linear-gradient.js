@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.linearGradient = void 0;
 var parser_1 = require("../../syntax/parser");
 var angle_1 = require("../angle");
@@ -13,8 +13,7 @@ var linearGradient = function (context, tokens) {
             if (firstToken.type === 20 /* IDENT_TOKEN */ && firstToken.value === 'to') {
                 angle = angle_1.parseNamedSide(arg);
                 return;
-            }
-            else if (angle_1.isAngle(firstToken)) {
+            } else if (angle_1.isAngle(firstToken)) {
                 angle = angle_1.angle.parse(context, firstToken);
                 return;
             }
@@ -22,7 +21,7 @@ var linearGradient = function (context, tokens) {
         var colorStop = gradient_1.parseColorStop(context, arg);
         stops.push(colorStop);
     });
-    return { angle: angle, stops: stops, type: 1 /* LINEAR_GRADIENT */ };
+    return {angle: angle, stops: stops, type: 1 /* LINEAR_GRADIENT */};
 };
 exports.linearGradient = linearGradient;
 //# sourceMappingURL=linear-gradient.js.map

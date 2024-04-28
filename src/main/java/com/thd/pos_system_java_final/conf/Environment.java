@@ -22,13 +22,12 @@ public class Environment {
     }
 
     /**
-     *
      * @param target String target name ("dev" or "prod")
      * @return
      * @throws IllegalArgumentException
      */
     public static Environment selectEnv(String target) throws IllegalArgumentException {
-        switch(target) {
+        switch (target) {
             case "dev":
                 return selectEnv(EnvTarget.DEV);
             case "prod":
@@ -37,6 +36,7 @@ public class Environment {
                 throw new IllegalArgumentException("MoMo doesnt provide other environment: dev and prod");
         }
     }
+
     public static Environment selectEnv(EnvTarget target) {
         try (InputStream input = Environment.class.getClassLoader().getResourceAsStream("environment.properties")) {
             Properties prop = new Properties();
@@ -65,7 +65,8 @@ public class Environment {
                             prop.getProperty("TOKEN_PAY_URL"),
                             prop.getProperty("TOKEN_BIND_URL"),
                             prop.getProperty("TOKEN_INQUIRY_URL"),
-                            prop.getProperty("TOKEN_DELETE_URL"));                    PartnerInfo prodInfo = new PartnerInfo(prop.getProperty("PROD_PARTNER_CODE"), prop.getProperty("PROD_ACCESS_KEY"), prop.getProperty("PROD_SECRET_KEY"));
+                            prop.getProperty("TOKEN_DELETE_URL"));
+                    PartnerInfo prodInfo = new PartnerInfo(prop.getProperty("PROD_PARTNER_CODE"), prop.getProperty("PROD_ACCESS_KEY"), prop.getProperty("PROD_SECRET_KEY"));
                     Environment prod = new Environment(prodEndpoint, prodInfo, target);
                     return prod;
                 default:
@@ -107,7 +108,7 @@ public class Environment {
     public enum EnvTarget {
         DEV("development"), PROD("production");
 
-        private String target;
+        private final String target;
 
         EnvTarget(String target) {
             this.target = target;

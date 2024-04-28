@@ -1,5 +1,6 @@
-import { ElementContainer } from './element-container';
-import { Context } from '../core/context';
+import {ElementContainer} from './element-container';
+import {Context} from '../core/context';
+
 export declare const parseTree: (context: Context, element: HTMLElement) => ElementContainer;
 export declare const isTextNode: (node: Node) => node is Text;
 export declare const isElementNode: (node: Node) => node is Element;

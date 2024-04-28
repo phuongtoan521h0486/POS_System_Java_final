@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.lineBreak = exports.LINE_BREAK = void 0;
 var LINE_BREAK;
 (function (LINE_BREAK) {

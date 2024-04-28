@@ -1,4 +1,3 @@
-
 var chartColors = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
@@ -285,12 +284,12 @@ var config4 = {
     },
 };
 
-var randomScalingFactor = function() {
+var randomScalingFactor = function () {
     return (Math.random() > 0.5 ? 1.0 : 1.0) * Math.round(Math.random() * 100);
 };
 
 // draws a rectangle with a rounded top
-Chart.helpers.drawRoundedTopRectangle = function(ctx, x, y, width, height, radius) {
+Chart.helpers.drawRoundedTopRectangle = function (ctx, x, y, width, height, radius) {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
     // top right corner
@@ -307,7 +306,7 @@ Chart.helpers.drawRoundedTopRectangle = function(ctx, x, y, width, height, radiu
 };
 
 Chart.elements.RoundedTopRectangle = Chart.elements.Rectangle.extend({
-    draw: function() {
+    draw: function () {
         var ctx = this._chart.ctx;
         var vm = this._view;
         var left, right, top, bottom, signX, signY, borderSkipped;
@@ -320,7 +319,7 @@ Chart.elements.RoundedTopRectangle = Chart.elements.Rectangle.extend({
             top = vm.y;
             bottom = vm.base;
             signX = 1;
-            signY = bottom > top? 1: -1;
+            signY = bottom > top ? 1 : -1;
             borderSkipped = vm.borderSkipped || 'bottom';
         } else {
             // horizontal bar
@@ -328,7 +327,7 @@ Chart.elements.RoundedTopRectangle = Chart.elements.Rectangle.extend({
             right = vm.x;
             top = vm.y - vm.height / 2;
             bottom = vm.y + vm.height / 2;
-            signX = right > left? 1: -1;
+            signX = right > left ? 1 : -1;
             signY = 1;
             borderSkipped = vm.borderSkipped || 'left';
         }
@@ -338,13 +337,13 @@ Chart.elements.RoundedTopRectangle = Chart.elements.Rectangle.extend({
         if (borderWidth) {
             // borderWidth shold be less than bar width and bar height.
             var barSize = Math.min(Math.abs(left - right), Math.abs(top - bottom));
-            borderWidth = borderWidth > barSize? barSize: borderWidth;
+            borderWidth = borderWidth > barSize ? barSize : borderWidth;
             var halfStroke = borderWidth / 2;
             // Adjust borderWidth when bar top position is near vm.base(zero).
-            var borderLeft = left + (borderSkipped !== 'left'? halfStroke * signX: 0);
-            var borderRight = right + (borderSkipped !== 'right'? -halfStroke * signX: 0);
-            var borderTop = top + (borderSkipped !== 'top'? halfStroke * signY: 0);
-            var borderBottom = bottom + (borderSkipped !== 'bottom'? -halfStroke * signY: 0);
+            var borderLeft = left + (borderSkipped !== 'left' ? halfStroke * signX : 0);
+            var borderRight = right + (borderSkipped !== 'right' ? -halfStroke * signX : 0);
+            var borderTop = top + (borderSkipped !== 'top' ? halfStroke * signY : 0);
+            var borderBottom = bottom + (borderSkipped !== 'bottom' ? -halfStroke * signY : 0);
             // not become a vertical line?
             if (borderLeft !== borderRight) {
                 top = borderTop;
@@ -420,7 +419,7 @@ var myBar = new Chart(ctxBar, {
             text: "Bar Chart"
         },
         legend: {
-            display:false
+            display: false
         },
         scales: {
             yAxes: [{
@@ -435,7 +434,7 @@ var myBar = new Chart(ctxBar, {
             }],
             xAxes: [{
                 gridLines: {
-                    display:false,
+                    display: false,
                     drawBorder: false
                 }
             }]
@@ -474,7 +473,7 @@ var radialBarsOptions = {
                     label: "Earnings",
                     color: "#25A6F1",
                     fontSize: "16px",
-                    formatter: function(w) {
+                    formatter: function (w) {
                         // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
                         return "$4,124";
                     },

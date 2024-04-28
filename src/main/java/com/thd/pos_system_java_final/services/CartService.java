@@ -1,20 +1,21 @@
 package com.thd.pos_system_java_final.services;
 
 import com.thd.pos_system_java_final.models.Cart.Item;
+import com.thd.pos_system_java_final.models.Product.Product;
 import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.thd.pos_system_java_final.models.Product.Product;
 
-import java.util.*;
-
-import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CartService {
     @Autowired
     private ProductRepository productRepository;
-    private List<Item> cartItems = new ArrayList<>();
+    private final List<Item> cartItems = new ArrayList<>();
 
     public void addItemToCart(Item item) {
         Product product = productRepository.findByProductId(item.getProduct().getProductId());
@@ -90,7 +91,7 @@ public class CartService {
     }
 
     public boolean isInOrder(int productId) {
-        for(Item item : cartItems) {
+        for (Item item : cartItems) {
             if (item.getProduct().getProductId() == productId) {
                 return true;
             }

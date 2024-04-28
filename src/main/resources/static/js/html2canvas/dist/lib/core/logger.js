@@ -4,7 +4,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
         to[j] = from[i];
     return to;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.Logger = void 0;
 var Logger = /** @class */ (function () {
     function Logger(_a) {
@@ -13,6 +13,7 @@ var Logger = /** @class */ (function () {
         this.enabled = enabled;
         this.start = Date.now();
     }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Logger.prototype.debug = function () {
         var args = [];
@@ -24,8 +25,7 @@ var Logger = /** @class */ (function () {
             if (typeof window !== 'undefined' && window.console && typeof console.debug === 'function') {
                 // eslint-disable-next-line no-console
                 console.debug.apply(console, __spreadArray([this.id, this.getTime() + "ms"], args));
-            }
-            else {
+            } else {
                 this.info.apply(this, args);
             }
         }
@@ -58,8 +58,7 @@ var Logger = /** @class */ (function () {
             if (typeof window !== 'undefined' && window.console && typeof console.warn === 'function') {
                 // eslint-disable-next-line no-console
                 console.warn.apply(console, __spreadArray([this.id, this.getTime() + "ms"], args));
-            }
-            else {
+            } else {
                 this.info.apply(this, args);
             }
         }
@@ -75,8 +74,7 @@ var Logger = /** @class */ (function () {
             if (typeof window !== 'undefined' && window.console && typeof console.error === 'function') {
                 // eslint-disable-next-line no-console
                 console.error.apply(console, __spreadArray([this.id, this.getTime() + "ms"], args));
-            }
-            else {
+            } else {
                 this.info.apply(this, args);
             }
         }

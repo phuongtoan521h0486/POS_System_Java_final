@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 var assert_1 = require("assert");
 var parser_1 = require("../../syntax/parser");
 var background_image_1 = require("../background-image");
@@ -24,8 +24,8 @@ describe('property-descriptors', function () {
         });
         it('url(test.jpg), url(test2.jpg)', function () {
             assert_1.deepStrictEqual(backgroundImageParse(context, 'url(http://example.com/test.jpg), url(http://example.com/test2.jpg)'), [
-                { url: 'http://example.com/test.jpg', type: 0 /* URL */ },
-                { url: 'http://example.com/test2.jpg', type: 0 /* URL */ }
+                {url: 'http://example.com/test.jpg', type: 0 /* URL */},
+                {url: 'http://example.com/test2.jpg', type: 0 /* URL */}
             ]);
             expect(context.cache.addImage).toHaveBeenCalledWith('http://example.com/test.jpg');
             expect(context.cache.addImage).toHaveBeenCalledWith('http://example.com/test2.jpg');
@@ -36,11 +36,11 @@ describe('property-descriptors', function () {
                     angle: angle_1.deg(180),
                     type: 1 /* LINEAR_GRADIENT */,
                     stops: [
-                        { color: color_1.pack(255, 255, 0, 0.5), stop: null },
-                        { color: color_1.pack(0, 0, 255, 0.5), stop: null }
+                        {color: color_1.pack(255, 255, 0, 0.5), stop: null},
+                        {color: color_1.pack(0, 0, 255, 0.5), stop: null}
                     ]
                 },
-                { url: 'https://html2canvas.hertzen.com', type: 0 /* URL */ }
+                {url: 'https://html2canvas.hertzen.com', type: 0 /* URL */}
             ]);
         });
     });

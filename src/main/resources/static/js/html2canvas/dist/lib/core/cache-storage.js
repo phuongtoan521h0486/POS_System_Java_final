@@ -1,46 +1,119 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    function adopt(value) {
+        return value instanceof P ? value : new P(function (resolve) {
+            resolve(value);
+        });
+    }
+
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function fulfilled(value) {
+            try {
+                step(generator.next(value));
+            } catch (e) {
+                reject(e);
+            }
+        }
+
+        function rejected(value) {
+            try {
+                step(generator["throw"](value));
+            } catch (e) {
+                reject(e);
+            }
+        }
+
+        function step(result) {
+            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
+    var _ = {
+        label: 0, sent: function () {
+            if (t[0] & 1) throw t[1];
+            return t[1];
+        }, trys: [], ops: []
+    }, f, y, t, g;
+    return g = {
+        next: verb(0),
+        "throw": verb(1),
+        "return": verb(2)
+    }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+        return this;
+    }), g;
+
+    function verb(n) {
+        return function (v) {
+            return step([n, v]);
+        };
+    }
+
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                case 0:
+                case 1:
+                    t = op;
+                    break;
+                case 4:
+                    _.label++;
+                    return {value: op[1], done: false};
+                case 5:
+                    _.label++;
+                    y = op[1];
+                    op = [0];
+                    continue;
+                case 7:
+                    op = _.ops.pop();
+                    _.trys.pop();
+                    continue;
                 default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                        _ = 0;
+                        continue;
+                    }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                        _.label = op[1];
+                        break;
+                    }
+                    if (op[0] === 6 && _.label < t[1]) {
+                        _.label = t[1];
+                        t = op;
+                        break;
+                    }
+                    if (t && _.label < t[2]) {
+                        _.label = t[2];
+                        _.ops.push(op);
+                        break;
+                    }
                     if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
+                    _.trys.pop();
+                    continue;
             }
             op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        } catch (e) {
+            op = [6, e];
+            y = 0;
+        } finally {
+            f = t = 0;
+        }
+        if (op[0] & 5) throw op[1];
+        return {value: op[0] ? op[1] : void 0, done: true};
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.Cache = exports.CacheStorage = void 0;
 var features_1 = require("./features");
 var CacheStorage = /** @class */ (function () {
     function CacheStorage() {
     }
+
     CacheStorage.getOrigin = function (url) {
         var link = CacheStorage._link;
         if (!link) {
@@ -68,6 +141,7 @@ var Cache = /** @class */ (function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this._cache = {};
     }
+
     Cache.prototype.addImage = function (src) {
         var result = Promise.resolve();
         if (this.has(src)) {
@@ -117,23 +191,30 @@ var Cache = /** @class */ (function () {
                     case 2:
                         this.context.logger.debug("Added image " + key.substring(0, 256));
                         return [4 /*yield*/, new Promise(function (resolve, reject) {
-                                var img = new Image();
-                                img.onload = function () { return resolve(img); };
-                                img.onerror = reject;
-                                //ios safari 10.3 taints canvas with data urls unless crossOrigin is set to anonymous
-                                if (isInlineBase64Image(src) || useCORS) {
-                                    img.crossOrigin = 'anonymous';
-                                }
-                                img.src = src;
-                                if (img.complete === true) {
-                                    // Inline XML images may fail to parse, throwing an Error later on
-                                    setTimeout(function () { return resolve(img); }, 500);
-                                }
-                                if (_this._options.imageTimeout > 0) {
-                                    setTimeout(function () { return reject("Timed out (" + _this._options.imageTimeout + "ms) loading image"); }, _this._options.imageTimeout);
-                                }
-                            })];
-                    case 3: return [2 /*return*/, _a.sent()];
+                            var img = new Image();
+                            img.onload = function () {
+                                return resolve(img);
+                            };
+                            img.onerror = reject;
+                            //ios safari 10.3 taints canvas with data urls unless crossOrigin is set to anonymous
+                            if (isInlineBase64Image(src) || useCORS) {
+                                img.crossOrigin = 'anonymous';
+                            }
+                            img.src = src;
+                            if (img.complete === true) {
+                                // Inline XML images may fail to parse, throwing an Error later on
+                                setTimeout(function () {
+                                    return resolve(img);
+                                }, 500);
+                            }
+                            if (_this._options.imageTimeout > 0) {
+                                setTimeout(function () {
+                                    return reject("Timed out (" + _this._options.imageTimeout + "ms) loading image");
+                                }, _this._options.imageTimeout);
+                            }
+                        })];
+                    case 3:
+                        return [2 /*return*/, _a.sent()];
                 }
             });
         });
@@ -158,15 +239,17 @@ var Cache = /** @class */ (function () {
                 if (xhr.status === 200) {
                     if (responseType === 'text') {
                         resolve(xhr.response);
-                    }
-                    else {
+                    } else {
                         var reader_1 = new FileReader();
-                        reader_1.addEventListener('load', function () { return resolve(reader_1.result); }, false);
-                        reader_1.addEventListener('error', function (e) { return reject(e); }, false);
+                        reader_1.addEventListener('load', function () {
+                            return resolve(reader_1.result);
+                        }, false);
+                        reader_1.addEventListener('error', function (e) {
+                            return reject(e);
+                        }, false);
                         reader_1.readAsDataURL(xhr.response);
                     }
-                }
-                else {
+                } else {
                     reject("Failed to proxy resource " + key + " with status code " + xhr.status);
                 }
             };
@@ -179,7 +262,9 @@ var Cache = /** @class */ (function () {
             if (_this._options.imageTimeout) {
                 var timeout_1 = _this._options.imageTimeout;
                 xhr.timeout = timeout_1;
-                xhr.ontimeout = function () { return reject("Timed out (" + timeout_1 + "ms) proxying " + key); };
+                xhr.ontimeout = function () {
+                    return reject("Timed out (" + timeout_1 + "ms) proxying " + key);
+                };
             }
             xhr.send();
         });
@@ -190,9 +275,19 @@ exports.Cache = Cache;
 var INLINE_SVG = /^data:image\/svg\+xml/i;
 var INLINE_BASE64 = /^data:image\/.*;base64,/i;
 var INLINE_IMG = /^data:image\/.*/i;
-var isRenderable = function (src) { return features_1.FEATURES.SUPPORT_SVG_DRAWING || !isSVG(src); };
-var isInlineImage = function (src) { return INLINE_IMG.test(src); };
-var isInlineBase64Image = function (src) { return INLINE_BASE64.test(src); };
-var isBlobImage = function (src) { return src.substr(0, 4) === 'blob'; };
-var isSVG = function (src) { return src.substr(-3).toLowerCase() === 'svg' || INLINE_SVG.test(src); };
+var isRenderable = function (src) {
+    return features_1.FEATURES.SUPPORT_SVG_DRAWING || !isSVG(src);
+};
+var isInlineImage = function (src) {
+    return INLINE_IMG.test(src);
+};
+var isInlineBase64Image = function (src) {
+    return INLINE_BASE64.test(src);
+};
+var isBlobImage = function (src) {
+    return src.substr(0, 4) === 'blob';
+};
+var isSVG = function (src) {
+    return src.substr(-3).toLowerCase() === 'svg' || INLINE_SVG.test(src);
+};
 //# sourceMappingURL=cache-storage.js.map

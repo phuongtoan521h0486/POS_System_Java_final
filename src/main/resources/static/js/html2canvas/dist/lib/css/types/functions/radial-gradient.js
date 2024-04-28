@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.radialGradient = exports.CONTAIN = exports.COVER = exports.ELLIPSE = exports.CIRCLE = exports.FARTHEST_CORNER = exports.CLOSEST_CORNER = exports.FARTHEST_SIDE = exports.CLOSEST_SIDE = void 0;
 var parser_1 = require("../../syntax/parser");
 var gradient_1 = require("./gradient");
@@ -38,12 +38,10 @@ var radialGradient = function (context, tokens) {
                                 position.push(length_percentage_1.HUNDRED_PERCENT);
                                 return acc;
                         }
-                    }
-                    else if (length_percentage_1.isLengthPercentage(token) || length_1.isLength(token)) {
+                    } else if (length_percentage_1.isLengthPercentage(token) || length_1.isLength(token)) {
                         position.push(token);
                     }
-                }
-                else if (parser_1.isIdentToken(token)) {
+                } else if (parser_1.isIdentToken(token)) {
                     switch (token.value) {
                         case exports.CIRCLE:
                             shape = 0 /* CIRCLE */;
@@ -69,8 +67,7 @@ var radialGradient = function (context, tokens) {
                             size = 3 /* FARTHEST_CORNER */;
                             return false;
                     }
-                }
-                else if (length_1.isLength(token) || length_percentage_1.isLengthPercentage(token)) {
+                } else if (length_1.isLength(token) || length_percentage_1.isLengthPercentage(token)) {
                     if (!Array.isArray(size)) {
                         size = [];
                     }
@@ -85,7 +82,7 @@ var radialGradient = function (context, tokens) {
             stops.push(colorStop);
         }
     });
-    return { size: size, shape: shape, stops: stops, position: position, type: 2 /* RADIAL_GRADIENT */ };
+    return {size: size, shape: shape, stops: stops, position: position, type: 2 /* RADIAL_GRADIENT */};
 };
 exports.radialGradient = radialGradient;
 //# sourceMappingURL=radial-gradient.js.map

@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Dashboard - Admin Dashboard</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 
     <link rel="stylesheet" th:href="@{/css/Chart.min.css}">
@@ -15,10 +15,11 @@
     <link rel="shortcut icon" th:href="@{/images/logo.png}" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Datepicker CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+          rel="stylesheet">
 
     <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -27,27 +28,29 @@
 
     <!-- Bootstrap Datepicker JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<!--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>-->
+    <!--    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>-->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!--font awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
 
 
 </head>
 
 <body>
 <div id="app"><!--Main content-->
-    <div id="sidebar" class='active' th:fragment="sidebar"><!--sidebar-->
+    <div class='active' id="sidebar" th:fragment="sidebar"><!--sidebar-->
         <div class="sidebar-wrapper active">
             <div class="sidebar-header">
-                <img src="/images/logo.png" alt="" srcset="" style="width: 100%; height: 100%; border-radius: 50%;">
+                <img alt="" src="/images/logo.png" srcset="" style="width: 100%; height: 100%; border-radius: 50%;">
             </div>
             <div class="sidebar-menu">
                 <ul class="menu">
                     <li class='sidebar-title'>Main Menu</li>
                     <li class="sidebar-item ">
-                        <a href="/user/dashboard" class='sidebar-link'>
+                        <a class='sidebar-link' href="/user/dashboard">
                             <i data-feather="trending-up" width="20"></i>
                             <span>Dashboard</span>
                         </a>
@@ -55,7 +58,7 @@
                     </li>
 
                     <li class="sidebar-item ">
-                        <a href="/user/profile" class='sidebar-link'>
+                        <a class='sidebar-link' href="/user/profile">
                             <i data-feather="user" width="20"></i>
                             <span>Profile</span>
                         </a>
@@ -63,7 +66,7 @@
                     </li>
 
                     <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
+                        <a class='sidebar-link' href="#">
                             <i data-feather="package" width="20"></i>
                             <span>Product</span>
                         </a>
@@ -80,10 +83,9 @@
                     </li>
 
 
-
-
-                    <li th:if="${dashboardData.getWebUtils().isAdmin(dashboardData.getAccount())}" class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
+                    <li class="sidebar-item  has-sub"
+                        th:if="${dashboardData.getWebUtils().isAdmin(dashboardData.getAccount())}">
+                        <a class='sidebar-link' href="#">
                             <i data-feather="layers" width="20"></i>
                             <span>Staff</span>
                         </a>
@@ -103,7 +105,7 @@
                     </li>
 
                     <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
+                        <a class='sidebar-link' href="#">
                             <i data-feather="users" width="20"></i>
                             <span>Customer</span>
                         </a>
@@ -118,7 +120,7 @@
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="/" class='sidebar-link'>
+                        <a class='sidebar-link' href="/">
                             <i data-feather="shopping-bag" width="20"></i>
                             <span>POS</span>
                         </a>
@@ -126,7 +128,7 @@
                     </li>
 
                     <li class="sidebar-item  ">
-                        <a href="/logout" class='sidebar-link'>
+                        <a class='sidebar-link' href="/logout">
                             <i data-feather="log-out" width="20"></i>
                             <span>Logout</span>
                         </a>
@@ -142,21 +144,25 @@
         <nav class="navbar navbar-header navbar-expand navbar-light" th:fragment="header">
             <!--header-->
             <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-            <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="btn navbar-toggler" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
                     <li class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown"
-                           class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                        <a class="nav-link dropdown-toggle nav-link-lg nav-link-user" data-bs-toggle="dropdown"
+                           href="#">
                             <div class="avatar me-1">
-                                <img th:if="${dashboardData.getAccount().getPicture() != null}" th:src="'data:image/png;base64,' + ${dashboardData.getImageService().encodeImage(dashboardData.getAccount().getPicture())}" alt="User Picture"/>
-                                <img th:unless="${dashboardData.getAccount().getPicture() != null}" src="/images/avatar-default.svg" alt="Default Avatar"/>
+                                <img alt="User Picture"
+                                     th:if="${dashboardData.getAccount().getPicture() != null}"
+                                     th:src="'data:image/png;base64,' + ${dashboardData.getImageService().encodeImage(dashboardData.getAccount().getPicture())}"/>
+                                <img alt="Default Avatar"
+                                     src="/images/avatar-default.svg" th:unless="${dashboardData.getAccount().getPicture() != null}"/>
                             </div>
-                            <div class="d-none d-md-block d-lg-inline-block" th:text="'Hi '+ ${dashboardData.getAccount().getFullName()}"></div>
+                            <div class="d-none d-md-block d-lg-inline-block"
+                                 th:text="'Hi '+ ${dashboardData.getAccount().getFullName()}"></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a class="dropdown-item" href="/user/profile"><i data-feather="user"></i> Account</a>
@@ -167,7 +173,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="main-content container-fluid" >
+        <div class="main-content container-fluid">
             <div class="page-title">
                 <h3>Dashboard </h3>
             </div>
@@ -231,8 +237,10 @@
                                     <div class='px-3 py-3 d-flex justify-content-between'>
                                         <h3 class='card-title'>PROFIT</h3>
                                         <div class="card-right d-flex align-items-center">
-                                            <p th:if="${dashboardData.getWebUtils().isAdmin(dashboardData.getAccount())}" th:text="${#numbers.formatCurrency(dashboardData.getProfit())}"></p>
-                                            <p th:if="${!dashboardData.getWebUtils().isAdmin(dashboardData.getAccount())}"><i class="fas fa-eye-slash"></i></p>
+                                            <p th:if="${dashboardData.getWebUtils().isAdmin(dashboardData.getAccount())}"
+                                               th:text="${#numbers.formatCurrency(dashboardData.getProfit())}"></p>
+                                            <p th:if="${!dashboardData.getWebUtils().isAdmin(dashboardData.getAccount())}">
+                                                <i class="fas fa-eye-slash"></i></p>
                                         </div>
                                     </div>
                                     <div class="chart-wrapper">
@@ -246,29 +254,40 @@
                 <div class="row mb-4">
                     <form onsubmit="return validateDateRange()">
                         <div class="form-row">
-                            <div class="col-md-3 form-group" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                            <div class="col-md-3 form-group"
+                                 style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                                 <label for="startDate">Form </label>
-                                <input type="text" class="form-control" id="startDate" name="startDate" placeholder="Select From Date" autocomplete="off">
+                                <input autocomplete="off" class="form-control" id="startDate" name="startDate"
+                                       placeholder="Select From Date" type="text">
                             </div>
-                            <div class="col-md-3 form-group" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                            <div class="col-md-3 form-group"
+                                 style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                                 <label for="endDate">To </label>
-                                <input type="text" class="form-control" id="endDate" name="endDate" placeholder="Select To Date" autocomplete="off">
+                                <input autocomplete="off" class="form-control" id="endDate" name="endDate"
+                                       placeholder="Select To Date" type="text">
                             </div>
                             <div class="col-md-4 form-group">
-                                <div class="btn-group" role="group" aria-label="Date Buttons">
-                                    <button type="button" class="btn btn-primary" onclick="setDateRange('today')">Today</button>
-                                    <button type="button" class="btn btn-primary" onclick="setDateRange('yesterday')">Yesterday</button>
-                                    <button type="button" class="btn btn-primary" onclick="setDateRange('last7days')">Last 7 Days</button>
-                                    <button type="button" class="btn btn-primary" onclick="setDateRange('thismonth')">This Month</button>
+                                <div aria-label="Date Buttons" class="btn-group" role="group">
+                                    <button class="btn btn-primary" onclick="setDateRange('today')" type="button">
+                                        Today
+                                    </button>
+                                    <button class="btn btn-primary" onclick="setDateRange('yesterday')" type="button">
+                                        Yesterday
+                                    </button>
+                                    <button class="btn btn-primary" onclick="setDateRange('last7days')" type="button">
+                                        Last 7 Days
+                                    </button>
+                                    <button class="btn btn-primary" onclick="setDateRange('thismonth')" type="button">
+                                        This Month
+                                    </button>
                                 </div>
                             </div>
                             <div class="col-md-2 form-group">
-                                <button type="submit" class="btn btn-success">Apply</button>
+                                <button class="btn btn-success" type="submit">Apply</button>
                             </div>
                         </div>
 
                     </form>
-
 
 
                 </div>
@@ -307,7 +326,7 @@
             </section>
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title" >Orders</h4>
+                    <h4 class="card-title">Orders</h4>
                 </div>
                 <div class="card-body px-0 pb-0">
                     <div class="table-responsive">
@@ -331,9 +350,10 @@
                                 <td th:text="${order.getQuantity()}"></td>
                                 <td th:text="${dashboardData.getCustomerService().getCustomerById(order.getCustomerId()).getName()}"></td>
                                 <td th:text="${dashboardData.getAccountService().getAccountById(order.getAccountId()).getFullName()}"></td>
-                                <td><a th:href="@{/customer/{customerId}/invoice/{orderId}(customerId=${order.getCustomerId()}, orderId=${order.getOrderId()})}">
-                                    <i class="material-icons">picture_as_pdf</i>
-                                </a></td>
+                                <td>
+                                    <a th:href="@{/customer/{customerId}/invoice/{orderId}(customerId=${order.getCustomerId()}, orderId=${order.getOrderId()})}">
+                                        <i class="material-icons">picture_as_pdf</i>
+                                    </a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -367,7 +387,7 @@
 <script th:src="@{/js/main.js}"></script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         var today = new Date();
         $('#startDate,#endDate').datepicker({
             format: 'MM/dd/yyyy',
@@ -424,6 +444,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(name);
     }
+
     function formatDate(dateString) {
         const date = new Date(dateString);
         const month = date.getMonth() + 1; // Months are zero-based
@@ -435,6 +456,7 @@
 
         return formattedDate;
     }
+
     function getDatesBetween(startDate, endDate) {
         const dates = [];
         const currentDate = new Date(startDate);
@@ -447,16 +469,17 @@
 
         return dates;
     }
+
     function generateColors(length) {
         const chartColors = {
             info: '#41B1F9',
         };
-        const backgroundColor = Array.from({ length }, () => chartColors.info);
+        const backgroundColor = Array.from({length}, () => chartColors.info);
         return backgroundColor;
     }
 
-    const startDateParam = getURLParameter('startDate') ??  formatDate(new Date());
-    const endDateParam = getURLParameter('endDate') ??  formatDate(new Date());
+    const startDateParam = getURLParameter('startDate') ?? formatDate(new Date());
+    const endDateParam = getURLParameter('endDate') ?? formatDate(new Date());
 
     const formattedStartDate = formatDate(startDateParam);
     const formattedEndDate = formatDate(endDateParam);
@@ -812,12 +835,12 @@
         },
     };
 
-    var randomScalingFactor = function() {
+    var randomScalingFactor = function () {
         return (Math.random() > 0.5 ? 1.0 : 1.0) * Math.round(Math.random() * 100);
     };
 
     // draws a rectangle with a rounded top
-    Chart.helpers.drawRoundedTopRectangle = function(ctx, x, y, width, height, radius) {
+    Chart.helpers.drawRoundedTopRectangle = function (ctx, x, y, width, height, radius) {
         ctx.beginPath();
         ctx.moveTo(x + radius, y);
         // top right corner
@@ -834,7 +857,7 @@
     };
 
     Chart.elements.RoundedTopRectangle = Chart.elements.Rectangle.extend({
-        draw: function() {
+        draw: function () {
             var ctx = this._chart.ctx;
             var vm = this._view;
             var left, right, top, bottom, signX, signY, borderSkipped;
@@ -847,7 +870,7 @@
                 top = vm.y;
                 bottom = vm.base;
                 signX = 1;
-                signY = bottom > top? 1: -1;
+                signY = bottom > top ? 1 : -1;
                 borderSkipped = vm.borderSkipped || 'bottom';
             } else {
                 // horizontal bar
@@ -855,7 +878,7 @@
                 right = vm.x;
                 top = vm.y - vm.height / 2;
                 bottom = vm.y + vm.height / 2;
-                signX = right > left? 1: -1;
+                signX = right > left ? 1 : -1;
                 signY = 1;
                 borderSkipped = vm.borderSkipped || 'left';
             }
@@ -865,13 +888,13 @@
             if (borderWidth) {
                 // borderWidth shold be less than bar width and bar height.
                 var barSize = Math.min(Math.abs(left - right), Math.abs(top - bottom));
-                borderWidth = borderWidth > barSize? barSize: borderWidth;
+                borderWidth = borderWidth > barSize ? barSize : borderWidth;
                 var halfStroke = borderWidth / 2;
                 // Adjust borderWidth when bar top position is near vm.base(zero).
-                var borderLeft = left + (borderSkipped !== 'left'? halfStroke * signX: 0);
-                var borderRight = right + (borderSkipped !== 'right'? -halfStroke * signX: 0);
-                var borderTop = top + (borderSkipped !== 'top'? halfStroke * signY: 0);
-                var borderBottom = bottom + (borderSkipped !== 'bottom'? -halfStroke * signY: 0);
+                var borderLeft = left + (borderSkipped !== 'left' ? halfStroke * signX : 0);
+                var borderRight = right + (borderSkipped !== 'right' ? -halfStroke * signX : 0);
+                var borderTop = top + (borderSkipped !== 'top' ? halfStroke * signY : 0);
+                var borderBottom = bottom + (borderSkipped !== 'bottom' ? -halfStroke * signY : 0);
                 // not become a vertical line?
                 if (borderLeft !== borderRight) {
                     top = borderTop;
@@ -921,7 +944,6 @@
     });
 
 
-
     var radialBarsOptions = {
         series: [44, 80, 67],
         chart: {
@@ -953,7 +975,7 @@
                         label: "Earnings",
                         color: "#25A6F1",
                         fontSize: "16px",
-                        formatter: function(w) {
+                        formatter: function (w) {
                             // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
                             return "$4,124";
                         },

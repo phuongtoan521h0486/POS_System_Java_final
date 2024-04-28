@@ -1,4 +1,5 @@
 package com.thd.pos_system_java_final.conf;
+
 public class PartnerInfo {
 
     private String accessKey;
@@ -43,11 +44,11 @@ public class PartnerInfo {
         this.secretKey = secretKey;
     }
 
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
     public String getPublicKey() {
         return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 }

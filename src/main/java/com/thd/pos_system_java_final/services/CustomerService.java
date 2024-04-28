@@ -28,10 +28,10 @@ public class CustomerService {
     public double calculateTotalSpend(int customerId) {
         List<Order> orders = orderRepository.findAllByCustomerId(customerId);
         double total = 0;
-        for(Order order: orders) {
+        for (Order order : orders) {
             total += order.getTotalAmount();
         }
-        return  total;
+        return total;
     }
 
     public Order getLatestOrder() {
@@ -41,13 +41,13 @@ public class CustomerService {
     public int calculateTotalQuantity(int customerId) {
         List<Order> orders = orderRepository.findAllByCustomerId(customerId);
         int total = 0;
-        for(Order order: orders) {
+        for (Order order : orders) {
             List<OrderDetail> orderDetails = orderDetailRepository.findAllByOrderId(order.getOrderId());
-            for(OrderDetail detail: orderDetails) {
+            for (OrderDetail detail : orderDetails) {
                 total += detail.getQuantity();
             }
         }
-        return  total;
+        return total;
     }
 
     public Customer getCustomerById(int customerId) {

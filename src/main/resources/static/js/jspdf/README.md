@@ -10,7 +10,8 @@
 
 **A library to generate PDFs in JavaScript.**
 
-You can [catch me on twitter](http://twitter.com/MrRio): [@MrRio](http://twitter.com/MrRio) or head over to [my company's website](http://parall.ax) for consultancy.
+You can [catch me on twitter](http://twitter.com/MrRio): [@MrRio](http://twitter.com/MrRio) or head over
+to [my company's website](http://parall.ax) for consultancy.
 
 jsPDF is now co-maintained by [yWorks - the diagramming experts](https://www.yworks.com/).
 
@@ -140,7 +141,8 @@ module.exports = {
 };
 ```
 
-In **Vue CLI** projects, externals can be defined via the [configureWebpack](https://cli.vuejs.org/config/#configurewebpack)
+In **Vue CLI** projects, externals can be defined via
+the [configureWebpack](https://cli.vuejs.org/config/#configurewebpack)
 or [chainWebpack](https://cli.vuejs.org/config/#chainwebpack) properties of the `vue.config.js` file
 (needs to be created, first, in fresh projects).
 
@@ -240,7 +242,9 @@ Feel free to ask a question there with the tag `jspdf`.
 Feature requests, bug reports, etc. are very welcome as issues. Note that bug reports should follow these guidelines:
 
 - A bug should be reported as an [mcve](https://stackoverflow.com/help/mcve)
-- Make sure code is properly indented and [formatted](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code) (Use ``` around code blocks)
+- Make sure code is properly indented
+  and [formatted](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code) (Use ``` around
+  code blocks)
 - Provide a runnable example.
 - Try to make sure and show in your issue that the issue is actually related to jspdf and not your framework of choice.
 
@@ -255,9 +259,12 @@ You can find information about building and testing jsPDF in the
 
 ## Credits
 
-- Big thanks to Daniel Dotsenko from [Willow Systems Corporation](https://github.com/willowsystems) for making huge contributions to the codebase.
-- Thanks to Ajaxian.com for [featuring us back in 2009](http://ajaxian.com/archives/dynamically-generic-pdfs-with-javascript).
-- Our special thanks to GH Lee ([sphilee](https://github.com/sphilee)) for programming the ttf-file-support and providing a large and long sought after feature
+- Big thanks to Daniel Dotsenko from [Willow Systems Corporation](https://github.com/willowsystems) for making huge
+  contributions to the codebase.
+- Thanks to Ajaxian.com
+  for [featuring us back in 2009](http://ajaxian.com/archives/dynamically-generic-pdfs-with-javascript).
+- Our special thanks to GH Lee ([sphilee](https://github.com/sphilee)) for programming the ttf-file-support and
+  providing a large and long sought after feature
 - Everyone else that's contributed patches or bug reports. You rock.
 
 ## License (MIT)

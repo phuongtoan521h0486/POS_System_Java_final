@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.deg = exports.parseNamedSide = exports.isAngle = exports.angle = void 0;
 var parser_1 = require("../syntax/parser");
 var length_percentage_1 = require("./length-percentage");
@@ -37,7 +37,9 @@ exports.isAngle = isAngle;
 var parseNamedSide = function (tokens) {
     var sideOrCorner = tokens
         .filter(parser_1.isIdentToken)
-        .map(function (ident) { return ident.value; })
+        .map(function (ident) {
+            return ident.value;
+        })
         .join(' ');
     switch (sideOrCorner) {
         case 'to bottom right':
@@ -76,6 +78,8 @@ var parseNamedSide = function (tokens) {
     return 0;
 };
 exports.parseNamedSide = parseNamedSide;
-var deg = function (deg) { return (Math.PI * deg) / 180; };
+var deg = function (deg) {
+    return (Math.PI * deg) / 180;
+};
 exports.deg = deg;
 //# sourceMappingURL=angle.js.map

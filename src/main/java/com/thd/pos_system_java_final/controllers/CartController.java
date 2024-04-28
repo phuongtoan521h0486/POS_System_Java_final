@@ -1,8 +1,6 @@
 package com.thd.pos_system_java_final.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thd.pos_system_java_final.models.Account.Account;
-import com.thd.pos_system_java_final.models.Cart.Cart;
 import com.thd.pos_system_java_final.models.Cart.Item;
 import com.thd.pos_system_java_final.models.Coupon.Coupon;
 import com.thd.pos_system_java_final.models.Coupon.CouponType;
@@ -12,8 +10,6 @@ import com.thd.pos_system_java_final.models.Order.Order;
 import com.thd.pos_system_java_final.models.Order.OrderDetail;
 import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.models.Order.OrderRepository;
-import com.thd.pos_system_java_final.models.Product.Product;
-import com.thd.pos_system_java_final.models.Product.ProductRepository;
 import com.thd.pos_system_java_final.payments.IPayment;
 import com.thd.pos_system_java_final.payments.PaymentMethod;
 import com.thd.pos_system_java_final.payments.PaymentParams;
@@ -23,11 +19,13 @@ import com.thd.pos_system_java_final.services.CartService;
 import com.thd.pos_system_java_final.services.CouponService;
 import com.thd.pos_system_java_final.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -52,6 +50,7 @@ public class CartController {
     private HttpSession session;
     @Autowired
     private CouponService couponService;
+
     @GetMapping("/step-1")
     public String step1() {
         return "POS/step1";
@@ -61,7 +60,7 @@ public class CartController {
     public String step1(String phone, Model model) {
         Customer customer = customerRepository.findByPhoneNumber(phone);
         session.setAttribute("customer", customer);
-        model.addAttribute("myCart", (List<Item>) session.getAttribute("cart"));
+        model.addAttribute("myCart", session.getAttribute("cart"));
         model.addAttribute("imageUtils", imageService);
         model.addAttribute("cartService", cartService);
         return "POS/step2";
@@ -69,7 +68,7 @@ public class CartController {
 
     @GetMapping("/step-2")
     public String step2(Model model) {
-        model.addAttribute("myCart", (List<Item>) session.getAttribute("cart"));
+        model.addAttribute("myCart", session.getAttribute("cart"));
         model.addAttribute("imageUtils", imageService);
         model.addAttribute("cartService", cartService);
         return "POS/step2";
@@ -122,7 +121,7 @@ public class CartController {
 
         int orderId = order.getOrderId();
 
-        for (Item item: items) {
+        for (Item item : items) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrderId(orderId);
             orderDetail.setProductId(item.getProduct().getProductId());

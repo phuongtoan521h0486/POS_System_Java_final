@@ -2,18 +2,16 @@ package com.thd.pos_system_java_final.models.MoMoModels;
 
 public class Response {
     protected long responseTime;
-
-    public long getResponseTime() {
-        return  System.currentTimeMillis();
-    }
     protected String message;
-
+    protected Integer resultCode;
     private String partnerCode;
     private String orderId;
-    protected Integer resultCode;
-
     public Response() {
         this.responseTime = System.currentTimeMillis();
+    }
+
+    public long getResponseTime() {
+        return System.currentTimeMillis();
     }
 
     public void setResponseTime(long responseTime) {

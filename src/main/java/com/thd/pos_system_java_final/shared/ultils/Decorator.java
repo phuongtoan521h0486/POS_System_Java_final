@@ -4,7 +4,7 @@ import com.thd.pos_system_java_final.models.Account.Account;
 
 import java.util.List;
 
-public abstract class Decorator implements Exporter{
+public abstract class Decorator implements Exporter {
     protected Exporter wrapObj;
 
     public Decorator(Exporter wrapObj) {

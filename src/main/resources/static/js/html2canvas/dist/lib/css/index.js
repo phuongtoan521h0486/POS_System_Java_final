@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.CSSParsedCounterDeclaration = exports.CSSParsedPseudoDeclaration = exports.CSSParsedDeclaration = void 0;
 var background_clip_1 = require("./property-descriptors/background-clip");
 var background_color_1 = require("./property-descriptors/background-color");
@@ -132,6 +132,7 @@ var CSSParsedDeclaration = /** @class */ (function () {
         this.wordBreak = parse(context, word_break_1.wordBreak, declaration.wordBreak);
         this.zIndex = parse(context, z_index_1.zIndex, declaration.zIndex);
     }
+
     CSSParsedDeclaration.prototype.isVisible = function () {
         return this.display > 0 && this.opacity > 0 && this.visibility === 0 /* VISIBLE */;
     };
@@ -166,6 +167,7 @@ var CSSParsedPseudoDeclaration = /** @class */ (function () {
         this.content = parse(context, content_1.content, declaration.content);
         this.quotes = parse(context, quotes_1.quotes, declaration.quotes);
     }
+
     return CSSParsedPseudoDeclaration;
 }());
 exports.CSSParsedPseudoDeclaration = CSSParsedPseudoDeclaration;
@@ -174,6 +176,7 @@ var CSSParsedCounterDeclaration = /** @class */ (function () {
         this.counterIncrement = parse(context, counter_increment_1.counterIncrement, declaration.counterIncrement);
         this.counterReset = parse(context, counter_reset_1.counterReset, declaration.counterReset);
     }
+
     return CSSParsedCounterDeclaration;
 }());
 exports.CSSParsedCounterDeclaration = CSSParsedCounterDeclaration;
@@ -184,16 +187,21 @@ var parse = function (context, descriptor, style) {
     tokenizer.write(value);
     var parser = new parser_1.Parser(tokenizer.read());
     switch (descriptor.type) {
-        case 2 /* IDENT_VALUE */:
+        case 2 /* IDENT_VALUE */
+        :
             var token = parser.parseComponentValue();
             return descriptor.parse(context, parser_1.isIdentToken(token) ? token.value : descriptor.initialValue);
-        case 0 /* VALUE */:
+        case 0 /* VALUE */
+        :
             return descriptor.parse(context, parser.parseComponentValue());
-        case 1 /* LIST */:
+        case 1 /* LIST */
+        :
             return descriptor.parse(context, parser.parseComponentValues());
-        case 4 /* TOKEN_VALUE */:
+        case 4 /* TOKEN_VALUE */
+        :
             return parser.parseComponentValue();
-        case 3 /* TYPE_VALUE */:
+        case 3 /* TYPE_VALUE */
+        :
             switch (descriptor.format) {
                 case 'angle':
                     return angle_1.angle.parse(context, parser.parseComponentValue());

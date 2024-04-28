@@ -1,11 +1,12 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.parseFunctionArgs = exports.nonFunctionArgSeparator = exports.nonWhiteSpace = exports.isIdentWithValue = exports.isStringToken = exports.isIdentToken = exports.isNumberToken = exports.isDimensionToken = exports.Parser = void 0;
 var tokenizer_1 = require("./tokenizer");
 var Parser = /** @class */ (function () {
     function Parser(tokens) {
         this._tokens = tokens;
     }
+
     Parser.create = function (value) {
         var tokenizer = new tokenizer_1.Tokenizer();
         tokenizer.write(value);
@@ -49,17 +50,21 @@ var Parser = /** @class */ (function () {
     Parser.prototype.consumeComponentValue = function () {
         var token = this.consumeToken();
         switch (token.type) {
-            case 11 /* LEFT_CURLY_BRACKET_TOKEN */:
-            case 28 /* LEFT_SQUARE_BRACKET_TOKEN */:
-            case 2 /* LEFT_PARENTHESIS_TOKEN */:
+            case 11 /* LEFT_CURLY_BRACKET_TOKEN */
+            :
+            case 28 /* LEFT_SQUARE_BRACKET_TOKEN */
+            :
+            case 2 /* LEFT_PARENTHESIS_TOKEN */
+            :
                 return this.consumeSimpleBlock(token.type);
-            case 19 /* FUNCTION_TOKEN */:
+            case 19 /* FUNCTION_TOKEN */
+            :
                 return this.consumeFunction(token);
         }
         return token;
     };
     Parser.prototype.consumeSimpleBlock = function (type) {
-        var block = { type: type, values: [] };
+        var block = {type: type, values: []};
         var token = this.consumeToken();
         while (true) {
             if (token.type === 32 /* EOF_TOKEN */ || isEndingTokenFor(token, type)) {
@@ -95,19 +100,29 @@ var Parser = /** @class */ (function () {
     return Parser;
 }());
 exports.Parser = Parser;
-var isDimensionToken = function (token) { return token.type === 15 /* DIMENSION_TOKEN */; };
+var isDimensionToken = function (token) {
+    return token.type === 15 /* DIMENSION_TOKEN */;
+};
 exports.isDimensionToken = isDimensionToken;
-var isNumberToken = function (token) { return token.type === 17 /* NUMBER_TOKEN */; };
+var isNumberToken = function (token) {
+    return token.type === 17 /* NUMBER_TOKEN */;
+};
 exports.isNumberToken = isNumberToken;
-var isIdentToken = function (token) { return token.type === 20 /* IDENT_TOKEN */; };
+var isIdentToken = function (token) {
+    return token.type === 20 /* IDENT_TOKEN */;
+};
 exports.isIdentToken = isIdentToken;
-var isStringToken = function (token) { return token.type === 0 /* STRING_TOKEN */; };
+var isStringToken = function (token) {
+    return token.type === 0 /* STRING_TOKEN */;
+};
 exports.isStringToken = isStringToken;
 var isIdentWithValue = function (token, value) {
     return exports.isIdentToken(token) && token.value === value;
 };
 exports.isIdentWithValue = isIdentWithValue;
-var nonWhiteSpace = function (token) { return token.type !== 31 /* WHITESPACE_TOKEN */; };
+var nonWhiteSpace = function (token) {
+    return token.type !== 31 /* WHITESPACE_TOKEN */;
+};
 exports.nonWhiteSpace = nonWhiteSpace;
 var nonFunctionArgSeparator = function (token) {
     return token.type !== 31 /* WHITESPACE_TOKEN */ && token.type !== 4 /* COMMA_TOKEN */;

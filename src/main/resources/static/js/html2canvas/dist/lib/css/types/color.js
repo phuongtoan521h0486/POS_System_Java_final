@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.COLORS = exports.parseColor = exports.pack = exports.asString = exports.isTransparent = exports.color = void 0;
 var parser_1 = require("../syntax/parser");
 var angle_1 = require("./angle");
@@ -51,7 +51,9 @@ exports.color = {
         return exports.COLORS.TRANSPARENT;
     }
 };
-var isTransparent = function (color) { return (0xff & color) === 0; };
+var isTransparent = function (color) {
+    return (0xff & color) === 0;
+};
 exports.isTransparent = isTransparent;
 var asString = function (color) {
     var alpha = 0xff & color;
@@ -87,6 +89,7 @@ var rgb = function (_context, args) {
     }
     return 0;
 };
+
 function hue2rgb(t1, t2, hue) {
     if (hue < 0) {
         hue += 1;
@@ -96,17 +99,15 @@ function hue2rgb(t1, t2, hue) {
     }
     if (hue < 1 / 6) {
         return (t2 - t1) * hue * 6 + t1;
-    }
-    else if (hue < 1 / 2) {
+    } else if (hue < 1 / 2) {
         return t2;
-    }
-    else if (hue < 2 / 3) {
+    } else if (hue < 2 / 3) {
         return (t2 - t1) * 6 * (2 / 3 - hue) + t1;
-    }
-    else {
+    } else {
         return t1;
     }
 }
+
 var hsl = function (context, args) {
     var tokens = args.filter(parser_1.nonFunctionArgSeparator);
     var hue = tokens[0], saturation = tokens[1], lightness = tokens[2], alpha = tokens[3];

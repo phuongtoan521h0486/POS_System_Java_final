@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.contentBox = exports.paddingBox = void 0;
 var length_percentage_1 = require("../css/types/length-percentage");
 var paddingBox = function (element) {

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.ElementContainer = void 0;
 var index_1 = require("../css");
 var bounds_1 = require("../css/layout/bounds");
@@ -16,7 +16,9 @@ var ElementContainer = /** @class */ (function () {
         }
         this.styles = new index_1.CSSParsedDeclaration(context, window.getComputedStyle(element, null));
         if (node_parser_1.isHTMLElementNode(element)) {
-            if (this.styles.animationDuration.some(function (duration) { return duration > 0; })) {
+            if (this.styles.animationDuration.some(function (duration) {
+                return duration > 0;
+            })) {
                 element.style.animationDuration = '0s';
             }
             if (this.styles.transform !== null) {
@@ -29,6 +31,7 @@ var ElementContainer = /** @class */ (function () {
             this.flags |= 16 /* DEBUG_RENDER */;
         }
     }
+
     return ElementContainer;
 }());
 exports.ElementContainer = ElementContainer;

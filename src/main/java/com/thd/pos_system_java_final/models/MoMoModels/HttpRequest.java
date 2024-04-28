@@ -1,4 +1,5 @@
 package com.thd.pos_system_java_final.models.MoMoModels;
+
 public class HttpRequest {
     private String method;
     private String endpoint;

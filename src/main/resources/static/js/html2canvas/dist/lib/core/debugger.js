@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.isDebugging = void 0;
 var elementDebuggerAttribute = 'data-html2canvas-debug';
 var getElementDebugType = function (element) {

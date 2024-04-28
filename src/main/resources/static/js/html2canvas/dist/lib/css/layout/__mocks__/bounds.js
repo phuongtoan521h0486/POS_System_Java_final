@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.parseBounds = exports.Bounds = void 0;
 exports.Bounds = jest.requireActual('../bounds').Bounds;
 var parseBounds = function () {

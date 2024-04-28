@@ -1,9 +1,8 @@
 package com.thd.pos_system_java_final.services;
 
-import com.thd.pos_system_java_final.models.DTO.DataMail;
-
 import com.thd.pos_system_java_final.commands.EmailCommand;
 import com.thd.pos_system_java_final.commands.ICommand;
+import com.thd.pos_system_java_final.models.DTO.DataMail;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -11,12 +10,15 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
-public class EmailSenderService implements MailService{
+public class EmailSenderService implements MailService {
+
+    private static final EmailSenderService instance = new EmailSenderService();
+    //reciever
+    private final JavaMailSenderImpl mailSender;
 
     // Apply Singleton pattern
     private EmailSenderService() {
@@ -30,16 +32,11 @@ public class EmailSenderService implements MailService{
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.starttls.enable", true);
     }
-
-    private static EmailSenderService instance = new EmailSenderService();
+    // Apply Singleton pattern
 
     public static EmailSenderService getInstance() {
         return instance;
     }
-    // Apply Singleton pattern
-
-    //reciever
-    private final JavaMailSenderImpl mailSender;
 
     @Override
     public void sendHtmlMail(DataMail dataMail, String templateName) throws MessagingException {

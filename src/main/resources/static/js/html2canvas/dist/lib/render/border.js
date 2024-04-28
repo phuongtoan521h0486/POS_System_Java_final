@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.parsePathForBorderStroke = exports.parsePathForBorderDoubleInner = exports.parsePathForBorderDoubleOuter = exports.parsePathForBorder = void 0;
 var bezier_curve_1 = require("./bezier-curve");
 var parsePathForBorder = function (curves, borderSide) {
@@ -62,14 +62,12 @@ var createStrokePathFromCurves = function (outer1, outer2) {
     var path = [];
     if (bezier_curve_1.isBezierCurve(outer1)) {
         path.push(outer1.subdivide(0.5, false));
-    }
-    else {
+    } else {
         path.push(outer1);
     }
     if (bezier_curve_1.isBezierCurve(outer2)) {
         path.push(outer2.subdivide(0.5, true));
-    }
-    else {
+    } else {
         path.push(outer2);
     }
     return path;
@@ -78,26 +76,22 @@ var createPathFromCurves = function (outer1, inner1, outer2, inner2) {
     var path = [];
     if (bezier_curve_1.isBezierCurve(outer1)) {
         path.push(outer1.subdivide(0.5, false));
-    }
-    else {
+    } else {
         path.push(outer1);
     }
     if (bezier_curve_1.isBezierCurve(outer2)) {
         path.push(outer2.subdivide(0.5, true));
-    }
-    else {
+    } else {
         path.push(outer2);
     }
     if (bezier_curve_1.isBezierCurve(inner2)) {
         path.push(inner2.subdivide(0.5, true).reverse());
-    }
-    else {
+    } else {
         path.push(inner2);
     }
     if (bezier_curve_1.isBezierCurve(inner1)) {
         path.push(inner1.subdivide(0.5, false).reverse());
-    }
-    else {
+    } else {
         path.push(inner1);
     }
     return path;

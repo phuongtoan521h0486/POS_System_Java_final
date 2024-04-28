@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.DocumentCloner = void 0;
 var DocumentCloner = /** @class */ (function () {
     function DocumentCloner() {
@@ -12,6 +12,7 @@ var DocumentCloner = /** @class */ (function () {
             }
         };
     }
+
     DocumentCloner.prototype.toIFrame = function () {
         return Promise.resolve({});
     };

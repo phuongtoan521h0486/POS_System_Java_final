@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.listStyleImage = void 0;
 var image_1 = require("../types/image");
 exports.listStyleImage = {

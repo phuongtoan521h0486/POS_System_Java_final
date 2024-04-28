@@ -1,13 +1,17 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 var assert_1 = require("assert");
 var parser_1 = require("../../syntax/parser");
 var image_1 = require("../image");
 var color_1 = require("../color");
 var tokenizer_1 = require("../../syntax/tokenizer");
 var angle_1 = require("../angle");
-var parse = function (context, value) { return image_1.image.parse(context, parser_1.Parser.parseValue(value)); };
-var colorParse = function (context, value) { return color_1.color.parse(context, parser_1.Parser.parseValue(value)); };
+var parse = function (context, value) {
+    return image_1.image.parse(context, parser_1.Parser.parseValue(value));
+};
+var colorParse = function (context, value) {
+    return color_1.color.parse(context, parser_1.Parser.parseValue(value));
+};
 jest.mock('../../../core/features');
 jest.mock('../../../core/context');
 var context_1 = require("../../../core/context");
@@ -39,8 +43,8 @@ describe('types', function () {
                         angle: angle_1.deg(180),
                         type: 1 /* LINEAR_GRADIENT */,
                         stops: [
-                            { color: color_1.pack(0xf6, 0x9d, 0x3c, 1), stop: null },
-                            { color: color_1.pack(0x3f, 0x87, 0xa6, 1), stop: null }
+                            {color: color_1.pack(0xf6, 0x9d, 0x3c, 1), stop: null},
+                            {color: color_1.pack(0x3f, 0x87, 0xa6, 1), stop: null}
                         ]
                     });
                 });
@@ -49,8 +53,8 @@ describe('types', function () {
                         angle: angle_1.deg(180),
                         type: 1 /* LINEAR_GRADIENT */,
                         stops: [
-                            { color: colorParse(context, 'yellow'), stop: null },
-                            { color: colorParse(context, 'blue'), stop: null }
+                            {color: colorParse(context, 'yellow'), stop: null},
+                            {color: colorParse(context, 'blue'), stop: null}
                         ]
                     });
                 });
@@ -59,8 +63,8 @@ describe('types', function () {
                         angle: angle_1.deg(180),
                         type: 1 /* LINEAR_GRADIENT */,
                         stops: [
-                            { color: colorParse(context, 'yellow'), stop: null },
-                            { color: colorParse(context, 'blue'), stop: null }
+                            {color: colorParse(context, 'yellow'), stop: null},
+                            {color: colorParse(context, 'blue'), stop: null}
                         ]
                     });
                 });
@@ -69,8 +73,8 @@ describe('types', function () {
                         angle: angle_1.deg(180),
                         type: 1 /* LINEAR_GRADIENT */,
                         stops: [
-                            { color: colorParse(context, 'yellow'), stop: null },
-                            { color: colorParse(context, 'blue'), stop: null }
+                            {color: colorParse(context, 'yellow'), stop: null},
+                            {color: colorParse(context, 'blue'), stop: null}
                         ]
                     });
                 });
@@ -79,21 +83,21 @@ describe('types', function () {
                         angle: 0,
                         type: 1 /* LINEAR_GRADIENT */,
                         stops: [
-                            { color: colorParse(context, 'blue'), stop: null },
-                            { color: colorParse(context, 'yellow'), stop: null }
+                            {color: colorParse(context, 'blue'), stop: null},
+                            {color: colorParse(context, 'yellow'), stop: null}
                         ]
                     });
                 });
                 it('linear-gradient(to top right, blue, yellow)', function () {
                     return assert_1.deepStrictEqual(parse(context, 'linear-gradient(to top right, blue, yellow)'), {
                         angle: [
-                            { type: 16 /* PERCENTAGE_TOKEN */, number: 100, flags: 4 },
-                            { type: 17 /* NUMBER_TOKEN */, number: 0, flags: 4 }
+                            {type: 16 /* PERCENTAGE_TOKEN */, number: 100, flags: 4},
+                            {type: 17 /* NUMBER_TOKEN */, number: 0, flags: 4}
                         ],
                         type: 1 /* LINEAR_GRADIENT */,
                         stops: [
-                            { color: colorParse(context, 'blue'), stop: null },
-                            { color: colorParse(context, 'yellow'), stop: null }
+                            {color: colorParse(context, 'blue'), stop: null},
+                            {color: colorParse(context, 'yellow'), stop: null}
                         ]
                     });
                 });
@@ -124,12 +128,12 @@ describe('types', function () {
                 it('linear-gradient(to top left, lightpink, lightpink 5px, white 5px, white 10px)', function () {
                     return assert_1.deepStrictEqual(parse(context, 'linear-gradient(to top left, lightpink, lightpink 5px, white 5px, white 10px)'), {
                         angle: [
-                            { type: 16 /* PERCENTAGE_TOKEN */, number: 100, flags: 4 },
-                            { type: 16 /* PERCENTAGE_TOKEN */, number: 100, flags: 4 }
+                            {type: 16 /* PERCENTAGE_TOKEN */, number: 100, flags: 4},
+                            {type: 16 /* PERCENTAGE_TOKEN */, number: 100, flags: 4}
                         ],
                         type: 1 /* LINEAR_GRADIENT */,
                         stops: [
-                            { color: colorParse(context, 'lightpink'), stop: null },
+                            {color: colorParse(context, 'lightpink'), stop: null},
                             {
                                 color: colorParse(context, 'lightpink'),
                                 stop: {

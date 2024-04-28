@@ -1,11 +1,6 @@
 package com.thd.pos_system_java_final.middlewares;
 
 import com.thd.pos_system_java_final.models.Account.AuthenticationParams;
-import com.thd.pos_system_java_final.models.Account.LoginRequest;
-import com.thd.pos_system_java_final.services.AccountService;
-import org.springframework.ui.Model;
-
-import javax.servlet.http.HttpSession;
 
 public abstract class Middleware {
     protected Middleware next;

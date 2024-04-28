@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.backgroundSize = exports.BACKGROUND_SIZE = void 0;
 var parser_1 = require("../syntax/parser");
 var length_percentage_1 = require("../types/length-percentage");
@@ -15,7 +15,9 @@ exports.backgroundSize = {
     prefix: false,
     type: 1 /* LIST */,
     parse: function (_context, tokens) {
-        return parser_1.parseFunctionArgs(tokens).map(function (values) { return values.filter(isBackgroundSizeInfoToken); });
+        return parser_1.parseFunctionArgs(tokens).map(function (values) {
+            return values.filter(isBackgroundSizeInfoToken);
+        });
     }
 };
 var isBackgroundSizeInfoToken = function (value) {

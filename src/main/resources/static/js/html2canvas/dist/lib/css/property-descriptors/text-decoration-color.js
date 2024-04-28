@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.textDecorationColor = void 0;
 exports.textDecorationColor = {
     name: "text-decoration-color",

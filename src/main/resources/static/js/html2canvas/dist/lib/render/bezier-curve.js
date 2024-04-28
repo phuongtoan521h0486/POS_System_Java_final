@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.isBezierCurve = exports.BezierCurve = void 0;
 var vector_1 = require("./vector");
 var lerp = function (a, b, t) {
@@ -13,6 +13,7 @@ var BezierCurve = /** @class */ (function () {
         this.endControl = endControl;
         this.end = end;
     }
+
     BezierCurve.prototype.subdivide = function (t, firstHalf) {
         var ab = lerp(this.start, this.startControl, t);
         var bc = lerp(this.startControl, this.endControl, t);
@@ -31,6 +32,8 @@ var BezierCurve = /** @class */ (function () {
     return BezierCurve;
 }());
 exports.BezierCurve = BezierCurve;
-var isBezierCurve = function (path) { return path.type === 1 /* BEZIER_CURVE */; };
+var isBezierCurve = function (path) {
+    return path.type === 1 /* BEZIER_CURVE */;
+};
 exports.isBezierCurve = isBezierCurve;
 //# sourceMappingURL=bezier-curve.js.map

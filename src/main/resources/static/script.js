@@ -37,4 +37,5 @@ const showToast = (
         toastAlready.remove();
     }
 
-    document.body.appendChild(box)}; 
+    document.body.appendChild(box)
+};

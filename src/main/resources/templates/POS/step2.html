@@ -2,794 +2,845 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/checkout.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <style>
-    .table thead th {
-      border-bottom: 1px solid #eeeeee;
-    }
-    .btn-custom {
-      display: block;
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      font-size: 1.25rem;
-      text-align: center;
-      background-color: #ffffff;
-      color: #3a82f6;
-      border: 1px solid #000000;
-      border-radius: 8px;
-      transition: background-color 0.3s;
-    }
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="/css/checkout.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .table thead th {
+            border-bottom: 1px solid #eeeeee;
+        }
 
-    .btn-custom:hover {
-      background-color: #f0f0f0;
-    }
+        .btn-custom {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 1.25rem;
+            text-align: center;
+            background-color: #ffffff;
+            color: #3a82f6;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
 
-    .btn-custom img {
-      height: 30px;
-      width: auto;
-    }
+        .btn-custom:hover {
+            background-color: #f0f0f0;
+        }
 
-    .btn-custom .payment-options {
-      display: inline-block;
-      margin-left: 10px;
-    }
+        .btn-custom img {
+            height: 30px;
+            width: auto;
+        }
 
-    .btn-custom .payment-options .radio-label-primary {
-      font-weight: bold;
-    }
+        .btn-custom .payment-options {
+            display: inline-block;
+            margin-left: 10px;
+        }
 
-    .btn-custom .payment-options .quick-tagline {
-      display: none;
-    }
+        .btn-custom .payment-options .radio-label-primary {
+            font-weight: bold;
+        }
 
-    .btn-custom .payment-options .child-img {
-      height: 24px;
-      width: auto;
-    }
-  </style>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <title>Multi-Step Form</title>
+        .btn-custom .payment-options .quick-tagline {
+            display: none;
+        }
+
+        .btn-custom .payment-options .child-img {
+            height: 24px;
+            width: auto;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <title>Multi-Step Form</title>
 </head>
 
 <body>
 <div class="container">
-  <div>
-    <div id="multi-step-form-container">
-      <!-- Form Steps / Progress Bar -->
-      <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
-        <!-- Step 1 -->
-        <li class="form-stepper-active text-center form-stepper-list" step="1">
-          <a class="mx-2">
+    <div>
+        <div id="multi-step-form-container">
+            <!-- Form Steps / Progress Bar -->
+            <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                <!-- Step 1 -->
+                <li class="form-stepper-active text-center form-stepper-list" step="1">
+                    <a class="mx-2">
               <span class="form-stepper-circle">
                 <span>1</span>
               </span>
-            <div class="label">Enter Phone Number</div>
-          </a>
-        </li>
-        <!-- Step 2 -->
-        <li class="form-stepper-active text-center form-stepper-list" step="2">
-          <a class="mx-2">
+                        <div class="label">Enter Phone Number</div>
+                    </a>
+                </li>
+                <!-- Step 2 -->
+                <li class="form-stepper-active text-center form-stepper-list" step="2">
+                    <a class="mx-2">
               <span class="form-stepper-circle">
                 <span>2</span>
               </span>
-            <div class="label">Checkout</div>
-          </a>
-        </li>
-        <!-- Step 3 -->
-        <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
-          <a class="mx-2">
+                        <div class="label">Checkout</div>
+                    </a>
+                </li>
+                <!-- Step 3 -->
+                <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                    <a class="mx-2">
               <span class="form-stepper-circle text-muted">
                 <span>3</span>
               </span>
-            <div class="label text-muted">Invoice</div>
-          </a>
-        </li>
-      </ul>
-      <div class="container mx-auto px-4">
-        <!-- Search Box with Barcode Button -->
-        <div class="flex items-center justify-center pt-6">
-          <div class="relative flex-grow flex items-center bg-white rounded-full shadow-xl">
-            <input class="w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none rounded-l-full" id="search" name="keyword" oninput="searchProducts()" placeholder="Search" type="text"/>
-            <button class="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center" id="searchButton">
-              <i class="fas fa-search"></i>
-            </button>
-            <div class="absolute w-full rounded-b-lg shadow-lg bg-white mt-1" id="dropdown" style="display: none; top: 100%; left: 0; z-index: 10;">
-              <ul id="searchResults">
-                <!-- Product 1 -->
-                <li class="flex items-center px-4 py-2 hover:bg-gray-100">
-                  <img alt="Product 1 image" class="rounded-full mr-3" src="https://placehold.co/50x50"/>
-                  <div class="flex-grow">
-                    <p class="font-semibold">
-                      Product 1
-                    </p>
-                    <p class="text-gray-500">
-                      $10.00
-                    </p>
-                  </div>
+                        <div class="label text-muted">Invoice</div>
+                    </a>
                 </li>
-              </ul>
-            </div>
-          </div>
-          <button id="barcodeButton" class="bg-blue-500 text-white rounded-full p-3 hover:bg-blue-400 focus:outline-none flex items-center justify-center ml-2" onclick="openBarcodePopup()">
-            <i class="fas fa-barcode"></i>
-          </button>
-        </div>
-
-        <!-- Barcode Popup -->
-        <div id="barcodePopup" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden" style="z-index: 9999;">
-          <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <div class="mt-3 text-center">
-              <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
-                <i class="fas fa-barcode text-green-600"></i>
-              </div>
-              <h3 class="text-lg leading-6 font-medium text-gray-900">Barcode Search</h3>
-              <div class="mt-2 px-7 py-3">
-                <label>
-                  <input id="barcodeInput" name="barcode" class="mt-1 px-3 py-2 bg-white border shadow-sm border-gray-300 placeholder-gray-400 focus:outline-none focus:border-blue-500 block w-full rounded-md sm:text-sm focus:ring-blue-500" placeholder="Enter barcode" type="text">
-                </label>
-              </div>
-              <div class="items-center px-4 py-3">
-                <button id="searchBarcode" class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300">
-                  Search
-                </button>
-              </div>
-              <div class="items-center px-4 py-3">
-                <button onclick="closeBarcodePopup()" class="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300">
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Rest of the form goes here... -->
-      </div>
-      <!-- Step Wise Form Content -->
-      <form class="mt-5" action="/cart/step-2" id="userAccountSetupForm" name="userAccountSetupForm" method="POST">
-        <!-- Step 2 Content, default hidden on page load. -->
-        <section id="step-2" class="form-step">
-
-          <div class="container py-5">
-            <div class="row d-flex justify-content-center my-4">
-              <div class="col-md-8">
-                <div class="card mb-4">
-                  <div class="card-header py-3">
-                    <h5 class="mb-0">Cart items</h5>
-                  </div>
-                  <div th:each="item: ${myCart}">
-                    <div class="card-body" th:attr="data-product-id=${item.getProduct().getProductId()}">
-                      <!-- Single item -->
-                      <div class="row">
-                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                          <!-- Image -->
-                          <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                            <img class="w-100"
-                                 th:if="${item.getProduct().getPicture() != null}"
-                                 th:src="'data:image/jpeg;base64,' + ${imageUtils.encodeImage(item.getProduct().getPicture())}"
-                                 alt="Product Image"
-                            />
-
-
-                            <a href="#!">
-                              <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                            </a>
-                          </div>
-                          <!-- Image -->
+            </ul>
+            <div class="container mx-auto px-4">
+                <!-- Search Box with Barcode Button -->
+                <div class="flex items-center justify-center pt-6">
+                    <div class="relative flex-grow flex items-center bg-white rounded-full shadow-xl">
+                        <input class="w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none rounded-l-full"
+                               id="search" name="keyword" oninput="searchProducts()" placeholder="Search" type="text"/>
+                        <button class="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center"
+                                id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <div class="absolute w-full rounded-b-lg shadow-lg bg-white mt-1" id="dropdown"
+                             style="display: none; top: 100%; left: 0; z-index: 10;">
+                            <ul id="searchResults">
+                                <!-- Product 1 -->
+                                <li class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                    <img alt="Product 1 image" class="rounded-full mr-3"
+                                         src="https://placehold.co/50x50"/>
+                                    <div class="flex-grow">
+                                        <p class="font-semibold">
+                                            Product 1
+                                        </p>
+                                        <p class="text-gray-500">
+                                            $10.00
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
+                    <button class="bg-blue-500 text-white rounded-full p-3 hover:bg-blue-400 focus:outline-none flex items-center justify-center ml-2"
+                            id="barcodeButton"
+                            onclick="openBarcodePopup()">
+                        <i class="fas fa-barcode"></i>
+                    </button>
+                </div>
 
-                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                          <!-- Data -->
-                          <p><strong th:text="${item.getProduct().getProductName()}"></strong></p>
-                          <p>Category: <span th:text="${item.getProduct().getCategory()}"></span></p>
-                          <p>Price: <span th:id="'Price'+${item.getProduct().getProductId()}"
-                                          th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice())}"></span></p>
-
-                          <!-- Button with Trash Icon -->
-                          <button type="button" class="btn btn-primary btn-sm remove-item-button me-1 mb-2"
-                                  data-mdb-toggle="tooltip" title="Remove item"
-                                  style="background-color: #3c71ca; color: #ffffff; border-radius: 4px; transition: background-color 0.3s;"
-                                  onmouseover="this.style.backgroundColor='#2b5aa5'"
-                                  onmouseout="this.style.backgroundColor='#3c71ca'"
-                                  >
-                            <i class="fas fa-trash"></i>
-                          </button>
-
-
-                          <!-- Data -->
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                          <!-- Quantity -->
-                          <div class="d-flex mb-4" style="max-width: 300px">
-                            <i id="decrease-product" class="btn btn-primary px-3 me-2" th:onclick="'updateQuantity(-1, ' + ${item.getProduct().getProductId()} + ')'">
-                              <i class="fas fa-minus"></i>
-                            </i>
-
-                            <div class="form-outline" style="display: flex; justify-content: center">
-                              <label th:for="${'quantity'+item.getProduct().getProductId()}"></label>
-                              <input th:id="${'quantity'+item.getProduct().getProductId()}" min="1" name="quantity" th:value="${item.getQuantity()}" type="number" class="form-control" />
+                <!-- Barcode Popup -->
+                <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden"
+                     id="barcodePopup"
+                     style="z-index: 9999;">
+                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                        <div class="mt-3 text-center">
+                            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                                <i class="fas fa-barcode text-green-600"></i>
                             </div>
-
-                            <i id="increase-product" class="btn btn-primary px-3 ms-2" th:onclick="'updateQuantity(1, ' + ${item.getProduct().getProductId()} + ')'" >
-                              <i class="fas fa-plus" ></i>
-                            </i>
-                          </div>
-                          <!-- Quantity -->
-
-
-
-                          <!-- Price -->
-                          <p class="text-start text-md-center">
-                            <strong >
-                              Total Price: <span
-                                    th:id="'totalPrice' + ${item.getProduct().getProductId()}"
-                                    th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity())}"></span>
-                            </strong>
-                          </p>
-                          <!-- Price -->
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Barcode Search</h3>
+                            <div class="mt-2 px-7 py-3">
+                                <label>
+                                    <input class="mt-1 px-3 py-2 bg-white border shadow-sm border-gray-300 placeholder-gray-400 focus:outline-none focus:border-blue-500 block w-full rounded-md sm:text-sm focus:ring-blue-500" id="barcodeInput"
+                                           name="barcode"
+                                           placeholder="Enter barcode" type="text">
+                                </label>
+                            </div>
+                            <div class="items-center px-4 py-3">
+                                <button class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300"
+                                        id="searchBarcode">
+                                    Search
+                                </button>
+                            </div>
+                            <div class="items-center px-4 py-3">
+                                <button class="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                                        onclick="closeBarcodePopup()">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
-                      </div>
-                      <!-- Single item -->
-
-                      <hr class="my-4" />
-                  </div>
-
-
-
-                  </div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card mb-4">
-                  <div class="card-header py-3">
-                    <h5 class="mb-0">Summary</h5>
-                  </div>
-                  <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                        Subtotal Amount
-                        <span id="totalAmount" th:text="${#numbers.formatCurrency(cartService.calculateTotalAmount())}"></span>
-                      </li>
 
-                      <li  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                        Total Quantity
-                        <span id="totalQuantity" th:text="${cartService.calculateTotalQuantity()}"></span>
-                      </li>
-
-                      <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                        <div class="d-flex w-100 align-items-center">
-                          <label for="couponCode" class="mb-0 me-2"></label>
-                          <div class="flex-fill">
-                            <input type="text" id="couponCode" name="couponCode" class="form-control" placeholder="Enter Coupon Code">
-                          </div>
-                          <button type="button" class="btn btn-primary ms-2" onclick="applyCoupon()">Apply</button>
-                        </div>
-                      <li  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                        Discount:
-                        <span id="discount" >$0.00</span>
-                      </li>
-                      <li  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                        Total Amount:
-                        <span id="total" th:text="${#numbers.formatCurrency(cartService.calculateTotalAmount())}"></span>
-                      </li>
-                      </li>
-
-                      <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                        <div class="d-flex w-100">
-                          <label for="givenMoney" class="mb-0 align-self-center me-2">Given Money</label>
-                          <div class="flex-fill text-end">
-                            <input type="text" id="givenMoney" name="givenMoney" class="form-control" placeholder="Enter Given Money">
-                          </div>
-                        </div>
-                      </li>
-                      <li
-                              class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                        <div>
-                          <strong>Excess Money</strong>
-                        </div>
-                        <span id="excessMoney"><strong>$0.00</strong></span>
-                      </li>
-                    </ul>
-
-                    <button type="button" step_number="3"
-                            style="display: block; width: 100%; padding: 10px; font-size: 1.25rem; text-align: center; background-color: #3a82f6; color: #ffffff; border-radius: 8px; transition: background-color 0.3s; border: 1px solid #000000;"
-                            onmouseover="this.style.backgroundColor='#1d4ed8'"
-                            onmouseout="this.style.backgroundColor='#3a82f6'"
-                            onclick="checkAndSubmit()"
-                            >
-                      Go to checkout
-                    </button>
-
-                    <button type="button" class="btn btn-custom" onclick="vnpayCheckout()">
-                      <div class="payment-options" style="display: flex; justify-content: center; align-items: center;">
-                        <img src="https://hstatic.net/0/0/global/design/seller/image/payment/vnpay_new.svg?v=6" alt="VNPay Logo">
-                        <span class="radio-label-primary"> ATM/Visa/Master/JCB/QR Pay</span>
-                      </div>
-                      <div style="display: flex; justify-content: center; align-items: center;">
-                        <img class="child-img" src="https://hstatic.net/0/0/global/design/seller/image/payment/atm_visa_master_jcb.svg?v=6" alt="Payment Options Icons">
-                      </div>
-                    </button>
-
-                    <button type="button" class="btn btn-custom"  style="background-color: #ae2070" onclick="momoCheckout()">
-
-                      <div class="payment-options" style="display: flex; justify-content: center; align-items: center;">
-                        <img class="child-img" src="https://cdn.divineshop.vn/static/b77a2122717d76696bd2b87d7125fd47.svg" alt="Payment Options Icons">
-                        <span class="radio-label-primary" style="color: #ffffff"> MoMo</span>
-                      </div>
-                    </button>
-
-                    <button type="button" class="btn btn-custom"  style="background-color: #ffc439" onclick="paypalCheckout()">
-
-                      <div class="payment-options" style="display: flex; justify-content: center; align-items: center;">
-                        <img class="child-img" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAxcHgiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAxMDEgMzIiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaW5ZTWluIG1lZXQiIHhtbG5zPSJodHRwOiYjeDJGOyYjeDJGO3d3dy53My5vcmcmI3gyRjsyMDAwJiN4MkY7c3ZnIj48cGF0aCBmaWxsPSIjMDAzMDg3IiBkPSJNIDEyLjIzNyAyLjggTCA0LjQzNyAyLjggQyAzLjkzNyAyLjggMy40MzcgMy4yIDMuMzM3IDMuNyBMIDAuMjM3IDIzLjcgQyAwLjEzNyAyNC4xIDAuNDM3IDI0LjQgMC44MzcgMjQuNCBMIDQuNTM3IDI0LjQgQyA1LjAzNyAyNC40IDUuNTM3IDI0IDUuNjM3IDIzLjUgTCA2LjQzNyAxOC4xIEMgNi41MzcgMTcuNiA2LjkzNyAxNy4yIDcuNTM3IDE3LjIgTCAxMC4wMzcgMTcuMiBDIDE1LjEzNyAxNy4yIDE4LjEzNyAxNC43IDE4LjkzNyA5LjggQyAxOS4yMzcgNy43IDE4LjkzNyA2IDE3LjkzNyA0LjggQyAxNi44MzcgMy41IDE0LjgzNyAyLjggMTIuMjM3IDIuOCBaIE0gMTMuMTM3IDEwLjEgQyAxMi43MzcgMTIuOSAxMC41MzcgMTIuOSA4LjUzNyAxMi45IEwgNy4zMzcgMTIuOSBMIDguMTM3IDcuNyBDIDguMTM3IDcuNCA4LjQzNyA3LjIgOC43MzcgNy4yIEwgOS4yMzcgNy4yIEMgMTAuNjM3IDcuMiAxMS45MzcgNy4yIDEyLjYzNyA4IEMgMTMuMTM3IDguNCAxMy4zMzcgOS4xIDEzLjEzNyAxMC4xIFoiPjwvcGF0aD48cGF0aCBmaWxsPSIjMDAzMDg3IiBkPSJNIDM1LjQzNyAxMCBMIDMxLjczNyAxMCBDIDMxLjQzNyAxMCAzMS4xMzcgMTAuMiAzMS4xMzcgMTAuNSBMIDMwLjkzNyAxMS41IEwgMzAuNjM3IDExLjEgQyAyOS44MzcgOS45IDI4LjAzNyA5LjUgMjYuMjM3IDkuNSBDIDIyLjEzNyA5LjUgMTguNjM3IDEyLjYgMTcuOTM3IDE3IEMgMTcuNTM3IDE5LjIgMTguMDM3IDIxLjMgMTkuMzM3IDIyLjcgQyAyMC40MzcgMjQgMjIuMTM3IDI0LjYgMjQuMDM3IDI0LjYgQyAyNy4zMzcgMjQuNiAyOS4yMzcgMjIuNSAyOS4yMzcgMjIuNSBMIDI5LjAzNyAyMy41IEMgMjguOTM3IDIzLjkgMjkuMjM3IDI0LjMgMjkuNjM3IDI0LjMgTCAzMy4wMzcgMjQuMyBDIDMzLjUzNyAyNC4zIDM0LjAzNyAyMy45IDM0LjEzNyAyMy40IEwgMzYuMTM3IDEwLjYgQyAzNi4yMzcgMTAuNCAzNS44MzcgMTAgMzUuNDM3IDEwIFogTSAzMC4zMzcgMTcuMiBDIDI5LjkzNyAxOS4zIDI4LjMzNyAyMC44IDI2LjEzNyAyMC44IEMgMjUuMDM3IDIwLjggMjQuMjM3IDIwLjUgMjMuNjM3IDE5LjggQyAyMy4wMzcgMTkuMSAyMi44MzcgMTguMiAyMy4wMzcgMTcuMiBDIDIzLjMzNyAxNS4xIDI1LjEzNyAxMy42IDI3LjIzNyAxMy42IEMgMjguMzM3IDEzLjYgMjkuMTM3IDE0IDI5LjczNyAxNC42IEMgMzAuMjM3IDE1LjMgMzAuNDM3IDE2LjIgMzAuMzM3IDE3LjIgWiI+PC9wYXRoPjxwYXRoIGZpbGw9IiMwMDMwODciIGQ9Ik0gNTUuMzM3IDEwIEwgNTEuNjM3IDEwIEMgNTEuMjM3IDEwIDUwLjkzNyAxMC4yIDUwLjczNyAxMC41IEwgNDUuNTM3IDE4LjEgTCA0My4zMzcgMTAuOCBDIDQzLjIzNyAxMC4zIDQyLjczNyAxMCA0Mi4zMzcgMTAgTCAzOC42MzcgMTAgQyAzOC4yMzcgMTAgMzcuODM3IDEwLjQgMzguMDM3IDEwLjkgTCA0Mi4xMzcgMjMgTCAzOC4yMzcgMjguNCBDIDM3LjkzNyAyOC44IDM4LjIzNyAyOS40IDM4LjczNyAyOS40IEwgNDIuNDM3IDI5LjQgQyA0Mi44MzcgMjkuNCA0My4xMzcgMjkuMiA0My4zMzcgMjguOSBMIDU1LjgzNyAxMC45IEMgNTYuMTM3IDEwLjYgNTUuODM3IDEwIDU1LjMzNyAxMCBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA2Ny43MzcgMi44IEwgNTkuOTM3IDIuOCBDIDU5LjQzNyAyLjggNTguOTM3IDMuMiA1OC44MzcgMy43IEwgNTUuNzM3IDIzLjYgQyA1NS42MzcgMjQgNTUuOTM3IDI0LjMgNTYuMzM3IDI0LjMgTCA2MC4zMzcgMjQuMyBDIDYwLjczNyAyNC4zIDYxLjAzNyAyNCA2MS4wMzcgMjMuNyBMIDYxLjkzNyAxOCBDIDYyLjAzNyAxNy41IDYyLjQzNyAxNy4xIDYzLjAzNyAxNy4xIEwgNjUuNTM3IDE3LjEgQyA3MC42MzcgMTcuMSA3My42MzcgMTQuNiA3NC40MzcgOS43IEMgNzQuNzM3IDcuNiA3NC40MzcgNS45IDczLjQzNyA0LjcgQyA3Mi4yMzcgMy41IDcwLjMzNyAyLjggNjcuNzM3IDIuOCBaIE0gNjguNjM3IDEwLjEgQyA2OC4yMzcgMTIuOSA2Ni4wMzcgMTIuOSA2NC4wMzcgMTIuOSBMIDYyLjgzNyAxMi45IEwgNjMuNjM3IDcuNyBDIDYzLjYzNyA3LjQgNjMuOTM3IDcuMiA2NC4yMzcgNy4yIEwgNjQuNzM3IDcuMiBDIDY2LjEzNyA3LjIgNjcuNDM3IDcuMiA2OC4xMzcgOCBDIDY4LjYzNyA4LjQgNjguNzM3IDkuMSA2OC42MzcgMTAuMSBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA5MC45MzcgMTAgTCA4Ny4yMzcgMTAgQyA4Ni45MzcgMTAgODYuNjM3IDEwLjIgODYuNjM3IDEwLjUgTCA4Ni40MzcgMTEuNSBMIDg2LjEzNyAxMS4xIEMgODUuMzM3IDkuOSA4My41MzcgOS41IDgxLjczNyA5LjUgQyA3Ny42MzcgOS41IDc0LjEzNyAxMi42IDczLjQzNyAxNyBDIDczLjAzNyAxOS4yIDczLjUzNyAyMS4zIDc0LjgzNyAyMi43IEMgNzUuOTM3IDI0IDc3LjYzNyAyNC42IDc5LjUzNyAyNC42IEMgODIuODM3IDI0LjYgODQuNzM3IDIyLjUgODQuNzM3IDIyLjUgTCA4NC41MzcgMjMuNSBDIDg0LjQzNyAyMy45IDg0LjczNyAyNC4zIDg1LjEzNyAyNC4zIEwgODguNTM3IDI0LjMgQyA4OS4wMzcgMjQuMyA4OS41MzcgMjMuOSA4OS42MzcgMjMuNCBMIDkxLjYzNyAxMC42IEMgOTEuNjM3IDEwLjQgOTEuMzM3IDEwIDkwLjkzNyAxMCBaIE0gODUuNzM3IDE3LjIgQyA4NS4zMzcgMTkuMyA4My43MzcgMjAuOCA4MS41MzcgMjAuOCBDIDgwLjQzNyAyMC44IDc5LjYzNyAyMC41IDc5LjAzNyAxOS44IEMgNzguNDM3IDE5LjEgNzguMjM3IDE4LjIgNzguNDM3IDE3LjIgQyA3OC43MzcgMTUuMSA4MC41MzcgMTMuNiA4Mi42MzcgMTMuNiBDIDgzLjczNyAxMy42IDg0LjUzNyAxNCA4NS4xMzcgMTQuNiBDIDg1LjczNyAxNS4zIDg1LjkzNyAxNi4yIDg1LjczNyAxNy4yIFoiPjwvcGF0aD48cGF0aCBmaWxsPSIjMDA5Y2RlIiBkPSJNIDk1LjMzNyAzLjMgTCA5Mi4xMzcgMjMuNiBDIDkyLjAzNyAyNCA5Mi4zMzcgMjQuMyA5Mi43MzcgMjQuMyBMIDk1LjkzNyAyNC4zIEMgOTYuNDM3IDI0LjMgOTYuOTM3IDIzLjkgOTcuMDM3IDIzLjQgTCAxMDAuMjM3IDMuNSBDIDEwMC4zMzcgMy4xIDEwMC4wMzcgMi44IDk5LjYzNyAyLjggTCA5Ni4wMzcgMi44IEMgOTUuNjM3IDIuOCA5NS40MzcgMyA5NS4zMzcgMy4zIFoiPjwvcGF0aD48L3N2Zz4" alt="Payment Options Icons">
-                      </div>
-                    </button>
-
-                    <a id="paymentLink" style="display:none;"></a>
-
-
-
-                  </div>
-                </div>
-              </div>
+                <!-- Rest of the form goes here... -->
             </div>
-          </div>
-        </section>
-      </form>
+            <!-- Step Wise Form Content -->
+            <form action="/cart/step-2" class="mt-5" id="userAccountSetupForm" method="POST"
+                  name="userAccountSetupForm">
+                <!-- Step 2 Content, default hidden on page load. -->
+                <section class="form-step" id="step-2">
+
+                    <div class="container py-5">
+                        <div class="row d-flex justify-content-center my-4">
+                            <div class="col-md-8">
+                                <div class="card mb-4">
+                                    <div class="card-header py-3">
+                                        <h5 class="mb-0">Cart items</h5>
+                                    </div>
+                                    <div th:each="item: ${myCart}">
+                                        <div class="card-body"
+                                             th:attr="data-product-id=${item.getProduct().getProductId()}">
+                                            <!-- Single item -->
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                                    <!-- Image -->
+                                                    <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                                         data-mdb-ripple-color="light">
+                                                        <img alt="Product Image"
+                                                             class="w-100"
+                                                             th:if="${item.getProduct().getPicture() != null}"
+                                                             th:src="'data:image/jpeg;base64,' + ${imageUtils.encodeImage(item.getProduct().getPicture())}"
+                                                        />
+
+
+                                                        <a href="#!">
+                                                            <div class="mask"
+                                                                 style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                                        </a>
+                                                    </div>
+                                                    <!-- Image -->
+                                                </div>
+
+                                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                                    <!-- Data -->
+                                                    <p><strong th:text="${item.getProduct().getProductName()}"></strong>
+                                                    </p>
+                                                    <p>Category: <span
+                                                            th:text="${item.getProduct().getCategory()}"></span></p>
+                                                    <p>Price: <span th:id="'Price'+${item.getProduct().getProductId()}"
+                                                                    th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice())}"></span>
+                                                    </p>
+
+                                                    <!-- Button with Trash Icon -->
+                                                    <button class="btn btn-primary btn-sm remove-item-button me-1 mb-2"
+                                                            data-mdb-toggle="tooltip"
+                                                            onmouseout="this.style.backgroundColor='#3c71ca'" onmouseover="this.style.backgroundColor='#2b5aa5'"
+                                                            style="background-color: #3c71ca; color: #ffffff; border-radius: 4px; transition: background-color 0.3s;"
+                                                            title="Remove item"
+                                                            type="button"
+                                                    >
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+
+
+                                                    <!-- Data -->
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                                    <!-- Quantity -->
+                                                    <div class="d-flex mb-4" style="max-width: 300px">
+                                                        <i class="btn btn-primary px-3 me-2" id="decrease-product"
+                                                           th:onclick="'updateQuantity(-1, ' + ${item.getProduct().getProductId()} + ')'">
+                                                            <i class="fas fa-minus"></i>
+                                                        </i>
+
+                                                        <div class="form-outline"
+                                                             style="display: flex; justify-content: center">
+                                                            <label th:for="${'quantity'+item.getProduct().getProductId()}"></label>
+                                                            <input class="form-control"
+                                                                   min="1" name="quantity"
+                                                                   th:id="${'quantity'+item.getProduct().getProductId()}" th:value="${item.getQuantity()}"
+                                                                   type="number"/>
+                                                        </div>
+
+                                                        <i class="btn btn-primary px-3 ms-2" id="increase-product"
+                                                           th:onclick="'updateQuantity(1, ' + ${item.getProduct().getProductId()} + ')'">
+                                                            <i class="fas fa-plus"></i>
+                                                        </i>
+                                                    </div>
+                                                    <!-- Quantity -->
+
+
+                                                    <!-- Price -->
+                                                    <p class="text-start text-md-center">
+                                                        <strong>
+                                                            Total Price: <span
+                                                                th:id="'totalPrice' + ${item.getProduct().getProductId()}"
+                                                                th:text="${#numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity())}"></span>
+                                                        </strong>
+                                                    </p>
+                                                    <!-- Price -->
+                                                </div>
+                                            </div>
+                                            <!-- Single item -->
+
+                                            <hr class="my-4"/>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-4">
+                                    <div class="card-header py-3">
+                                        <h5 class="mb-0">Summary</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                Subtotal Amount
+                                                <span id="totalAmount"
+                                                      th:text="${#numbers.formatCurrency(cartService.calculateTotalAmount())}"></span>
+                                            </li>
+
+                                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                Total Quantity
+                                                <span id="totalQuantity"
+                                                      th:text="${cartService.calculateTotalQuantity()}"></span>
+                                            </li>
+
+                                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                                <div class="d-flex w-100 align-items-center">
+                                                    <label class="mb-0 me-2" for="couponCode"></label>
+                                                    <div class="flex-fill">
+                                                        <input class="form-control" id="couponCode" name="couponCode"
+                                                               placeholder="Enter Coupon Code" type="text">
+                                                    </div>
+                                                    <button class="btn btn-primary ms-2" onclick="applyCoupon()"
+                                                            type="button">Apply
+                                                    </button>
+                                                </div>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                Discount:
+                                                <span id="discount">$0.00</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                                Total Amount:
+                                                <span id="total"
+                                                      th:text="${#numbers.formatCurrency(cartService.calculateTotalAmount())}"></span>
+                                            </li>
+                                            </li>
+
+                                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                                <div class="d-flex w-100">
+                                                    <label class="mb-0 align-self-center me-2" for="givenMoney">Given
+                                                        Money</label>
+                                                    <div class="flex-fill text-end">
+                                                        <input class="form-control" id="givenMoney" name="givenMoney"
+                                                               placeholder="Enter Given Money" type="text">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li
+                                                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                                <div>
+                                                    <strong>Excess Money</strong>
+                                                </div>
+                                                <span id="excessMoney"><strong>$0.00</strong></span>
+                                            </li>
+                                        </ul>
+
+                                        <button onclick="checkAndSubmit()" onmouseout="this.style.backgroundColor='#3a82f6'"
+                                                onmouseover="this.style.backgroundColor='#1d4ed8'"
+                                                step_number="3"
+                                                style="display: block; width: 100%; padding: 10px; font-size: 1.25rem; text-align: center; background-color: #3a82f6; color: #ffffff; border-radius: 8px; transition: background-color 0.3s; border: 1px solid #000000;"
+                                                type="button"
+                                        >
+                                            Go to checkout
+                                        </button>
+
+                                        <button class="btn btn-custom" onclick="vnpayCheckout()" type="button">
+                                            <div class="payment-options"
+                                                 style="display: flex; justify-content: center; align-items: center;">
+                                                <img alt="VNPay Logo"
+                                                     src="https://hstatic.net/0/0/global/design/seller/image/payment/vnpay_new.svg?v=6">
+                                                <span class="radio-label-primary"> ATM/Visa/Master/JCB/QR Pay</span>
+                                            </div>
+                                            <div style="display: flex; justify-content: center; align-items: center;">
+                                                <img alt="Payment Options Icons"
+                                                     class="child-img"
+                                                     src="https://hstatic.net/0/0/global/design/seller/image/payment/atm_visa_master_jcb.svg?v=6">
+                                            </div>
+                                        </button>
+
+                                        <button class="btn btn-custom" onclick="momoCheckout()" style="background-color: #ae2070"
+                                                type="button">
+
+                                            <div class="payment-options"
+                                                 style="display: flex; justify-content: center; align-items: center;">
+                                                <img alt="Payment Options Icons"
+                                                     class="child-img"
+                                                     src="https://cdn.divineshop.vn/static/b77a2122717d76696bd2b87d7125fd47.svg">
+                                                <span class="radio-label-primary" style="color: #ffffff"> MoMo</span>
+                                            </div>
+                                        </button>
+
+                                        <button class="btn btn-custom" onclick="paypalCheckout()" style="background-color: #ffc439"
+                                                type="button">
+
+                                            <div class="payment-options"
+                                                 style="display: flex; justify-content: center; align-items: center;">
+                                                <img alt="Payment Options Icons"
+                                                     class="child-img"
+                                                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAxcHgiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAxMDEgMzIiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaW5ZTWluIG1lZXQiIHhtbG5zPSJodHRwOiYjeDJGOyYjeDJGO3d3dy53My5vcmcmI3gyRjsyMDAwJiN4MkY7c3ZnIj48cGF0aCBmaWxsPSIjMDAzMDg3IiBkPSJNIDEyLjIzNyAyLjggTCA0LjQzNyAyLjggQyAzLjkzNyAyLjggMy40MzcgMy4yIDMuMzM3IDMuNyBMIDAuMjM3IDIzLjcgQyAwLjEzNyAyNC4xIDAuNDM3IDI0LjQgMC44MzcgMjQuNCBMIDQuNTM3IDI0LjQgQyA1LjAzNyAyNC40IDUuNTM3IDI0IDUuNjM3IDIzLjUgTCA2LjQzNyAxOC4xIEMgNi41MzcgMTcuNiA2LjkzNyAxNy4yIDcuNTM3IDE3LjIgTCAxMC4wMzcgMTcuMiBDIDE1LjEzNyAxNy4yIDE4LjEzNyAxNC43IDE4LjkzNyA5LjggQyAxOS4yMzcgNy43IDE4LjkzNyA2IDE3LjkzNyA0LjggQyAxNi44MzcgMy41IDE0LjgzNyAyLjggMTIuMjM3IDIuOCBaIE0gMTMuMTM3IDEwLjEgQyAxMi43MzcgMTIuOSAxMC41MzcgMTIuOSA4LjUzNyAxMi45IEwgNy4zMzcgMTIuOSBMIDguMTM3IDcuNyBDIDguMTM3IDcuNCA4LjQzNyA3LjIgOC43MzcgNy4yIEwgOS4yMzcgNy4yIEMgMTAuNjM3IDcuMiAxMS45MzcgNy4yIDEyLjYzNyA4IEMgMTMuMTM3IDguNCAxMy4zMzcgOS4xIDEzLjEzNyAxMC4xIFoiPjwvcGF0aD48cGF0aCBmaWxsPSIjMDAzMDg3IiBkPSJNIDM1LjQzNyAxMCBMIDMxLjczNyAxMCBDIDMxLjQzNyAxMCAzMS4xMzcgMTAuMiAzMS4xMzcgMTAuNSBMIDMwLjkzNyAxMS41IEwgMzAuNjM3IDExLjEgQyAyOS44MzcgOS45IDI4LjAzNyA5LjUgMjYuMjM3IDkuNSBDIDIyLjEzNyA5LjUgMTguNjM3IDEyLjYgMTcuOTM3IDE3IEMgMTcuNTM3IDE5LjIgMTguMDM3IDIxLjMgMTkuMzM3IDIyLjcgQyAyMC40MzcgMjQgMjIuMTM3IDI0LjYgMjQuMDM3IDI0LjYgQyAyNy4zMzcgMjQuNiAyOS4yMzcgMjIuNSAyOS4yMzcgMjIuNSBMIDI5LjAzNyAyMy41IEMgMjguOTM3IDIzLjkgMjkuMjM3IDI0LjMgMjkuNjM3IDI0LjMgTCAzMy4wMzcgMjQuMyBDIDMzLjUzNyAyNC4zIDM0LjAzNyAyMy45IDM0LjEzNyAyMy40IEwgMzYuMTM3IDEwLjYgQyAzNi4yMzcgMTAuNCAzNS44MzcgMTAgMzUuNDM3IDEwIFogTSAzMC4zMzcgMTcuMiBDIDI5LjkzNyAxOS4zIDI4LjMzNyAyMC44IDI2LjEzNyAyMC44IEMgMjUuMDM3IDIwLjggMjQuMjM3IDIwLjUgMjMuNjM3IDE5LjggQyAyMy4wMzcgMTkuMSAyMi44MzcgMTguMiAyMy4wMzcgMTcuMiBDIDIzLjMzNyAxNS4xIDI1LjEzNyAxMy42IDI3LjIzNyAxMy42IEMgMjguMzM3IDEzLjYgMjkuMTM3IDE0IDI5LjczNyAxNC42IEMgMzAuMjM3IDE1LjMgMzAuNDM3IDE2LjIgMzAuMzM3IDE3LjIgWiI+PC9wYXRoPjxwYXRoIGZpbGw9IiMwMDMwODciIGQ9Ik0gNTUuMzM3IDEwIEwgNTEuNjM3IDEwIEMgNTEuMjM3IDEwIDUwLjkzNyAxMC4yIDUwLjczNyAxMC41IEwgNDUuNTM3IDE4LjEgTCA0My4zMzcgMTAuOCBDIDQzLjIzNyAxMC4zIDQyLjczNyAxMCA0Mi4zMzcgMTAgTCAzOC42MzcgMTAgQyAzOC4yMzcgMTAgMzcuODM3IDEwLjQgMzguMDM3IDEwLjkgTCA0Mi4xMzcgMjMgTCAzOC4yMzcgMjguNCBDIDM3LjkzNyAyOC44IDM4LjIzNyAyOS40IDM4LjczNyAyOS40IEwgNDIuNDM3IDI5LjQgQyA0Mi44MzcgMjkuNCA0My4xMzcgMjkuMiA0My4zMzcgMjguOSBMIDU1LjgzNyAxMC45IEMgNTYuMTM3IDEwLjYgNTUuODM3IDEwIDU1LjMzNyAxMCBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA2Ny43MzcgMi44IEwgNTkuOTM3IDIuOCBDIDU5LjQzNyAyLjggNTguOTM3IDMuMiA1OC44MzcgMy43IEwgNTUuNzM3IDIzLjYgQyA1NS42MzcgMjQgNTUuOTM3IDI0LjMgNTYuMzM3IDI0LjMgTCA2MC4zMzcgMjQuMyBDIDYwLjczNyAyNC4zIDYxLjAzNyAyNCA2MS4wMzcgMjMuNyBMIDYxLjkzNyAxOCBDIDYyLjAzNyAxNy41IDYyLjQzNyAxNy4xIDYzLjAzNyAxNy4xIEwgNjUuNTM3IDE3LjEgQyA3MC42MzcgMTcuMSA3My42MzcgMTQuNiA3NC40MzcgOS43IEMgNzQuNzM3IDcuNiA3NC40MzcgNS45IDczLjQzNyA0LjcgQyA3Mi4yMzcgMy41IDcwLjMzNyAyLjggNjcuNzM3IDIuOCBaIE0gNjguNjM3IDEwLjEgQyA2OC4yMzcgMTIuOSA2Ni4wMzcgMTIuOSA2NC4wMzcgMTIuOSBMIDYyLjgzNyAxMi45IEwgNjMuNjM3IDcuNyBDIDYzLjYzNyA3LjQgNjMuOTM3IDcuMiA2NC4yMzcgNy4yIEwgNjQuNzM3IDcuMiBDIDY2LjEzNyA3LjIgNjcuNDM3IDcuMiA2OC4xMzcgOCBDIDY4LjYzNyA4LjQgNjguNzM3IDkuMSA2OC42MzcgMTAuMSBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA5MC45MzcgMTAgTCA4Ny4yMzcgMTAgQyA4Ni45MzcgMTAgODYuNjM3IDEwLjIgODYuNjM3IDEwLjUgTCA4Ni40MzcgMTEuNSBMIDg2LjEzNyAxMS4xIEMgODUuMzM3IDkuOSA4My41MzcgOS41IDgxLjczNyA5LjUgQyA3Ny42MzcgOS41IDc0LjEzNyAxMi42IDczLjQzNyAxNyBDIDczLjAzNyAxOS4yIDczLjUzNyAyMS4zIDc0LjgzNyAyMi43IEMgNzUuOTM3IDI0IDc3LjYzNyAyNC42IDc5LjUzNyAyNC42IEMgODIuODM3IDI0LjYgODQuNzM3IDIyLjUgODQuNzM3IDIyLjUgTCA4NC41MzcgMjMuNSBDIDg0LjQzNyAyMy45IDg0LjczNyAyNC4zIDg1LjEzNyAyNC4zIEwgODguNTM3IDI0LjMgQyA4OS4wMzcgMjQuMyA4OS41MzcgMjMuOSA4OS42MzcgMjMuNCBMIDkxLjYzNyAxMC42IEMgOTEuNjM3IDEwLjQgOTEuMzM3IDEwIDkwLjkzNyAxMCBaIE0gODUuNzM3IDE3LjIgQyA4NS4zMzcgMTkuMyA4My43MzcgMjAuOCA4MS41MzcgMjAuOCBDIDgwLjQzNyAyMC44IDc5LjYzNyAyMC41IDc5LjAzNyAxOS44IEMgNzguNDM3IDE5LjEgNzguMjM3IDE4LjIgNzguNDM3IDE3LjIgQyA3OC43MzcgMTUuMSA4MC41MzcgMTMuNiA4Mi42MzcgMTMuNiBDIDgzLjczNyAxMy42IDg0LjUzNyAxNCA4NS4xMzcgMTQuNiBDIDg1LjczNyAxNS4zIDg1LjkzNyAxNi4yIDg1LjczNyAxNy4yIFoiPjwvcGF0aD48cGF0aCBmaWxsPSIjMDA5Y2RlIiBkPSJNIDk1LjMzNyAzLjMgTCA5Mi4xMzcgMjMuNiBDIDkyLjAzNyAyNCA5Mi4zMzcgMjQuMyA5Mi43MzcgMjQuMyBMIDk1LjkzNyAyNC4zIEMgOTYuNDM3IDI0LjMgOTYuOTM3IDIzLjkgOTcuMDM3IDIzLjQgTCAxMDAuMjM3IDMuNSBDIDEwMC4zMzcgMy4xIDEwMC4wMzcgMi44IDk5LjYzNyAyLjggTCA5Ni4wMzcgMi44IEMgOTUuNjM3IDIuOCA5NS40MzcgMyA5NS4zMzcgMy4zIFoiPjwvcGF0aD48L3N2Zz4">
+                                            </div>
+                                        </button>
+
+                                        <a id="paymentLink" style="display:none;"></a>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
-  function openBarcodePopup() {
-    document.getElementById('barcodePopup').style.display = 'block';
-  }
+    function openBarcodePopup() {
+        document.getElementById('barcodePopup').style.display = 'block';
+    }
 
-  function closeBarcodePopup() {
-    document.getElementById('barcodePopup').style.display = 'none';
-  }
-  $(document).ready(function() {
+    function closeBarcodePopup() {
+        document.getElementById('barcodePopup').style.display = 'none';
+    }
 
-    $('.remove-item-button').click(function() {
-      var cardBody = $(this).closest('.card-body');
-      var productId = cardBody.data('product-id');
+    $(document).ready(function () {
 
-      cardBody.remove();
+        $('.remove-item-button').click(function () {
+            var cardBody = $(this).closest('.card-body');
+            var productId = cardBody.data('product-id');
 
-      // Send an AJAX request to update the cart on the server
-      $.ajax({
-        type: 'POST',
-        url: '/cart/remove',
-        contentType: 'application/json',
-        data: JSON.stringify(productId),
-        success: function(response) {
-          console.log('Item removed from cart successfully');
+            cardBody.remove();
 
-          recalculate();
-        },
-        error: function(error) {
-          console.error('Error removing item from cart:', error);
+            // Send an AJAX request to update the cart on the server
+            $.ajax({
+                type: 'POST',
+                url: '/cart/remove',
+                contentType: 'application/json',
+                data: JSON.stringify(productId),
+                success: function (response) {
+                    console.log('Item removed from cart successfully');
+
+                    recalculate();
+                },
+                error: function (error) {
+                    console.error('Error removing item from cart:', error);
+                }
+            });
+
+
+        });
+
+        function recalculate() {
+            $.ajax({
+                type: 'GET',
+                url: '/cart/info',
+                contentType: 'application/json',
+                success: function (response) {
+                    var totalAmount = response.totalAmount;
+                    var formattedTotalAmount = totalAmount.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    });
+                    var totalQuantity = response.totalQuantity;
+
+                    // Update the displayed total amount and quantity
+                    $('#totalAmount').text(formattedTotalAmount);
+                    $('#totalQuantity').text(totalQuantity);
+                    $('#total').text(formattedTotalAmount);
+                },
+                error: function (error) {
+                    // Optionally handle the error response
+                    console.error('Error fetching cart information:', error);
+                }
+            });
         }
-      });
-
-
     });
+</script>
+<script>
+    function updateQuantity(action, productId) {
+        var quantityElement = $('#quantity' + productId);
+        var currentQuantity = parseInt(quantityElement.val());
+
+        if (action === 1) {
+            quantityElement.val(currentQuantity + 1);
+        } else if (action === -1 && currentQuantity > 1) {
+            quantityElement.val(currentQuantity - 1);
+        }
+
+        var priceElement = $('#Price' + productId);
+        var priceTextWithCurrency = priceElement.text().trim();
+        var priceText = priceTextWithCurrency.replace(/[^\d.]/g, '');
+        var totalPriceElement = $('#totalPrice' + productId);
+
+
+        var newQuantity = parseInt(quantityElement.val());
+        var price = parseFloat(priceText);
+        var newTotalPrice = price * newQuantity;
+
+
+        totalPriceElement.text(newTotalPrice.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        }));
+        updateCart(productId, quantityElement.val());
+    }
 
     function recalculate() {
-      $.ajax({
-        type: 'GET',
-        url: '/cart/info',
-        contentType: 'application/json',
-        success: function(response) {
-          var totalAmount = response.totalAmount;
-          var formattedTotalAmount = totalAmount.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD'
-          });
-          var totalQuantity = response.totalQuantity;
+        $.ajax({
+            type: 'GET',
+            url: '/cart/info',
+            contentType: 'application/json',
+            success: function (response) {
+                var totalAmount = response.totalAmount;
+                var formattedTotalAmount = totalAmount.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                });
+                var totalQuantity = response.totalQuantity;
 
-          // Update the displayed total amount and quantity
-          $('#totalAmount').text(formattedTotalAmount);
-          $('#totalQuantity').text(totalQuantity);
-          $('#total').text(formattedTotalAmount);
-        },
-        error: function(error) {
-          // Optionally handle the error response
-          console.error('Error fetching cart information:', error);
-        }
-      });
-    }
-  });
-</script>
-<script>
-  function updateQuantity(action, productId) {
-    var quantityElement = $('#quantity' + productId);
-    var currentQuantity = parseInt(quantityElement.val());
+                $('#totalAmount').text(formattedTotalAmount);
+                $('#totalQuantity').text(totalQuantity);
+                $('#total').text(formattedTotalAmount);
 
-    if (action === 1) {
-      quantityElement.val(currentQuantity + 1);
-    } else if (action === -1 && currentQuantity > 1) {
-      quantityElement.val(currentQuantity - 1);
-    }
+                var givenMoney = parseFloat($('#givenMoney').val());
+                if (!isNaN(givenMoney)) {
+                    var total = parseFloat($('#total').text().replace('$', '').replace(',', ''));
+                    var excessMoney = givenMoney - total;
+                    var formatExcessMoney = excessMoney.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                    });
+                    $('#excessMoney').html('<strong>' + formatExcessMoney + '</strong>');
+                } else {
+                    $('#excessMoney').html('<strong>$0.00</strong>')
+                }
 
-    var priceElement = $('#Price' + productId);
-    var priceTextWithCurrency = priceElement.text().trim();
-    var priceText = priceTextWithCurrency.replace(/[^\d.]/g, '');
-    var totalPriceElement = $('#totalPrice' + productId);
-
-
-    var newQuantity = parseInt(quantityElement.val());
-    var price = parseFloat(priceText);
-    var newTotalPrice = price * newQuantity;
-
-
-
-    totalPriceElement.text(newTotalPrice.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }));
-    updateCart(productId, quantityElement.val());
-  }
-
-  function recalculate() {
-    $.ajax({
-      type: 'GET',
-      url: '/cart/info',
-      contentType: 'application/json',
-      success: function(response) {
-        var totalAmount = response.totalAmount;
-        var formattedTotalAmount = totalAmount.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD'
+                console.log('Recalculation complete');
+            },
+            error: function (error) {
+                console.error('Error fetching cart information:', error);
+            }
         });
-        var totalQuantity = response.totalQuantity;
-
-        $('#totalAmount').text(formattedTotalAmount);
-        $('#totalQuantity').text(totalQuantity);
-        $('#total').text(formattedTotalAmount);
-
-        var givenMoney = parseFloat($('#givenMoney').val());
-        if (!isNaN(givenMoney)) {
-          var total = parseFloat($('#total').text().replace('$', '').replace(',', ''));
-          var excessMoney = givenMoney - total;
-          var formatExcessMoney = excessMoney.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD'
-          });
-          $('#excessMoney').html('<strong>' + formatExcessMoney + '</strong>');
-        } else {
-          $('#excessMoney').html('<strong>$0.00</strong>')
-        }
-
-        console.log('Recalculation complete');
-      },
-      error: function(error) {
-        console.error('Error fetching cart information:', error);
-      }
-    });
-  }
-  function updateCart(productId, newQuantity) {
-    $.ajax({
-      type: 'POST',
-      url: '/cart/update',
-      contentType: 'application/json',
-      data: JSON.stringify({ productId: parseInt(productId), quantity: parseInt(newQuantity) }),
-      success: function(response) {
-        console.log('Cart updated successfully');
-        recalculate();
-      },
-      error: function(error) {
-        console.error('Error updating cart:', error);
-      }
-    });
-
-  }
-
-
-</script>
-<script>
-  $(document).ready(function () {
-    $('#search').on('input', function () {
-      performSearch();
-    });
-
-    $('#searchButton').on('click', function () {
-      performSearch();
-    });
-
-    function performSearch() {
-      var keyword = $('#search').val().trim();
-
-      // Send AJAX request to the server
-      $.ajax({
-        type: 'GET',
-        url: '/search',
-        data: { keyword: keyword },
-        success: function (data) {
-          //console.log(data);
-        },
-        error: function (error) {
-          console.error('Error during search:', error);
-        }
-      });
     }
-  });
+
+    function updateCart(productId, newQuantity) {
+        $.ajax({
+            type: 'POST',
+            url: '/cart/update',
+            contentType: 'application/json',
+            data: JSON.stringify({productId: parseInt(productId), quantity: parseInt(newQuantity)}),
+            success: function (response) {
+                console.log('Cart updated successfully');
+                recalculate();
+            },
+            error: function (error) {
+                console.error('Error updating cart:', error);
+            }
+        });
+
+    }
+
 
 </script>
 <script>
-  function searchProducts() {
-    var keyword = $('#search').val();
+    $(document).ready(function () {
+        $('#search').on('input', function () {
+            performSearch();
+        });
 
-    // Perform AJAX request to fetch product data based on the keyword
-    $.ajax({
-      type: 'GET',
-      url: '/api/search',
-      data: { keyword: keyword },
-      success: function (data) {
-        updateSearchResults(data);
-      },
-      error: function (error) {
-        console.error('Error fetching search results:', error);
-      }
+        $('#searchButton').on('click', function () {
+            performSearch();
+        });
+
+        function performSearch() {
+            var keyword = $('#search').val().trim();
+
+            // Send AJAX request to the server
+            $.ajax({
+                type: 'GET',
+                url: '/search',
+                data: {keyword: keyword},
+                success: function (data) {
+                    //console.log(data);
+                },
+                error: function (error) {
+                    console.error('Error during search:', error);
+                }
+            });
+        }
     });
-  }
 
-  function updateSearchResults(products) {
-    var dropdown = $('#dropdown');
-    var resultsList = $('#searchResults');
+</script>
+<script>
+    function searchProducts() {
+        var keyword = $('#search').val();
 
-    resultsList.empty();
+        // Perform AJAX request to fetch product data based on the keyword
+        $.ajax({
+            type: 'GET',
+            url: '/api/search',
+            data: {keyword: keyword},
+            success: function (data) {
+                updateSearchResults(data);
+            },
+            error: function (error) {
+                console.error('Error fetching search results:', error);
+            }
+        });
+    }
 
-    for (var i = 0; i < products.length; i++) {
-      var product = products[i];
-      var listItem = $('<li class="flex items-center px-4 py-2 hover:bg-gray-100" id=' + product.productId + '></li>');
+    function updateSearchResults(products) {
+        var dropdown = $('#dropdown');
+        var resultsList = $('#searchResults');
 
-      listItem.append('<img alt="' + product.productName + ' image" class="rounded-full mr-3" src="data:image/png;base64,' + product.picture + '" width="50" height="50"/>');
-      listItem.append('<div class="flex-grow"><p class="font-semibold">' + product.productName + '</p><p class="text-gray-500">' + product.retailPrice.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }) + '</p></div>');
+        resultsList.empty();
 
-      listItem.click((function(productId) {
-        return function () {
-          addToCart(productId);
-          updateCartUI();
+        for (var i = 0; i < products.length; i++) {
+            var product = products[i];
+            var listItem = $('<li class="flex items-center px-4 py-2 hover:bg-gray-100" id=' + product.productId + '></li>');
 
-          dropdown.hide();
+            listItem.append('<img alt="' + product.productName + ' image" class="rounded-full mr-3" src="data:image/png;base64,' + product.picture + '" width="50" height="50"/>');
+            listItem.append('<div class="flex-grow"><p class="font-semibold">' + product.productName + '</p><p class="text-gray-500">' + product.retailPrice.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }) + '</p></div>');
 
-          $('#search').val('');
+            listItem.click((function (productId) {
+                return function () {
+                    addToCart(productId);
+                    updateCartUI();
 
-          location.reload(false);
+                    dropdown.hide();
+
+                    $('#search').val('');
+
+                    location.reload(false);
+                };
+            })(product.productId));
+
+            resultsList.append(listItem);
+        }
+
+        dropdown.show();
+    }
+
+    function addToCart(productId) {
+        // Perform AJAX request to add the product to the cart on the server
+
+        var item = {
+            product: {productId: productId},
+            quantity: 1
         };
-      })(product.productId));
-
-      resultsList.append(listItem);
+        $.ajax({
+            type: 'POST',
+            url: '/cart/add',
+            contentType: 'application/json',
+            data: JSON.stringify(item),
+            success: function (response) {
+                console.log('Product added to cart successfully');
+                updateCartUI();
+            },
+            error: function (error) {
+                console.error('Error adding product to cart:', error);
+            }
+        });
     }
 
-    dropdown.show();
-  }
-
-  function addToCart(productId) {
-    // Perform AJAX request to add the product to the cart on the server
-
-    var item = {
-      product: { productId: productId },
-      quantity: 1
-    };
-    $.ajax({
-      type: 'POST',
-      url: '/cart/add',
-      contentType: 'application/json',
-      data: JSON.stringify(item),
-      success: function(response) {
-        console.log('Product added to cart successfully');
-        updateCartUI();
-      },
-      error: function(error) {
-        console.error('Error adding product to cart:', error);
-      }
-    });
-  }
-
-  function updateCartUI() {
-    // Perform AJAX request to fetch the updated cart information from the server
-    $.ajax({
-      type: 'GET',
-      url: '/api/getCart',
-      success: function(cart) {
-        console.log('Updating cart UI with new cart data:', cart);
-      },
-      error: function(error) {
-        console.error('Error fetching cart information:', error);
-      }
-    });
-  }
+    function updateCartUI() {
+        // Perform AJAX request to fetch the updated cart information from the server
+        $.ajax({
+            type: 'GET',
+            url: '/api/getCart',
+            success: function (cart) {
+                console.log('Updating cart UI with new cart data:', cart);
+            },
+            error: function (error) {
+                console.error('Error fetching cart information:', error);
+            }
+        });
+    }
 
 </script>
 
 <script>
-  $(document).ready(function () {
-    $('#searchBarcode').on('click', function () {
-      var barcode = $('#barcodeInput').val();
+    $(document).ready(function () {
+        $('#searchBarcode').on('click', function () {
+            var barcode = $('#barcodeInput').val();
 
-      // Perform AJAX request to check if barcode exists
-      $.ajax({
-        type: 'GET',
-        url: '/api/searchBarcode',
-        data: { barcode: barcode },
-        success: function (response) {
-          if (response) {
-            addToCart(response.productId);
-            $('#barcodePopup').hide();
-            location.reload(false);
-          } else {
-            alert('Product not found for the entered barcode.');
-          }
-        },
-        error: function (xhr) {
-          if (xhr.status === 404) {
-            alert('Product not found for the entered barcode.');
-          } else {
-            console.error('Error checking barcode:', xhr.statusText);
-          }
+            // Perform AJAX request to check if barcode exists
+            $.ajax({
+                type: 'GET',
+                url: '/api/searchBarcode',
+                data: {barcode: barcode},
+                success: function (response) {
+                    if (response) {
+                        addToCart(response.productId);
+                        $('#barcodePopup').hide();
+                        location.reload(false);
+                    } else {
+                        alert('Product not found for the entered barcode.');
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 404) {
+                        alert('Product not found for the entered barcode.');
+                    } else {
+                        console.error('Error checking barcode:', xhr.statusText);
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#givenMoney').on('input', function () {
+            var givenMoney = parseFloat($(this).val());
+
+            if (!isNaN(givenMoney)) {
+                updateExcessMoney(givenMoney)
+            } else {
+                $('#excessMoney').html('<strong>$0.00</strong>')
+            }
+        });
+
+        $('#givenMoney').keypress(function (e) {
+            // Check if the pressed key is "Enter" (key code 13)
+            if (e.which === 13) {
+                var givenMoney = parseFloat($(this).val());
+
+                if (!isNaN(givenMoney)) {
+                    var total = parseFloat($('#total').text().replace('$', '').replace(',', ''));
+                    var excessMoney = givenMoney - total;
+
+                    $('#excessMoney').html('<strong>' + formatCurrency(excessMoney) + '</strong>');
+                } else {
+                    alert('Please enter a valid number for Given Money.');
+                }
+            }
+        });
+
+        function updateExcessMoney(givenMoney) {
+            var total = parseFloat($('#total').text().replace('$', '').replace(',', ''));
+            var excessMoney = givenMoney - total;
+            $('#excessMoney').html('<strong>' + formatCurrency(excessMoney) + '</strong>');
         }
-      });
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(amount);
+        }
     });
-  });
+
 
 </script>
+
 <script>
-  $(document).ready(function () {
-    $('#givenMoney').on('input', function () {
-      var givenMoney = parseFloat($(this).val());
+    function checkAndSubmit() {
+        var givenMoney = parseFloat($('#givenMoney').val().replace('$', '').replace(',', ''));
 
-      if (!isNaN(givenMoney)) {
-        updateExcessMoney(givenMoney)
-      } else {
-        $('#excessMoney').html('<strong>$0.00</strong>')
-      }
-    });
-
-    $('#givenMoney').keypress(function (e) {
-      // Check if the pressed key is "Enter" (key code 13)
-      if (e.which === 13) {
-        var givenMoney = parseFloat($(this).val());
+        var totalAmount = parseFloat($('#total').text().replace('$', '').replace(',', ''));
 
         if (!isNaN(givenMoney)) {
-          var total = parseFloat($('#total').text().replace('$', '').replace(',', ''));
-          var excessMoney = givenMoney - total;
-
-          $('#excessMoney').html('<strong>' + formatCurrency(excessMoney) + '</strong>');
+            if (givenMoney < totalAmount) {
+                alert('Given money must be equal or greater than the total amount.');
+            } else if (totalAmount === 0) {
+                alert('Please add product to cart.');
+            } else {
+                document.getElementById('userAccountSetupForm').submit();
+            }
         } else {
-          alert('Please enter a valid number for Given Money.');
+            alert('Please enter a valid number for Given Money.');
         }
-      }
-    });
-
-    function updateExcessMoney(givenMoney) {
-      var total = parseFloat($('#total').text().replace('$', '').replace(',', ''));
-      var excessMoney = givenMoney - total;
-      $('#excessMoney').html('<strong>' + formatCurrency(excessMoney) + '</strong>');
     }
 
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(amount);
+    function vnpayCheckout() {
+        var totalAmount = parseFloat($('#total').text().replace('$', '').replace(',', ''));
+        var paymentMethod = 'VNPay'
+
+        ajaxCheckout(totalAmount, paymentMethod);
+
     }
-  });
 
+    function momoCheckout() {
+        var totalAmount = parseFloat($('#total').text().replace('$', '').replace(',', ''));
+        var paymentMethod = 'MoMo'
+        ajaxCheckout(totalAmount, paymentMethod)
+    }
 
+    function paypalCheckout() {
+        var totalAmount = parseFloat($('#total').text().replace('$', '').replace(',', ''));
+        var paymentMethod = 'Paypal'
+        ajaxCheckout(totalAmount, paymentMethod)
+    }
+
+    function ajaxCheckout(totalAmount, paymentMethod) {
+        $.ajax({
+            type: "GET",
+            url: "/api/payment/create_payment",
+            data: {
+                totalAmount: totalAmount,
+                paymentMethod: paymentMethod
+            },
+            success: function (response) {
+                $('#paymentLink').attr('href', response);
+                document.getElementById('paymentLink').click();
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX request failed:", error);
+                alert("Failed to create payment. Please try again later.");
+            }
+        });
+    }
 </script>
 
 <script>
-  function checkAndSubmit() {
-    var givenMoney = parseFloat($('#givenMoney').val().replace('$', '').replace(',', ''));
-
-    var totalAmount = parseFloat($('#total').text().replace('$', '').replace(',', ''));
-
-    if (!isNaN(givenMoney)) {
-      if (givenMoney < totalAmount) {
-        alert('Given money must be equal or greater than the total amount.');
-      } else if(totalAmount === 0) {
-        alert('Please add product to cart.');
-      } else {
-        document.getElementById('userAccountSetupForm').submit();
-      }
-    } else {
-      alert('Please enter a valid number for Given Money.');
-    }
-  }
-
-  function vnpayCheckout() {
-    var totalAmount = parseFloat($('#total').text().replace('$', '').replace(',', ''));
-    var paymentMethod = 'VNPay'
-
-    ajaxCheckout(totalAmount, paymentMethod);
-
-  }
-
-  function momoCheckout() {
-    var totalAmount = parseFloat($('#total').text().replace('$', '').replace(',', ''));
-    var paymentMethod = 'MoMo'
-    ajaxCheckout(totalAmount, paymentMethod)
-  }
-
-  function paypalCheckout() {
-    var totalAmount = parseFloat($('#total').text().replace('$', '').replace(',', ''));
-    var paymentMethod = 'Paypal'
-    ajaxCheckout(totalAmount, paymentMethod)
-  }
-  function ajaxCheckout(totalAmount, paymentMethod) {
-    $.ajax({
-      type: "GET",
-      url: "/api/payment/create_payment",
-      data: {
-        totalAmount: totalAmount,
-        paymentMethod: paymentMethod
-      },
-      success: function(response) {
-        $('#paymentLink').attr('href', response);
-        document.getElementById('paymentLink').click();
-      },
-      error: function(xhr, status, error) {
-        console.error("AJAX request failed:", error);
-        alert("Failed to create payment. Please try again later.");
-      }
-    });
-  }
-</script>
-
-<script>
-  function applyCoupon() {
-    var code = $('#couponCode').val();
-    var totalAmount = parseFloat($('#totalAmount').text().replace('$', '').replace(',', ''));
-
-    $.ajax({
-      type: 'GET',
-      url: '/api/getStatus',
-      data: { code: code,
-        totalAmount: totalAmount},
-      success: function (response) {
-        alert(response)
-        if (response === "Apply coupon successful") {
-          getDiscountAmount(totalAmount, code)
-        }
-      },
-
-    });
-  }
-  function getDiscountAmount(totalAmount, code) {
-    $.ajax({
-      type: 'GET',
-      url: '/api/getDiscountAmount',
-      data: { code: code,
-        totalAmount: totalAmount},
-      success: function (response) {
+    function applyCoupon() {
+        var code = $('#couponCode').val();
         var totalAmount = parseFloat($('#totalAmount').text().replace('$', '').replace(',', ''));
-        var discount = parseFloat(response) * -1
-        var total = totalAmount + discount;
-        $('#discount').text(discount.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD'
-        }));
-        $('#total').text(total.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD'
-        }));
-      },
-    });
 
-  }
+        $.ajax({
+            type: 'GET',
+            url: '/api/getStatus',
+            data: {
+                code: code,
+                totalAmount: totalAmount
+            },
+            success: function (response) {
+                alert(response)
+                if (response === "Apply coupon successful") {
+                    getDiscountAmount(totalAmount, code)
+                }
+            },
+
+        });
+    }
+
+    function getDiscountAmount(totalAmount, code) {
+        $.ajax({
+            type: 'GET',
+            url: '/api/getDiscountAmount',
+            data: {
+                code: code,
+                totalAmount: totalAmount
+            },
+            success: function (response) {
+                var totalAmount = parseFloat($('#totalAmount').text().replace('$', '').replace(',', ''));
+                var discount = parseFloat(response) * -1
+                var total = totalAmount + discount;
+                $('#discount').text(discount.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                }));
+                $('#total').text(total.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                }));
+            },
+        });
+
+    }
 </script>
 
 </body>

@@ -9,9 +9,9 @@ import java.util.Map;
 
 
 public class PaypalConfig {
-    private static String clientId = "AYeR6IDFMwW_LnlVFrYwnct52mBkNz0e8L1GHfl5KF7B6QeVK1ysyFRun4RCbQroTpjCK3jrtV3gw8_J";
-    private static String clientSecret = "ECy-WNUtJmYBFWAr8aAEZ7Ry_eLG_5GhW9HW1T22rfiLm0q2Z96OfqgD-MCH_bVHDY_6qhJic4BfrtSK";
-    private static String mode = "sandbox";
+    private static final String clientId = "AYeR6IDFMwW_LnlVFrYwnct52mBkNz0e8L1GHfl5KF7B6QeVK1ysyFRun4RCbQroTpjCK3jrtV3gw8_J";
+    private static final String clientSecret = "ECy-WNUtJmYBFWAr8aAEZ7Ry_eLG_5GhW9HW1T22rfiLm0q2Z96OfqgD-MCH_bVHDY_6qhJic4BfrtSK";
+    private static final String mode = "sandbox";
 
     public static Map<String, String> paypalSdkConfig() {
         Map<String, String> configMap = new HashMap<>();

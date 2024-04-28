@@ -2,13 +2,15 @@ package com.thd.pos_system_java_final.controllers;
 
 import com.thd.pos_system_java_final.enums.ExportFormat;
 import com.thd.pos_system_java_final.facade.DashboardFacade;
+import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.DTO.DashboardData;
 import com.thd.pos_system_java_final.models.DTO.DataMail;
-import com.thd.pos_system_java_final.models.Account.Account;
 import com.thd.pos_system_java_final.models.Order.Order;
-import com.thd.pos_system_java_final.models.Order.OrderDetailRepository;
 import com.thd.pos_system_java_final.models.Order.OrderRepository;
-import com.thd.pos_system_java_final.services.*;
+import com.thd.pos_system_java_final.services.AccountService;
+import com.thd.pos_system_java_final.services.CustomerService;
+import com.thd.pos_system_java_final.services.EmailSenderService;
+import com.thd.pos_system_java_final.services.ImageService;
 import com.thd.pos_system_java_final.shared.ultils.*;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
@@ -26,15 +28,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -106,7 +105,7 @@ public class UserController {
             EmailSenderService.getInstance().sendHtmlMail(dataMail, templateName);
             // Apply Singleton pattern
 
-        } catch (MessagingException exp){
+        } catch (MessagingException exp) {
             exp.printStackTrace();
         }
 
@@ -123,7 +122,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(HttpSession session, Model model, ImageService imageService) {
-        String username =  session.getAttribute("username").toString();
+        String username = session.getAttribute("username").toString();
         Account account = accountService.getAccountByUsername(username);
 
         model.addAttribute("utils", new WebUtils());
@@ -135,7 +134,7 @@ public class UserController {
 
     @PostMapping("/profile")
     public String profile(HttpSession session, Model model, String name, String email, String phone, MultipartFile pictureFile) throws IOException {
-        String username =  session.getAttribute("username").toString();
+        String username = session.getAttribute("username").toString();
         Account account = accountService.getAccountByUsername(username);
 
         account.setFullName(name);

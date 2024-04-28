@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.segmentGraphemes = exports.parseTextBounds = exports.TextBounds = void 0;
 var css_line_break_1 = require("css-line-break");
 var text_segmentation_1 = require("text-segmentation");
@@ -10,6 +10,7 @@ var TextBounds = /** @class */ (function () {
         this.text = text;
         this.bounds = bounds;
     }
+
     return TextBounds;
 }());
 exports.TextBounds = TextBounds;
@@ -28,18 +29,15 @@ var parseTextBounds = function (context, value, styles, node) {
                         textBounds.push(new TextBounds(subSegment, bounds_1.Bounds.fromDOMRectList(context, createRange(node, subOffset_1 + offset, subSegment.length).getClientRects())));
                         subOffset_1 += subSegment.length;
                     });
-                }
-                else {
+                } else {
                     textBounds.push(new TextBounds(text, bounds_1.Bounds.fromDOMRectList(context, clientRects)));
                 }
-            }
-            else {
+            } else {
                 var replacementNode = node.splitText(text.length);
                 textBounds.push(new TextBounds(text, getWrapperBounds(context, node)));
                 node = replacementNode;
             }
-        }
-        else if (!features_1.FEATURES.SUPPORT_RANGE_BOUNDS) {
+        } else if (!features_1.FEATURES.SUPPORT_RANGE_BOUNDS) {
             node = node.splitText(text.length);
         }
         offset += text.length;
@@ -77,9 +75,11 @@ var createRange = function (node, offset, length) {
 var segmentGraphemes = function (value) {
     if (features_1.FEATURES.SUPPORT_NATIVE_TEXT_SEGMENTATION) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        var segmenter = new Intl.Segmenter(void 0, { granularity: 'grapheme' });
+        var segmenter = new Intl.Segmenter(void 0, {granularity: 'grapheme'});
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return Array.from(segmenter.segment(value)).map(function (segment) { return segment.segment; });
+        return Array.from(segmenter.segment(value)).map(function (segment) {
+            return segment.segment;
+        });
     }
     return text_segmentation_1.splitGraphemes(value);
 };
@@ -91,7 +91,9 @@ var segmentWords = function (value, styles) {
             granularity: 'word'
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return Array.from(segmenter.segment(value)).map(function (segment) { return segment.segment; });
+        return Array.from(segmenter.segment(value)).map(function (segment) {
+            return segment.segment;
+        });
     }
     return breakWords(value, styles);
 };
@@ -115,8 +117,7 @@ var breakWords = function (str, styles) {
             codePoints.forEach(function (codePoint) {
                 if (wordSeparators.indexOf(codePoint) === -1) {
                     word_1 += css_line_break_1.fromCodePoint(codePoint);
-                }
-                else {
+                } else {
                     if (word_1.length) {
                         words.push(word_1);
                     }

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.calculateBackgroundRepeatPath = exports.getBackgroundValueForIndex = exports.calculateBackgroundSize = exports.isAuto = exports.calculateBackgroundRendering = exports.calculateBackgroundPaintingArea = exports.calculateBackgroundPositioningArea = void 0;
 var background_size_1 = require("../css/property-descriptors/background-size");
 var vector_1 = require("./vector");
@@ -38,9 +38,13 @@ var calculateBackgroundRendering = function (container, index, intrinsicSize) {
     return [path, offsetX, offsetY, sizeWidth, sizeHeight];
 };
 exports.calculateBackgroundRendering = calculateBackgroundRendering;
-var isAuto = function (token) { return parser_1.isIdentToken(token) && token.value === background_size_1.BACKGROUND_SIZE.AUTO; };
+var isAuto = function (token) {
+    return parser_1.isIdentToken(token) && token.value === background_size_1.BACKGROUND_SIZE.AUTO;
+};
 exports.isAuto = isAuto;
-var hasIntrinsicValue = function (value) { return typeof value === 'number'; };
+var hasIntrinsicValue = function (value) {
+    return typeof value === 'number';
+};
 var calculateBackgroundSize = function (size, _a, bounds) {
     var intrinsicWidth = _a[0], intrinsicHeight = _a[1], intrinsicProportion = _a[2];
     var first = size[0], second = size[1];
@@ -99,14 +103,12 @@ var calculateBackgroundSize = function (size, _a, bounds) {
         var height_3 = 0;
         if (length_percentage_1.isLengthPercentage(first)) {
             width_3 = length_percentage_1.getAbsoluteValue(first, bounds.width);
-        }
-        else if (length_percentage_1.isLengthPercentage(second)) {
+        } else if (length_percentage_1.isLengthPercentage(second)) {
             height_3 = length_percentage_1.getAbsoluteValue(second, bounds.height);
         }
         if (exports.isAuto(first)) {
             width_3 = height_3 * intrinsicProportion;
-        }
-        else if (!second || exports.isAuto(second)) {
+        } else if (!second || exports.isAuto(second)) {
             height_3 = width_3 / intrinsicProportion;
         }
         return [width_3, height_3];
@@ -119,8 +121,7 @@ var calculateBackgroundSize = function (size, _a, bounds) {
     var height = null;
     if (length_percentage_1.isLengthPercentage(first)) {
         width = length_percentage_1.getAbsoluteValue(first, bounds.width);
-    }
-    else if (second && length_percentage_1.isLengthPercentage(second)) {
+    } else if (second && length_percentage_1.isLengthPercentage(second)) {
         height = length_percentage_1.getAbsoluteValue(second, bounds.height);
     }
     if (width !== null && (!second || exports.isAuto(second))) {
@@ -153,21 +154,24 @@ var calculateBackgroundRepeatPath = function (repeat, _a, _b, backgroundPosition
     var x = _a[0], y = _a[1];
     var width = _b[0], height = _b[1];
     switch (repeat) {
-        case 2 /* REPEAT_X */:
+        case 2 /* REPEAT_X */
+        :
             return [
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left), Math.round(backgroundPositioningArea.top + y)),
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left + backgroundPositioningArea.width), Math.round(backgroundPositioningArea.top + y)),
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left + backgroundPositioningArea.width), Math.round(height + backgroundPositioningArea.top + y)),
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left), Math.round(height + backgroundPositioningArea.top + y))
             ];
-        case 3 /* REPEAT_Y */:
+        case 3 /* REPEAT_Y */
+        :
             return [
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left + x), Math.round(backgroundPositioningArea.top)),
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left + x + width), Math.round(backgroundPositioningArea.top)),
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left + x + width), Math.round(backgroundPositioningArea.height + backgroundPositioningArea.top)),
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left + x), Math.round(backgroundPositioningArea.height + backgroundPositioningArea.top))
             ];
-        case 1 /* NO_REPEAT */:
+        case 1 /* NO_REPEAT */
+        :
             return [
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left + x), Math.round(backgroundPositioningArea.top + y)),
                 new vector_1.Vector(Math.round(backgroundPositioningArea.left + x + width), Math.round(backgroundPositioningArea.top + y)),

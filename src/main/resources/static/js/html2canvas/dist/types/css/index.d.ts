@@ -1,49 +1,65 @@
-import { backgroundClip } from './property-descriptors/background-clip';
-import { backgroundImage } from './property-descriptors/background-image';
-import { backgroundOrigin } from './property-descriptors/background-origin';
-import { backgroundPosition } from './property-descriptors/background-position';
-import { backgroundRepeat } from './property-descriptors/background-repeat';
-import { backgroundSize } from './property-descriptors/background-size';
-import { borderBottomLeftRadius, borderBottomRightRadius, borderTopLeftRadius, borderTopRightRadius } from './property-descriptors/border-radius';
-import { borderBottomStyle, borderLeftStyle, borderRightStyle, borderTopStyle } from './property-descriptors/border-style';
-import { borderBottomWidth, borderLeftWidth, borderRightWidth, borderTopWidth } from './property-descriptors/border-width';
-import { direction } from './property-descriptors/direction';
-import { display } from './property-descriptors/display';
-import { float } from './property-descriptors/float';
-import { letterSpacing } from './property-descriptors/letter-spacing';
-import { lineBreak } from './property-descriptors/line-break';
-import { listStyleImage } from './property-descriptors/list-style-image';
-import { listStylePosition } from './property-descriptors/list-style-position';
-import { listStyleType } from './property-descriptors/list-style-type';
-import { OVERFLOW } from './property-descriptors/overflow';
-import { overflowWrap } from './property-descriptors/overflow-wrap';
-import { textAlign } from './property-descriptors/text-align';
-import { position } from './property-descriptors/position';
-import { textShadow } from './property-descriptors/text-shadow';
-import { textTransform } from './property-descriptors/text-transform';
-import { transform } from './property-descriptors/transform';
-import { transformOrigin } from './property-descriptors/transform-origin';
-import { visibility } from './property-descriptors/visibility';
-import { wordBreak } from './property-descriptors/word-break';
-import { zIndex } from './property-descriptors/z-index';
-import { CSSValue } from './syntax/parser';
-import { Color } from './types/color';
-import { opacity } from './property-descriptors/opacity';
-import { textDecorationLine } from './property-descriptors/text-decoration-line';
-import { LengthPercentage } from './types/length-percentage';
-import { fontFamily } from './property-descriptors/font-family';
-import { fontWeight } from './property-descriptors/font-weight';
-import { fontVariant } from './property-descriptors/font-variant';
-import { fontStyle } from './property-descriptors/font-style';
-import { content } from './property-descriptors/content';
-import { counterIncrement } from './property-descriptors/counter-increment';
-import { counterReset } from './property-descriptors/counter-reset';
-import { duration } from './property-descriptors/duration';
-import { quotes } from './property-descriptors/quotes';
-import { boxShadow } from './property-descriptors/box-shadow';
-import { paintOrder } from './property-descriptors/paint-order';
-import { webkitTextStrokeWidth } from './property-descriptors/webkit-text-stroke-width';
-import { Context } from '../core/context';
+import {backgroundClip} from './property-descriptors/background-clip';
+import {backgroundImage} from './property-descriptors/background-image';
+import {backgroundOrigin} from './property-descriptors/background-origin';
+import {backgroundPosition} from './property-descriptors/background-position';
+import {backgroundRepeat} from './property-descriptors/background-repeat';
+import {backgroundSize} from './property-descriptors/background-size';
+import {
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    borderTopLeftRadius,
+    borderTopRightRadius
+} from './property-descriptors/border-radius';
+import {
+    borderBottomStyle,
+    borderLeftStyle,
+    borderRightStyle,
+    borderTopStyle
+} from './property-descriptors/border-style';
+import {
+    borderBottomWidth,
+    borderLeftWidth,
+    borderRightWidth,
+    borderTopWidth
+} from './property-descriptors/border-width';
+import {direction} from './property-descriptors/direction';
+import {display} from './property-descriptors/display';
+import {float} from './property-descriptors/float';
+import {letterSpacing} from './property-descriptors/letter-spacing';
+import {lineBreak} from './property-descriptors/line-break';
+import {listStyleImage} from './property-descriptors/list-style-image';
+import {listStylePosition} from './property-descriptors/list-style-position';
+import {listStyleType} from './property-descriptors/list-style-type';
+import {OVERFLOW} from './property-descriptors/overflow';
+import {overflowWrap} from './property-descriptors/overflow-wrap';
+import {textAlign} from './property-descriptors/text-align';
+import {position} from './property-descriptors/position';
+import {textShadow} from './property-descriptors/text-shadow';
+import {textTransform} from './property-descriptors/text-transform';
+import {transform} from './property-descriptors/transform';
+import {transformOrigin} from './property-descriptors/transform-origin';
+import {visibility} from './property-descriptors/visibility';
+import {wordBreak} from './property-descriptors/word-break';
+import {zIndex} from './property-descriptors/z-index';
+import {CSSValue} from './syntax/parser';
+import {Color} from './types/color';
+import {opacity} from './property-descriptors/opacity';
+import {textDecorationLine} from './property-descriptors/text-decoration-line';
+import {LengthPercentage} from './types/length-percentage';
+import {fontFamily} from './property-descriptors/font-family';
+import {fontWeight} from './property-descriptors/font-weight';
+import {fontVariant} from './property-descriptors/font-variant';
+import {fontStyle} from './property-descriptors/font-style';
+import {content} from './property-descriptors/content';
+import {counterIncrement} from './property-descriptors/counter-increment';
+import {counterReset} from './property-descriptors/counter-reset';
+import {duration} from './property-descriptors/duration';
+import {quotes} from './property-descriptors/quotes';
+import {boxShadow} from './property-descriptors/box-shadow';
+import {paintOrder} from './property-descriptors/paint-order';
+import {webkitTextStrokeWidth} from './property-descriptors/webkit-text-stroke-width';
+import {Context} from '../core/context';
+
 export declare class CSSParsedDeclaration {
     animationDuration: ReturnType<typeof duration.parse>;
     backgroundClip: ReturnType<typeof backgroundClip.parse>;
@@ -111,22 +127,34 @@ export declare class CSSParsedDeclaration {
     webkitTextStrokeWidth: ReturnType<typeof webkitTextStrokeWidth.parse>;
     wordBreak: ReturnType<typeof wordBreak.parse>;
     zIndex: ReturnType<typeof zIndex.parse>;
+
     constructor(context: Context, declaration: CSSStyleDeclaration);
+
     isVisible(): boolean;
+
     isTransparent(): boolean;
+
     isTransformed(): boolean;
+
     isPositioned(): boolean;
+
     isPositionedWithZIndex(): boolean;
+
     isFloating(): boolean;
+
     isInlineLevel(): boolean;
 }
+
 export declare class CSSParsedPseudoDeclaration {
     content: ReturnType<typeof content.parse>;
     quotes: ReturnType<typeof quotes.parse>;
+
     constructor(context: Context, declaration: CSSStyleDeclaration);
 }
+
 export declare class CSSParsedCounterDeclaration {
     counterIncrement: ReturnType<typeof counterIncrement.parse>;
     counterReset: ReturnType<typeof counterReset.parse>;
+
     constructor(context: Context, declaration: CSSStyleDeclaration);
 }

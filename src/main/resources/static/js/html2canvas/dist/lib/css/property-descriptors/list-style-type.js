@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.listStyleType = void 0;
 exports.listStyleType = {
     name: 'list-style-type',

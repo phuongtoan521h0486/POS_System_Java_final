@@ -2,7 +2,6 @@ package com.thd.pos_system_java_final.controllers;
 
 import com.thd.pos_system_java_final.middlewares.*;
 import com.thd.pos_system_java_final.models.Account.Account;
-import com.thd.pos_system_java_final.models.Account.AccountRole;
 import com.thd.pos_system_java_final.models.Account.AuthenticationParams;
 import com.thd.pos_system_java_final.models.Account.LoginRequest;
 import com.thd.pos_system_java_final.services.AccountService;
@@ -13,7 +12,11 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -27,7 +30,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(HttpSession session) {
-        if(accountService.getAccountByUsername("admin") == null) {
+        if (accountService.getAccountByUsername("admin") == null) {
             Account admin = new Account();
             admin.setEmail("admin@gmail.com");
             admin.setUsername("admin");
@@ -41,9 +44,9 @@ public class LoginController {
         }
         return "Login";
     }
+
     @PostMapping("/login")
-    public String login(LoginRequest loginRequest, Model model, HttpSession session)
-    {
+    public String login(LoginRequest loginRequest, Model model, HttpSession session) {
         AuthenticationParams params = new AuthenticationParams(loginRequest, model, session, accountService);
         Middleware authenticationChain = new AccountExistMiddleware();
         authenticationChain.setNextChain(new AccountPasswordMiddleware())

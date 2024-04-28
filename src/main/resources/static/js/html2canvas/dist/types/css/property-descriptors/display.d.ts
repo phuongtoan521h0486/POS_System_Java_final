@@ -1,4 +1,5 @@
-import { IPropertyListDescriptor } from '../IPropertyDescriptor';
+import {IPropertyListDescriptor} from '../IPropertyDescriptor';
+
 export declare const enum DISPLAY {
     NONE = 0,
     BLOCK = 2,
@@ -31,5 +32,6 @@ export declare const enum DISPLAY {
     INLINE_FLEX = 268435456,
     INLINE_GRID = 536870912
 }
+
 export declare type Display = number;
 export declare const display: IPropertyListDescriptor<Display>;

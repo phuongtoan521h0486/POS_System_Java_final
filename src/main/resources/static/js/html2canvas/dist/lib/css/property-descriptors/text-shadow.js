@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.textShadow = void 0;
 var parser_1 = require("../syntax/parser");
 var length_percentage_1 = require("../types/length-percentage");
@@ -27,16 +27,13 @@ exports.textShadow = {
                 if (length_1.isLength(token)) {
                     if (c === 0) {
                         shadow.offsetX = token;
-                    }
-                    else if (c === 1) {
+                    } else if (c === 1) {
                         shadow.offsetY = token;
-                    }
-                    else {
+                    } else {
                         shadow.blur = token;
                     }
                     c++;
-                }
-                else {
+                } else {
                     shadow.color = color_1.color.parse(context, token);
                 }
             }

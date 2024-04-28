@@ -1,2 +1,3 @@
-import { IPropertyValueDescriptor } from '../IPropertyDescriptor';
+import {IPropertyValueDescriptor} from '../IPropertyDescriptor';
+
 export declare const letterSpacing: IPropertyValueDescriptor<number>;

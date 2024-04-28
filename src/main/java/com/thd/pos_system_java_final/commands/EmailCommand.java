@@ -4,7 +4,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import javax.mail.internet.MimeMessage;
 
-public class EmailCommand implements ICommand{// Apply command pattern
+public class EmailCommand implements ICommand {// Apply command pattern
     private final JavaMailSenderImpl mailSender;
     private final MimeMessage message;
 

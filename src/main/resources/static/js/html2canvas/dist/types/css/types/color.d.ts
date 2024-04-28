@@ -1,5 +1,6 @@
-import { ITypeDescriptor } from '../ITypeDescriptor';
-import { Context } from '../../core/context';
+import {ITypeDescriptor} from '../ITypeDescriptor';
+import {Context} from '../../core/context';
+
 export declare type Color = number;
 export declare const color: ITypeDescriptor<Color>;
 export declare const isTransparent: (color: Color) => boolean;

@@ -2,19 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/checkout.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet" />
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="/css/checkout.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
         .table thead th {
             border-bottom: 1px solid #eeeeee;
         }
-     </style>
+    </style>
     <style type="text/css">
         @media only screen and (min-width: 620px) {
             .u-row {
@@ -51,7 +51,7 @@
                 width: 100% !important;
             }
 
-            .u-col>div {
+            .u-col > div {
                 margin: 0 auto;
             }
         }
@@ -86,133 +86,134 @@
             text-decoration: none !important;
         }
 
-        @media (min-width: 481px) and (max-width: 768px) {}
+        @media (min-width: 481px) and (max-width: 768px) {
+        }
 
         table,
         td {
             color: #000000;
         }
     </style>
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css"/>
     <script src="/js/jspdf/dist/jspdf.umd.js"></script>
     <script src="/js/html2canvas/dist/html2canvas.min.js"></script>
     <title>Invoice</title>
 </head>
 
 <body>
-    <section id="step-3" class="form-step">
-        <div class="card card-lg mb-5">
-            <div class="card-body">
-                <div class="row justify-content-lg-between">
-                    <div class="col-sm order-2 order-sm-1 mb-3">
-                        <div class="mb-2">
-                            <img class="avatar rounded-circle" src="/images/logo.png" alt="Logo" width="128"
-                                height="128">
-                        </div>
-                        <h1 class="h2 text-primary">GTV POS System</h1>
+<section class="form-step" id="step-3">
+    <div class="card card-lg mb-5">
+        <div class="card-body">
+            <div class="row justify-content-lg-between">
+                <div class="col-sm order-2 order-sm-1 mb-3">
+                    <div class="mb-2">
+                        <img alt="Logo" class="avatar rounded-circle" height="128" src="/images/logo.png"
+                             width="128">
                     </div>
-                    <!-- End Col -->
-
-                    <div class="col-sm-auto order-1 order-sm-2 text-sm-end mb-3">
-                        <div class="mb-3">
-                            <h2>Invoice #</h2>
-                            <span id="numberInvoice" class="d-block" th:text="${order.getOrderId()}"></span>
-                        </div>
-
-                        <address class="text-dark">
-                            Ho Chi Minh City<br>
-                            Hoc Mon<br>
-                        </address>
-                        <div class="col-md">
-                            <dl class="row">
-                                <dt class="col-sm-6">Staff:</dt>
-                                <dd class="col-sm-6"
-                                    th:text="${accountService.getAccountById(order.getAccountId()).getFullName()}"></dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <!-- End Col -->
+                    <h1 class="h2 text-primary">GTV POS System</h1>
                 </div>
-                <!-- End Row -->
+                <!-- End Col -->
 
-                <div class="row justify-content-md-between mb-3">
+                <div class="col-sm-auto order-1 order-sm-2 text-sm-end mb-3">
+                    <div class="mb-3">
+                        <h2>Invoice #</h2>
+                        <span class="d-block" id="numberInvoice" th:text="${order.getOrderId()}"></span>
+                    </div>
+
+                    <address class="text-dark">
+                        Ho Chi Minh City<br>
+                        Hoc Mon<br>
+                    </address>
                     <div class="col-md">
-                        <h4>Bill to:</h4>
-                        <h4 th:text="${customer.getName()}"></h4>
-
-                        <address th:text="${customer.getAddress()}"></address>
-                    </div>
-                    <!-- End Col -->
-
-                    <div class="col-md text-md-end">
                         <dl class="row">
-                            <dt class="col-sm-8">Invoice date:</dt>
-                            <dd class="col-sm-4" th:text="${#dates.format(order.getOrderDate(), 'MM/dd/yyyy')}"></dd>
+                            <dt class="col-sm-6">Staff:</dt>
+                            <dd class="col-sm-6"
+                                th:text="${accountService.getAccountById(order.getAccountId()).getFullName()}"></dd>
                         </dl>
                     </div>
-                    <!-- End Col -->
                 </div>
-                <!-- End Row -->
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
 
-                <!-- Table -->
-                <div class="table-responsive">
-                    <table class="table table-borderless table-nowrap table-align-middle">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Item</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th class="table-text-end">Total Price</th>
-                            </tr>
+            <div class="row justify-content-md-between mb-3">
+                <div class="col-md">
+                    <h4>Bill to:</h4>
+                    <h4 th:text="${customer.getName()}"></h4>
 
-                        </thead>
-
-                        <tbody th:each="item :${items}">
-
-                            <tr>
-                                <th
-                                    th:text="${item.getProduct() != null ?  item.getProduct().getProductName() : 'This Product has been deleted'}">
-                                </th>
-                                <td
-                                    th:text="${item.getProduct() != null ? #numbers.formatCurrency(item.getProduct().getRetailPrice()) : '$0.00'}">
-                                </td>
-                                <td th:text="${item.getQuantity()}"></td>
-                                <td class="table-text-end"
-                                    th:text="${item.getProduct() != null ? #numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity()): '$0.00'}">
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
+                    <address th:text="${customer.getAddress()}"></address>
                 </div>
-                <!-- End Table -->
+                <!-- End Col -->
 
-                <hr class="my-5">
-
-                <div class="row justify-content-md-end mb-3">
-                    <div class="col-md-8 col-lg-7">
-                        <dl class="row text-sm-end">
-                            <dt class="col-sm-6">Total Amount:</dt>
-                            <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>
-                            <dt class="col-sm-6">Discount Amount:</dt>
-                            <dd class="col-sm-6" th:text="${#numbers.formatCurrency(-1 * discount)}"></dd>
-                            <dt class="col-sm-6">After Discount:</dt>
-                            <dd class="col-sm-6" th:text="${#numbers.formatCurrency(total)}"></dd>
-                            <dt class="col-sm-6">Given Money:</dt>
-                            <dd class="col-sm-6" th:text="${#numbers.formatCurrency(givenMoney)}">$3000.00</dd>
-                            <dt class="col-sm-6">Excess Money:</dt>
-                            <dd class="col-sm-6" th:text="${#numbers.formatCurrency(excessMoney)}">$250.00</dd>
-                        </dl>
-                        <!-- End Row -->
-                    </div>
+                <div class="col-md text-md-end">
+                    <dl class="row">
+                        <dt class="col-sm-8">Invoice date:</dt>
+                        <dd class="col-sm-4" th:text="${#dates.format(order.getOrderDate(), 'MM/dd/yyyy')}"></dd>
+                    </dl>
                 </div>
-                <!-- End Row -->
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
 
-                <div class="mb-3">
-                    <h3>Thank you!</h3>
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table table-borderless table-nowrap table-align-middle">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th class="table-text-end">Total Price</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody th:each="item :${items}">
+
+                    <tr>
+                        <th
+                                th:text="${item.getProduct() != null ?  item.getProduct().getProductName() : 'This Product has been deleted'}">
+                        </th>
+                        <td
+                                th:text="${item.getProduct() != null ? #numbers.formatCurrency(item.getProduct().getRetailPrice()) : '$0.00'}">
+                        </td>
+                        <td th:text="${item.getQuantity()}"></td>
+                        <td class="table-text-end"
+                            th:text="${item.getProduct() != null ? #numbers.formatCurrency(item.getProduct().getRetailPrice() * item.getQuantity()): '$0.00'}">
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- End Table -->
+
+            <hr class="my-5">
+
+            <div class="row justify-content-md-end mb-3">
+                <div class="col-md-8 col-lg-7">
+                    <dl class="row text-sm-end">
+                        <dt class="col-sm-6">Total Amount:</dt>
+                        <dd class="col-sm-6" th:text="${#numbers.formatCurrency(totalAmount)}"></dd>
+                        <dt class="col-sm-6">Discount Amount:</dt>
+                        <dd class="col-sm-6" th:text="${#numbers.formatCurrency(-1 * discount)}"></dd>
+                        <dt class="col-sm-6">After Discount:</dt>
+                        <dd class="col-sm-6" th:text="${#numbers.formatCurrency(total)}"></dd>
+                        <dt class="col-sm-6">Given Money:</dt>
+                        <dd class="col-sm-6" th:text="${#numbers.formatCurrency(givenMoney)}">$3000.00</dd>
+                        <dt class="col-sm-6">Excess Money:</dt>
+                        <dd class="col-sm-6" th:text="${#numbers.formatCurrency(excessMoney)}">$250.00</dd>
+                    </dl>
+                    <!-- End Row -->
                 </div>
-                <div class="mb-3">
-                    <div style="
+            </div>
+            <!-- End Row -->
+
+            <div class="mb-3">
+                <h3>Thank you!</h3>
+            </div>
+            <div class="mb-3">
+                <div style="
             border-collapse: collapse;
             display: table;
             width: 100%;
@@ -222,47 +223,49 @@
             background-position: left top;
             background-color: transparent;
           ">
-                        <div class="u-col u-col-100" style="
+                    <div class="u-col u-col-100" style="
               max-width: 320px;
               min-width: 600px;
               display: table-cell;
               vertical-align: top;
             ">
-                            <div style="height: 100%; width: 100% !important">
-                                <table style="font-family: 'Lato', sans-serif" role="presentation">
-                                    <tbody>
-                                    <tr>
-                                        <td style="
+                        <div style="height: 100%; width: 100% !important">
+                            <table role="presentation" style="font-family: 'Lato', sans-serif">
+                                <tbody>
+                                <tr>
+                                    <td style="
                         overflow-wrap: break-word;
                         word-break: break-word;
                         padding: 35px 10px 40px 75px;
                         font-family: 'Lato', sans-serif;
                       ">
-                                            <div style="
+                                        <div style="
                           font-size: 14px;
                           line-height: 140%;
                           text-align: center;
                           word-wrap: break-word;
                         ">
-                                                <p style="font-size: 14px; line-height: 140%">
-                                                    <strong><span style="font-size: 24px; line-height: 33.6px;margin-left: 24px" th:text="${couponCode}"></span></strong>
-                                                </p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                            <p style="font-size: 14px; line-height: 140%">
+                                                <strong><span
+                                                        style="font-size: 24px; line-height: 33.6px;margin-left: 24px"
+                                                        th:text="${couponCode}"></span></strong>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-
-                <p class="small mb-0" th:text="${#calendars.year(order.getOrderDate())} + ' GTV POS system.'"></p>
             </div>
+
+            <p class="small mb-0" th:text="${#calendars.year(order.getOrderDate())} + ' GTV POS system.'"></p>
         </div>
-        <button id="saveButton" class="button submit-btn" type="submit">Save</button>
-        <a id="continueButton" class="button submit-btn" type="button">Continue</a>
-    </section>
+    </div>
+    <button class="button submit-btn" id="saveButton" type="submit">Save</button>
+    <a class="button submit-btn" id="continueButton" type="button">Continue</a>
+</section>
 
 </body>
 <script>

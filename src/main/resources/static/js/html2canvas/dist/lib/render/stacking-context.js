@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 exports.parseStackingContexts = exports.ElementPaint = exports.StackingContext = void 0;
 var bitwise_1 = require("../core/bitwise");
 var bound_curves_1 = require("./bound-curves");
@@ -19,6 +19,7 @@ var StackingContext = /** @class */ (function () {
         this.nonPositionedFloats = [];
         this.nonPositionedInlineLevel = [];
     }
+
     return StackingContext;
 }());
 exports.StackingContext = StackingContext;
@@ -42,19 +43,21 @@ var ElementPaint = /** @class */ (function () {
             var paddingBox = bound_curves_1.calculatePaddingBoxPath(this.curves);
             if (path_1.equalPath(borderBox, paddingBox)) {
                 this.effects.push(new effects_1.ClipEffect(borderBox, 2 /* BACKGROUND_BORDERS */ | 4 /* CONTENT */));
-            }
-            else {
+            } else {
                 this.effects.push(new effects_1.ClipEffect(borderBox, 2 /* BACKGROUND_BORDERS */));
                 this.effects.push(new effects_1.ClipEffect(paddingBox, 4 /* CONTENT */));
             }
         }
     }
+
     ElementPaint.prototype.getEffects = function (target) {
         var inFlow = [2 /* ABSOLUTE */, 3 /* FIXED */].indexOf(this.container.styles.position) === -1;
         var parent = this.parent;
         var effects = this.effects.slice(0);
         while (parent) {
-            var croplessEffects = parent.effects.filter(function (effect) { return !effects_1.isClipEffect(effect); });
+            var croplessEffects = parent.effects.filter(function (effect) {
+                return !effects_1.isClipEffect(effect);
+            });
             if (inFlow || parent.container.styles.position !== 0 /* STATIC */ || !parent.parent) {
                 effects.unshift.apply(effects, croplessEffects);
                 inFlow = [2 /* ABSOLUTE */, 3 /* FIXED */].indexOf(parent.container.styles.position) === -1;
@@ -65,13 +68,14 @@ var ElementPaint = /** @class */ (function () {
                         effects.unshift(new effects_1.ClipEffect(paddingBox, 2 /* BACKGROUND_BORDERS */ | 4 /* CONTENT */));
                     }
                 }
-            }
-            else {
+            } else {
                 effects.unshift.apply(effects, croplessEffects);
             }
             parent = parent.parent;
         }
-        return effects.filter(function (effect) { return bitwise_1.contains(effect.target, target); });
+        return effects.filter(function (effect) {
+            return bitwise_1.contains(effect.target, target);
+        });
     };
     return ElementPaint;
 }());
@@ -96,47 +100,39 @@ var parseStackTree = function (parent, stackingContext, realStackingContext, lis
                         if (order_1 > current.element.container.styles.zIndex.order) {
                             index_1 = i;
                             return false;
-                        }
-                        else if (index_1 > 0) {
+                        } else if (index_1 > 0) {
                             return true;
                         }
                         return false;
                     });
                     parentStack.negativeZIndex.splice(index_1, 0, stack);
-                }
-                else if (order_1 > 0) {
+                } else if (order_1 > 0) {
                     var index_2 = 0;
                     parentStack.positiveZIndex.some(function (current, i) {
                         if (order_1 >= current.element.container.styles.zIndex.order) {
                             index_2 = i + 1;
                             return false;
-                        }
-                        else if (index_2 > 0) {
+                        } else if (index_2 > 0) {
                             return true;
                         }
                         return false;
                     });
                     parentStack.positiveZIndex.splice(index_2, 0, stack);
-                }
-                else {
+                } else {
                     parentStack.zeroOrAutoZIndexOrTransformedOrOpacity.push(stack);
                 }
-            }
-            else {
+            } else {
                 if (child.styles.isFloating()) {
                     parentStack.nonPositionedFloats.push(stack);
-                }
-                else {
+                } else {
                     parentStack.nonPositionedInlineLevel.push(stack);
                 }
             }
             parseStackTree(paintContainer, stack, treatAsRealStackingContext ? stack : realStackingContext, listOwnerItems);
-        }
-        else {
+        } else {
             if (child.styles.isInlineLevel()) {
                 stackingContext.inlineLevel.push(paintContainer);
-            }
-            else {
+            } else {
                 stackingContext.nonInlineLevel.push(paintContainer);
             }
             parseStackTree(paintContainer, stackingContext, realStackingContext, listOwnerItems);

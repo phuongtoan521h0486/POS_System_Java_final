@@ -1,6 +1,7 @@
 package com.thd.pos_system_java_final.models.MoMoModels;
 
-import com.thd.pos_system_java_final.enums.*;
+import com.thd.pos_system_java_final.enums.Language;
+import com.thd.pos_system_java_final.enums.RequestType;
 
 public class PaymentRequest extends Request {
     private String orderInfo;
